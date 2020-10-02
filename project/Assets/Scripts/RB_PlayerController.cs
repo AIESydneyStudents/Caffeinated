@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class RB_PlayerController : MonoBehaviour
 {
@@ -9,19 +8,18 @@ public class RB_PlayerController : MonoBehaviour
     public float ForceBoost = 0.8f;
     public float MassBoost = 0.1f;
     public float JumpForce = 5;
-    public GameObject ScoreBoard;
 
     private float distToGround;
     private Rigidbody rb;
     private bool pickup = true;
-    private TextMeshProUGUI sb;
-    private int score;
+    private GameController gc;
+
     // Start is called before the first frame update
     void Start()
     {
-        sb = ScoreBoard.GetComponent<TextMeshProUGUI>();
         rb = GetComponent<Rigidbody>();
         distToGround = GetComponent<Collider>().bounds.extents.y;
+        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
     }
 
     // Update is called once per frame
@@ -54,9 +52,14 @@ public class RB_PlayerController : MonoBehaviour
             {
                 GameObject child = transform.GetChild(0).gameObject;
                 child.transform.parent = null;
-                Destroy(child);
+                child.AddComponent<Rigidbody>();
                 Speed -= ForceBoost;
                 rb.mass -= MassBoost;
+                //if (inSpawner)
+                //{
+                //    child.transform.tag = "PickedUp";
+                //}
+                pickup = false;
             }
         }
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -67,10 +70,6 @@ public class RB_PlayerController : MonoBehaviour
     bool isGrounded()
     {
         return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
-    }
-    void UpdateScoreBoard()
-    {
-        sb.text = "Score: " + score;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -85,18 +84,37 @@ public class RB_PlayerController : MonoBehaviour
                 Destroy(child);
                 Speed -= ForceBoost;
                 rb.mass -= MassBoost;
-                score++;
             }
+            gc.UpdateScoreBoard(CC);
         }
-        UpdateScoreBoard();
+        //else if (other.tag == "Spawner")
+        //{
+        //    inSpawner = true;
+        //}
+        
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        //if (other.tag == "Spawner")
+        //{
+        //    inSpawner = false;
+        //}
     }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.tag == "Collectable" && pickup == true)
         {
             collision.transform.parent = transform;
+            if (collision.transform.GetComponent<Rigidbody>() != null)
+            {
+                Destroy(collision.transform.GetComponent<Rigidbody>());
+            }
             Speed += ForceBoost;
             rb.mass += MassBoost;
+            //if (inSpawner)
+            //{
+            //    collision.transform.tag = "PickedUp";
+            //}
         }
     }
 
