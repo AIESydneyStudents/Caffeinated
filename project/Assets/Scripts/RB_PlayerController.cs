@@ -13,6 +13,7 @@ public class RB_PlayerController : MonoBehaviour
     private Rigidbody rb;
     private bool pickup = true;
     private GameController gc;
+    private bool constraintToggle = false;
 
     // Start is called before the first frame update
     void Start()
@@ -58,13 +59,26 @@ public class RB_PlayerController : MonoBehaviour
                 //if (inSpawner)
                 //{
                 //    child.transform.tag = "PickedUp";
-                //}
-                pickup = false;
+                //} 
             }
+            pickup = !pickup;
         }
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             pickup = !pickup;
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            //2D input controles
+            constraintToggle = !constraintToggle;
+            if (constraintToggle)
+            {
+                rb.constraints = RigidbodyConstraints.FreezePositionZ;
+            }
+            else
+            {
+                rb.constraints = RigidbodyConstraints.None;
+            }
         }
     }
     bool isGrounded()
