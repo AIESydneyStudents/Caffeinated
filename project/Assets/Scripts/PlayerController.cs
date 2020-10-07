@@ -40,32 +40,35 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && groundedPlayer)
         {
             playerVelocity.y += Mathf.Sqrt(jumpGHeight * -3.0f * gravityValue);
-            groundedPlayer = false;
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         player.Move(playerVelocity * Time.deltaTime);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Plane")
+        if (other.gameObject.name == "Ground")
         {
             groundedPlayer = true;
         }
-        else
+
+        if (other.gameObject.name == "Platform")
         {
-            groundedPlayer = false;
+            groundedPlayer = true;
         }
     }
 
-    private void OnControllerColliderHit(ControllerColliderHit hit)
+    private void OnTriggerExit(Collider other)
     {
-        
+        if (other.gameObject.name == "Ground")
+        {
+            groundedPlayer = false;
+        }
+
+        if (other.gameObject.name == "Platform")
+        {
+            groundedPlayer = false;
+        }
     }
 }
