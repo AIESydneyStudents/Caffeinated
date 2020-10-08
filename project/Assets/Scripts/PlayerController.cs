@@ -109,6 +109,12 @@ public class PlayerController : MonoBehaviour
         {
             onRightWall = true;
             fromLeftWall = false;
+
+            if (gameObject.transform.position.x > collision.transform.position.x)
+            {
+                gameObject.transform.position = new Vector3(collision.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+            }
+            
         }
     }
 
