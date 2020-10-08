@@ -9,28 +9,37 @@ public class CameraFollow : MonoBehaviour
     public float smoothSpeed = 0.125f;
     public Vector3 offset3D;
     public Vector3 offset2D;
+    public PlayerControls Controls;
 
     private bool toggle;
     private Vector3 offset;
-    private void Start()
+    private void Awake()
     {
+        Controls = new PlayerControls();
         offset = offset3D;
     }
-    private void Update()
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        Controls.Debug.toggle2D.performed += Toggle2D_performed;
+        Controls.Debug.toggle2D.Enable();
+    }
+
+    private void Toggle2D_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        toggle = !toggle;
+        if (toggle)
         {
-            //2D camera controles
-            toggle = !toggle;
-            if (toggle)
-            {
-                offset = offset2D;
-            }
-            else
-            {
-                offset = offset3D;
-            }
+            offset = offset2D;
         }
+        else
+        {
+            offset = offset3D;
+        }
+    }
+    private void OnDisable()
+    {
+        Controls.Debug.toggle2D.performed -= Toggle2D_performed;
+        Controls.Debug.toggle2D.Disable();
     }
     private void FixedUpdate()
     {

@@ -20754,7 +20754,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &963194226
 AudioListener:
   m_ObjectHideFlags: 0
@@ -21181,12 +21181,17 @@ PrefabInstance:
     - target: {fileID: 1902771239560931859, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
       propertyPath: JumpForce
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932073, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1902771239560932079, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
@@ -36553,7 +36558,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1487927853
 Transform:
   m_ObjectHideFlags: 0
@@ -37281,7 +37286,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  jumpGHeight: 1
+  jumpHeight: 0
+  wallBounciness: 0
 --- !u!143 &1567873230
 CharacterController:
   m_ObjectHideFlags: 0

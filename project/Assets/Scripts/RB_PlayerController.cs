@@ -9,6 +9,8 @@ public class RB_PlayerController : MonoBehaviour
     public float MassBoost = 0.1f;
     public float JumpForce = 5;
 
+    private PlayerControls Controls;
+
     private float distToGround;
     private float distToWall;
     private Rigidbody rb;
@@ -20,8 +22,9 @@ public class RB_PlayerController : MonoBehaviour
     private Color inactiveColour;
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
+        Controls = new PlayerControls();
         rb = GetComponent<Rigidbody>();
         distToGround = GetComponent<Collider>().bounds.extents.y;
         distToWall = GetComponent<Collider>().bounds.extents.x;
@@ -29,62 +32,98 @@ public class RB_PlayerController : MonoBehaviour
         activeColour = Color.green;
         inactiveColour = Color.red;
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        if (Input.GetKey(KeyCode.W))
+        Controls.Player.MoveForward.performed += MoveForward_performed;
+        Controls.Player.MoveForward.Enable();
+        Controls.Player.MoveBack.performed += MoveBack_performed;
+        Controls.Player.MoveBack.Enable();
+        Controls.Player.MoveLeft.performed += MoveLeft_performed;
+        Controls.Player.MoveLeft.Enable();
+        Controls.Player.MoveRight.performed += MoveRight_performed;
+        Controls.Player.MoveRight.Enable();
+        Controls.Player.Drop.performed += Drop_performed;
+        Controls.Player.Drop.Enable();
+        Controls.Player.Jump.performed += Jump_performed;
+        Controls.Player.Jump.Enable();
+        Controls.Debug.toggle2D.performed += Toggle2D_performed;
+        Controls.Debug.toggle2D.Enable();
+    }
+
+    private void Toggle2D_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        //2D input controles
+        constraintToggle = !constraintToggle;
+        if (constraintToggle)
         {
-            rb.AddForce(Vector3.forward * Speed);
+            rb.constraints = RigidbodyConstraints.FreezePositionZ;
         }
-        if (Input.GetKey(KeyCode.A))
+        else
         {
-            rb.AddForce(Vector3.left * Speed);
+            rb.constraints = RigidbodyConstraints.None;
         }
-        if (Input.GetKey(KeyCode.S))
-        {
-            rb.AddForce(Vector3.back * Speed);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            rb.AddForce(Vector3.right * Speed);
-        }
-        if (Input.GetKeyDown(KeyCode.Space) && (isGrounded() == true || detectWall() != new Vector3(0,0,0)))
+    }
+
+    private void Jump_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        if ((isGrounded() == true || detectWall() != new Vector3(0, 0, 0)))
         {
             Vector3 Jumpdir = Vector3.up + detectWall();
             rb.AddForce(Jumpdir * JumpForce, ForceMode.VelocityChange);
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            int CC = transform.childCount;
-            for (int i = 0; i < CC; i++)
-            {
-                GameObject child = transform.GetChild(0).gameObject;
-                child.transform.parent = null;
-                child.AddComponent<Rigidbody>();
-                Speed -= ForceBoost;
-                rb.mass -= MassBoost;
-            }
-            pickup = !pickup;
-        }
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            pickup = !pickup;
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            //2D input controles
-            constraintToggle = !constraintToggle;
-            if (constraintToggle)
-            {
-                rb.constraints = RigidbodyConstraints.FreezePositionZ;
-            }
-            else
-            {
-                rb.constraints = RigidbodyConstraints.None;
-            }
-        }
     }
+
+    private void Drop_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        int CC = transform.childCount;
+        for (int i = 0; i < CC; i++)
+        {
+            GameObject child = transform.GetChild(0).gameObject;
+            child.transform.parent = null;
+            child.AddComponent<Rigidbody>();
+            Speed -= ForceBoost;
+            rb.mass -= MassBoost;
+        }
+        pickup = !pickup;
+    }
+
+    private void MoveRight_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        rb.AddForce(Vector3.right * Speed);
+    }
+
+    private void MoveLeft_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        rb.AddForce(Vector3.left * Speed);
+    }
+
+    private void MoveBack_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        rb.AddForce(Vector3.back * Speed);
+    }
+
+    private void MoveForward_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        rb.AddForce(Vector3.forward * Speed);
+    }
+    private void OnDisable()
+    {
+        Controls.Player.MoveForward.performed -= MoveForward_performed;
+        Controls.Player.MoveForward.Disable();
+        Controls.Player.MoveBack.performed -= MoveBack_performed;
+        Controls.Player.MoveBack.Disable();
+        Controls.Player.MoveLeft.performed -= MoveLeft_performed;
+        Controls.Player.MoveLeft.Disable();
+        Controls.Player.MoveRight.performed -= MoveRight_performed;
+        Controls.Player.MoveRight.Disable();
+        Controls.Player.Drop.performed -= Drop_performed;
+        Controls.Player.Drop.Disable();
+        Controls.Player.Jump.performed -= Jump_performed;
+        Controls.Player.Jump.Disable();
+        Controls.Debug.toggle2D.performed -= Toggle2D_performed;
+        Controls.Debug.toggle2D.Disable();
+    }
+
     bool isGrounded()
     {
         return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
