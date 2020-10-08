@@ -8,6 +8,8 @@ TagManager:
   - Customer
   - PickedUp
   - Spawner
+  - LR_LeftWall
+  - LR_RightWall
   layers:
   - Default
   - TransparentFX

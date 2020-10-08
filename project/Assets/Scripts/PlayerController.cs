@@ -6,11 +6,17 @@ public class PlayerController : MonoBehaviour
 {
     private CharacterController player;
     private bool groundedPlayer;
+    private bool onRightWall;
+    private bool onLeftWall;
+    private bool fromRightWall;
+    private bool fromLeftWall;
     private Vector3 playerVelocity;
     private float gravityValue = -9.81f;
+    private float slowValue = 5.0f;
 
     public float speed;
-    public float jumpGHeight;
+    public float jumpHeight;
+    public float wallBounciness;
     
     // Start is called before the first frame update
     void Start()
@@ -39,10 +45,40 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && groundedPlayer)
         {
-            playerVelocity.y += Mathf.Sqrt(jumpGHeight * -3.0f * gravityValue);
+            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+        }
+
+        if (Input.GetButtonDown("Jump") && onLeftWall && !fromLeftWall)
+        {
+            playerVelocity.y = 0;
+            playerVelocity.y += Mathf.Sqrt(wallBounciness * -3.0f * gravityValue);
+            playerVelocity.x = 5.0f;
+            fromLeftWall = true;
+        }
+
+        if (Input.GetButtonDown("Jump") && onRightWall && !fromRightWall)
+        {
+            playerVelocity.y = 0;
+            playerVelocity.y += Mathf.Sqrt(wallBounciness * -3.0f * gravityValue);
+            playerVelocity.x = -5.0f;
+            fromRightWall = true;
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
+
+        if (playerVelocity.x > 0)
+        {
+            playerVelocity.x -= slowValue * Time.deltaTime;
+        }
+        else if (playerVelocity.x < 0)
+        {
+            playerVelocity.x += slowValue * Time.deltaTime;
+        }
+        else
+        {
+            playerVelocity.x = 0;
+        }
+
         player.Move(playerVelocity * Time.deltaTime);
     }
 
@@ -57,6 +93,27 @@ public class PlayerController : MonoBehaviour
         {
             groundedPlayer = true;
         }
+
+        if (other.CompareTag("LR_LeftWall"))
+        {
+            onLeftWall = true;
+            fromRightWall = false;
+        }
+
+        if (other.CompareTag("LR_RightWall"))
+        {
+            onRightWall = true;
+            fromLeftWall = false;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.name == "Ground")
+        {
+            fromLeftWall = false;
+            fromRightWall = false;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -69,6 +126,16 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.name == "Platform")
         {
             groundedPlayer = false;
+        }
+
+        if (other.CompareTag("LR_LeftWall"))
+        {
+            onLeftWall = false;
+        }
+
+        if (other.CompareTag("LR_RightWall"))
+        {
+            onRightWall = false;
         }
     }
 }
