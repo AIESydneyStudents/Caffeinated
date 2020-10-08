@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private CharacterController player;
+    private Rigidbody rb;
     private bool groundedPlayer;
     private bool onRightWall;
     private bool onLeftWall;
@@ -19,125 +20,170 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight;
     public float wallBounciness;
 
+    private void Start()
+    {
+        player = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
+    }
+
     // Update is called once per frame
     void Update()
     {
         Keyboard kb = InputSystem.GetDevice<Keyboard>();
 
-        if (kb.wKey.wasPressedThisFrame)
-        {
-            Debug.Log("It worked");
-        }
-        
-        //float horizontalInput = Input.GetAxis("Horizontal");
-        //float verticalInput = Input.GetAxis("Vertical");
-
-        //if (groundedPlayer && playerVelocity.y < 0)
-        //{
-        //    playerVelocity.y = 0f;
-        //}
-
-        //Vector3 move = new Vector3(horizontalInput, 0, verticalInput);
-        //player.Move(move * speed * Time.deltaTime);
-
-        //if (move != Vector3.zero)
-        //{
-        //    gameObject.transform.forward = move;
-        //}
-
-        //if (Input.GetButtonDown("Jump") && groundedPlayer)
-        //{
-        //    playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        //}
-
-        //if (Input.GetButtonDown("Jump") && onLeftWall && !fromLeftWall)
-        //{
-        //    playerVelocity.y = 0;
-        //    playerVelocity.y += Mathf.Sqrt(wallBounciness * -3.0f * gravityValue);
-        //    playerVelocity.x = 5.0f;
-        //    fromLeftWall = true;
-        //}
-
-        //if (Input.GetButtonDown("Jump") && onRightWall && !fromRightWall)
-        //{
-        //    playerVelocity.y = 0;
-        //    playerVelocity.y += Mathf.Sqrt(wallBounciness * -3.0f * gravityValue);
-        //    playerVelocity.x = -5.0f;
-        //    fromRightWall = true;
-        //}
-
-        //playerVelocity.y += gravityValue * Time.deltaTime;
-
-        //if (playerVelocity.x > 0)
-        //{
-        //    playerVelocity.x -= slowValue * Time.deltaTime;
-        //}
-        //else if (playerVelocity.x < 0)
-        //{
-        //    playerVelocity.x += slowValue * Time.deltaTime;
-        //}
-        //else
-        //{
-        //    playerVelocity.x = 0;
-        //}
-
-        //player.Move(playerVelocity * Time.deltaTime);
+        PlayerMovement(kb);
+        PlayerJump(kb);
+        PlayerWallJump(kb);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void PlayerMovement(Keyboard kb)
     {
-        if (other.gameObject.name == "Ground")
+        Vector3 move = new Vector3();
+
+        // Move left
+        if (kb.aKey.isPressed)
+        {
+            move -= Vector3.right * speed * Time.deltaTime;
+        }
+
+        // Move right
+        if (kb.dKey.isPressed)
+        {
+            move += Vector3.right * speed * Time.deltaTime;
+        }
+
+        // Face in the direction the player is moving
+        if (move != Vector3.zero)
+        {
+            gameObject.transform.forward = move;
+        }
+
+        gameObject.transform.position += move;
+    }
+
+    private void PlayerJump(Keyboard kb)
+    {
+        Vector3 jump = new Vector3(0.0f, 2.0f, 0.0f);
+
+        if (kb.spaceKey.wasPressedThisFrame && groundedPlayer)
+        {
+            rb.AddForce(jump * jumpHeight, ForceMode.Impulse);
+        }
+    }
+
+    private void PlayerWallJump(Keyboard kb)
+    {
+        Vector3 jump = new Vector3(0.0f, 2.0f, 0.0f);
+
+        if (kb.spaceKey.wasPressedThisFrame && onLeftWall && !fromLeftWall)
+        {
+            jump.x = 1.0f;
+            rb.AddForce(jump * wallBounciness, ForceMode.Impulse);
+            fromLeftWall = true;
+        }
+
+        if (kb.spaceKey.wasPressedThisFrame && onRightWall && !fromRightWall)
+        {
+            jump.x = -1.0f;
+            rb.AddForce(jump * wallBounciness, ForceMode.Impulse);
+            fromRightWall = true;
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.name == "Ground")
         {
             groundedPlayer = true;
+            fromLeftWall = false;
+            fromRightWall = false;
         }
 
-        if (other.gameObject.name == "Platform")
-        {
-            gameObject.transform.parent = other.transform;
-        }
-
-        if (other.CompareTag("LR_LeftWall"))
+        if (collision.gameObject.tag == "LR_LeftWall")
         {
             onLeftWall = true;
             fromRightWall = false;
         }
 
-        if (other.CompareTag("LR_RightWall"))
+        if (collision.gameObject.tag == "LR_RightWall")
         {
             onRightWall = true;
             fromLeftWall = false;
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnCollisionExit(Collision collision)
     {
-        if (other.gameObject.name == "Ground")
-        {
-            fromLeftWall = false;
-            fromRightWall = false;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.name == "Ground")
+        if (collision.gameObject.name == "Ground")
         {
             groundedPlayer = false;
         }
 
-        if (other.gameObject.name == "Platform")
-        {
-            groundedPlayer = false;
-        }
-
-        if (other.CompareTag("LR_LeftWall"))
+        if (collision.gameObject.tag == "LR_LeftWall")
         {
             onLeftWall = false;
         }
 
-        if (other.CompareTag("LR_RightWall"))
+        if (collision.gameObject.tag == "LR_RightWall")
         {
             onRightWall = false;
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        //if (other.gameObject.name == "Ground")
+        //{
+        //    groundedPlayer = true;
+        //}
+
+        //if (other.gameObject.name == "Platform")
+        //{
+        //    gameObject.transform.parent = other.transform;
+        //}
+
+        //if (other.CompareTag("LR_LeftWall"))
+        //{
+        //    onLeftWall = true;
+        //    fromRightWall = false;
+        //}
+
+        //if (other.CompareTag("LR_RightWall"))
+        //{
+        //    onRightWall = true;
+        //    fromLeftWall = false;
+        //}
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        //if (other.gameObject.name == "Ground")
+        //{
+        //    fromLeftWall = false;
+        //    fromRightWall = false;
+        //}
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        //if (other.gameObject.name == "Ground")
+        //{
+        //    groundedPlayer = false;
+        //}
+
+        //if (other.gameObject.name == "Platform")
+        //{
+        //    groundedPlayer = false;
+        //}
+
+        //if (other.CompareTag("LR_LeftWall"))
+        //{
+        //    onLeftWall = false;
+        //}
+
+        //if (other.CompareTag("LR_RightWall"))
+        //{
+        //    onRightWall = false;
+        //}
     }
 }
