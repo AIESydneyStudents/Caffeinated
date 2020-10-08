@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,69 +18,70 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jumpHeight;
     public float wallBounciness;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        player = gameObject.GetComponent<CharacterController>();
-    }
 
     // Update is called once per frame
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        Keyboard kb = InputSystem.GetDevice<Keyboard>();
 
-        if (groundedPlayer && playerVelocity.y < 0)
+        if (kb.wKey.wasPressedThisFrame)
         {
-            playerVelocity.y = 0f;
+            Debug.Log("It worked");
         }
+        
+        //float horizontalInput = Input.GetAxis("Horizontal");
+        //float verticalInput = Input.GetAxis("Vertical");
 
-        Vector3 move = new Vector3(horizontalInput, 0, verticalInput);
-        player.Move(move * speed * Time.deltaTime);
+        //if (groundedPlayer && playerVelocity.y < 0)
+        //{
+        //    playerVelocity.y = 0f;
+        //}
 
-        if (move != Vector3.zero)
-        {
-            gameObject.transform.forward = move;
-        }
+        //Vector3 move = new Vector3(horizontalInput, 0, verticalInput);
+        //player.Move(move * speed * Time.deltaTime);
 
-        if (Input.GetButtonDown("Jump") && groundedPlayer)
-        {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        }
+        //if (move != Vector3.zero)
+        //{
+        //    gameObject.transform.forward = move;
+        //}
 
-        if (Input.GetButtonDown("Jump") && onLeftWall && !fromLeftWall)
-        {
-            playerVelocity.y = 0;
-            playerVelocity.y += Mathf.Sqrt(wallBounciness * -3.0f * gravityValue);
-            playerVelocity.x = 5.0f;
-            fromLeftWall = true;
-        }
+        //if (Input.GetButtonDown("Jump") && groundedPlayer)
+        //{
+        //    playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+        //}
 
-        if (Input.GetButtonDown("Jump") && onRightWall && !fromRightWall)
-        {
-            playerVelocity.y = 0;
-            playerVelocity.y += Mathf.Sqrt(wallBounciness * -3.0f * gravityValue);
-            playerVelocity.x = -5.0f;
-            fromRightWall = true;
-        }
+        //if (Input.GetButtonDown("Jump") && onLeftWall && !fromLeftWall)
+        //{
+        //    playerVelocity.y = 0;
+        //    playerVelocity.y += Mathf.Sqrt(wallBounciness * -3.0f * gravityValue);
+        //    playerVelocity.x = 5.0f;
+        //    fromLeftWall = true;
+        //}
 
-        playerVelocity.y += gravityValue * Time.deltaTime;
+        //if (Input.GetButtonDown("Jump") && onRightWall && !fromRightWall)
+        //{
+        //    playerVelocity.y = 0;
+        //    playerVelocity.y += Mathf.Sqrt(wallBounciness * -3.0f * gravityValue);
+        //    playerVelocity.x = -5.0f;
+        //    fromRightWall = true;
+        //}
 
-        if (playerVelocity.x > 0)
-        {
-            playerVelocity.x -= slowValue * Time.deltaTime;
-        }
-        else if (playerVelocity.x < 0)
-        {
-            playerVelocity.x += slowValue * Time.deltaTime;
-        }
-        else
-        {
-            playerVelocity.x = 0;
-        }
+        //playerVelocity.y += gravityValue * Time.deltaTime;
 
-        player.Move(playerVelocity * Time.deltaTime);
+        //if (playerVelocity.x > 0)
+        //{
+        //    playerVelocity.x -= slowValue * Time.deltaTime;
+        //}
+        //else if (playerVelocity.x < 0)
+        //{
+        //    playerVelocity.x += slowValue * Time.deltaTime;
+        //}
+        //else
+        //{
+        //    playerVelocity.x = 0;
+        //}
+
+        //player.Move(playerVelocity * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -91,7 +93,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.name == "Platform")
         {
-            groundedPlayer = true;
+            gameObject.transform.parent = other.transform;
         }
 
         if (other.CompareTag("LR_LeftWall"))
