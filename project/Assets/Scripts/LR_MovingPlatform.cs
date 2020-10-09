@@ -5,7 +5,6 @@ using UnityEngine;
 public class LR_MovingPlatform : MonoBehaviour
 {
     public float speed = 1.0f;
-    public float range = 5.0f;
     
     public GameObject[] points;
     private int index = 0;
