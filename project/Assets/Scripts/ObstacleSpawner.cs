@@ -24,7 +24,7 @@ public class ObstacleSpawner : MonoBehaviour
     {
         if (timer > timeToRespawn)
         {
-            Vector3 position = new Vector3(Random.Range(minRangeX, maxRangeX) + gameObject.transform.position.x, 0, 0);
+            Vector3 position = new Vector3(Random.Range(minRangeX, maxRangeX) + gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
             Instantiate(obstacle, position, Quaternion.identity);
             timer = 0;
         }

@@ -15,13 +15,14 @@ public class ObstacleBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timer > 3.0f)
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
-        }
-        else
-        {
-            timer += 1 * Time.deltaTime;
         }
     }
 }
