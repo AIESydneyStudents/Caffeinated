@@ -6,21 +6,41 @@ public class LR_MovingPlatform : MonoBehaviour
 {
     public float speed = 1.0f;
     public float range = 5.0f;
-
-    private Vector3 startPos;
+    
+    public GameObject[] points;
+    private int index = 0;
     
     // Start is called before the first frame update
     void Start()
     {
-        startPos = gameObject.transform.position;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.transform.position.x == (startPos.x + range))
+        // Go to first point
+        if (points.Length != 0)
         {
-            gameObject.transform.position += Vector3.right * speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, points[index].transform.position, speed * Time.deltaTime);
+
+            if (transform.position == points[index].transform.position)
+            {
+                index++;
+            }
+
+            if (index > points.Length - 1)
+            {
+                index = 0;
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == points[index])
+        {
+            index++;
         }
     }
 }
