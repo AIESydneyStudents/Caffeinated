@@ -5,18 +5,26 @@ using UnityEngine;
 public class RB_PlayerController : MonoBehaviour
 {
     public float Speed = 1;
-    public float ForceBoost = 0.8f;
-    public float MassBoost = 0.1f;
+    private float ForceBoost = 0.8f;
+    private float MassBoost = 0.1f;
+    public float DashSpeed = 10;
     public float JumpForce = 5;
+    public int MidAirJumps = 1;
+    public int MidAirDashs = 1;
+
 
     private PlayerControls Controls;
-
+    private Vector3 moveDir;
+    private int jumps;
+    private int dashs;
     private float distToGround;
     private float distToWall;
     private Rigidbody rb;
+    private RigidbodyConstraints rbConstraints;
     private bool pickup = true;
     private GameController gc;
     private bool constraintToggle = false;
+    
 
     private Color activeColour;
     private Color inactiveColour;
@@ -25,55 +33,80 @@ public class RB_PlayerController : MonoBehaviour
     private void Awake()
     {
         Controls = new PlayerControls();
+        Controls.Player.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
+        Controls.Player.Dash.performed += _ => Dash();
+        Controls.Player.Drop.performed += _ => Drop();
+        Controls.Player.Jump.performed += _ => Jump();
+        Controls.Debug.toggle2D.performed += _ => Toggle2D_performed();
+
         rb = GetComponent<Rigidbody>();
+        rbConstraints = rb.constraints;
         distToGround = GetComponent<Collider>().bounds.extents.y;
         distToWall = GetComponent<Collider>().bounds.extents.x;
+
         gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        jumps = MidAirJumps;
+        dashs = MidAirDashs;
+
         activeColour = Color.green;
         inactiveColour = Color.red;
     }
     private void OnEnable()
     {
-        Controls.Player.MoveForward.performed += MoveForward_performed;
-        Controls.Player.MoveForward.Enable();
-        Controls.Player.MoveBack.performed += MoveBack_performed;
-        Controls.Player.MoveBack.Enable();
-        Controls.Player.MoveLeft.performed += MoveLeft_performed;
-        Controls.Player.MoveLeft.Enable();
-        Controls.Player.MoveRight.performed += MoveRight_performed;
-        Controls.Player.MoveRight.Enable();
-        Controls.Player.Drop.performed += Drop_performed;
-        Controls.Player.Drop.Enable();
-        Controls.Player.Jump.performed += Jump_performed;
-        Controls.Player.Jump.Enable();
-        Controls.Debug.toggle2D.performed += Toggle2D_performed;
-        Controls.Debug.toggle2D.Enable();
+        Controls.Enable();
     }
 
-    private void Toggle2D_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    private void Toggle2D_performed()
     {
         //2D input controles
         constraintToggle = !constraintToggle;
         if (constraintToggle)
         {
-            rb.constraints = RigidbodyConstraints.FreezePositionZ;
+            rb.constraints = rb.constraints | RigidbodyConstraints.FreezePositionZ;
         }
         else
         {
-            rb.constraints = RigidbodyConstraints.None;
+            rb.constraints = rbConstraints;
+        }
+    }
+    private void Move(Vector2 direction)
+    {
+        moveDir.x = direction.x;
+        moveDir.z = direction.y;
+    }
+    private void Dash()
+    {
+        if (dashs > 0)
+        {
+            Vector3 DashDir;
+            if (moveDir != new Vector3(0, 0, 0))
+            {
+                DashDir = new Vector3(moveDir.x, 0, moveDir.z);
+            }
+            else
+            {
+                DashDir = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            }
+            DashDir = Vector3.Normalize(DashDir);
+            rb.velocity = DashDir * DashSpeed;
+            dashs--;
         }
     }
 
-    private void Jump_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    private void Jump()
     {
-        if ((isGrounded() == true || detectWall() != new Vector3(0, 0, 0)))
+        if (jumps > 0 || detectWall() != new Vector3(0, 0, 0) || isGrounded())
         {
             Vector3 Jumpdir = Vector3.up + detectWall();
             rb.AddForce(Jumpdir * JumpForce, ForceMode.VelocityChange);
+            if (detectWall() == new Vector3(0, 0, 0))
+            {
+                jumps--;
+            }
         }
     }
 
-    private void Drop_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    private void Drop()
     {
         int CC = transform.childCount;
         for (int i = 0; i < CC; i++)
@@ -87,46 +120,29 @@ public class RB_PlayerController : MonoBehaviour
         pickup = !pickup;
     }
 
-    private void MoveRight_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    private void Update()
     {
-        rb.AddForce(Vector3.right * Speed);
+        rb.AddForce(moveDir * Speed);
+        if (isGrounded() && (jumps < MidAirJumps || dashs < MidAirDashs))
+        {
+            jumps = MidAirJumps;
+            dashs = MidAirDashs;
+        }
     }
 
-    private void MoveLeft_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-    {
-        rb.AddForce(Vector3.left * Speed);
-    }
-
-    private void MoveBack_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-    {
-        rb.AddForce(Vector3.back * Speed);
-    }
-
-    private void MoveForward_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-    {
-        rb.AddForce(Vector3.forward * Speed);
-    }
     private void OnDisable()
     {
-        Controls.Player.MoveForward.performed -= MoveForward_performed;
-        Controls.Player.MoveForward.Disable();
-        Controls.Player.MoveBack.performed -= MoveBack_performed;
-        Controls.Player.MoveBack.Disable();
-        Controls.Player.MoveLeft.performed -= MoveLeft_performed;
-        Controls.Player.MoveLeft.Disable();
-        Controls.Player.MoveRight.performed -= MoveRight_performed;
-        Controls.Player.MoveRight.Disable();
-        Controls.Player.Drop.performed -= Drop_performed;
-        Controls.Player.Drop.Disable();
-        Controls.Player.Jump.performed -= Jump_performed;
-        Controls.Player.Jump.Disable();
-        Controls.Debug.toggle2D.performed -= Toggle2D_performed;
-        Controls.Debug.toggle2D.Disable();
+        Controls.Player.Move.performed -= ctx => Move(ctx.ReadValue<Vector2>());
+        Controls.Player.Dash.performed -= _ => Dash();
+        Controls.Player.Drop.performed -= _ => Drop();
+        Controls.Player.Jump.performed -= _ =>Jump();
+        Controls.Debug.toggle2D.performed -= _ => Toggle2D_performed();
+        Controls.Disable();
     }
 
     bool isGrounded()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
+        return Physics.Raycast(transform.position, -Vector3.up, distToGround);
     }
     
     Vector3 detectWall()

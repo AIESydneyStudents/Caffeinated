@@ -21188,10 +21188,25 @@ PrefabInstance:
       propertyPath: JumpForce
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: MidAirJumps
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: DashSpeed
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1902771239560932073, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
       propertyPath: m_IsKinematic
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932073, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 1902771239560932079, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
