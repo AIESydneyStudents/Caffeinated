@@ -10,6 +10,7 @@ TagManager:
   - Spawner
   - LR_LeftWall
   - LR_RightWall
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX

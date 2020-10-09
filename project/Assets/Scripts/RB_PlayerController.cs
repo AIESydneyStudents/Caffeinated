@@ -183,7 +183,18 @@ public class RB_PlayerController : MonoBehaviour
                 rb.mass -= MassBoost;
             }
             gc.UpdateScoreBoard(CC);
-        }      
+        }
+        if (other.tag == "MovingPlatform")
+        {
+            transform.parent = other.transform;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "MovingPlatform")
+        {
+            transform.parent = null;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
