@@ -42,4 +42,14 @@ public class LR_MovingPlatform : MonoBehaviour
             index++;
         }
     }
+    private void OnDrawGizmos()
+    {
+        //Transform[] xyz = new Transform[path.transform.childCount];
+        for (int i = 0; i < points.Length; i++)
+        {
+            //xyz[i] = path.transform.GetChild(i).position;
+            Gizmos.DrawSphere(points[i].transform.position, 0.1f);
+            Gizmos.DrawWireSphere(points[i].transform.position, 0.2f);
+        }
+    }
 }
