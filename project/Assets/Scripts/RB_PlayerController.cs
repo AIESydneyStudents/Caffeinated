@@ -5,9 +5,10 @@ using UnityEngine;
 public class RB_PlayerController : MonoBehaviour
 {
     public float Speed = 1;
+    public float PickupBonusTime = 5f;
     private float ForceBoost = 0.8f;
     private float MassBoost = 0.1f;
-    public float DashSpeed = 10;
+    public float DashForce = 10;
     public float JumpForce = 5;
     public int MidAirJumps = 1;
     public int MidAirDashs = 1;
@@ -88,7 +89,7 @@ public class RB_PlayerController : MonoBehaviour
                 DashDir = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             }
             DashDir = Vector3.Normalize(DashDir);
-            rb.velocity = DashDir * DashSpeed;
+            rb.velocity = DashDir * DashForce;
             dashs--;
         }
     }
@@ -142,7 +143,7 @@ public class RB_PlayerController : MonoBehaviour
 
     bool isGrounded()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, distToGround);
+        return Physics.Raycast(transform.position, -Vector3.up, distToGround+0.1f);
     }
     
     Vector3 detectWall()
@@ -176,13 +177,14 @@ public class RB_PlayerController : MonoBehaviour
             int CC = transform.childCount;
             for (int i = 0; i < CC; i++)
             {
-                GameObject child = transform.GetChild(0).gameObject;
-                child.transform.parent = null;
-                Destroy(child);
+                Collectablefix child = transform.GetChild(0).gameObject.GetComponent<Collectablefix>();
+                //child.transform.parent = null;
+                //Destroy(child);
+                child.DistroyObject();
                 Speed -= ForceBoost;
                 rb.mass -= MassBoost;
             }
-            gc.UpdateScoreBoard(CC);
+            //gc.UpdateScoreBoard(CC);
         }
         if (other.tag == "MovingPlatform")
         {
@@ -208,6 +210,7 @@ public class RB_PlayerController : MonoBehaviour
             }
             Speed += ForceBoost;
             rb.mass += MassBoost;
+            gc.AddTime(PickupBonusTime);
         }
     }
 
