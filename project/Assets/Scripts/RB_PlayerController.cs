@@ -15,7 +15,7 @@ public class RB_PlayerController : MonoBehaviour
     public bool AddForceJumps;
     public bool AddForceWallJumps;
     public bool AddForceDashs;
-    public string[] WallJumpTagBlacklist;
+    public string[] JumpTagBlacklist;
 
 
     private PlayerControls Controls;
@@ -184,24 +184,26 @@ public class RB_PlayerController : MonoBehaviour
 
     bool isGrounded()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, distToGround+0.1f);
+        RaycastHit hit;
+        return Physics.Raycast(transform.position, -Vector3.up, out hit, distToGround+0.1f) && !BlackListCheck(hit);
     }
     
     Vector3 detectWall()
     {
-        if (Physics.Raycast(transform.position, Vector3.forward, distToGround + 0.1f))
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.forward, out hit, distToWall + 0.1f) && !BlackListCheck(hit))
         {
             return Vector3.back;
         }
-        else if (Physics.Raycast(transform.position, Vector3.back, distToGround + 0.1f))
+        if (Physics.Raycast(transform.position, Vector3.back, out hit, distToWall + 0.1f) && !BlackListCheck(hit))
         {
             return Vector3.forward;
         }
-        else if (Physics.Raycast(transform.position, Vector3.left, distToGround + 0.1f))
+        if (Physics.Raycast(transform.position, Vector3.left, out hit, distToWall + 0.1f) && !BlackListCheck(hit))
         {
             return Vector3.right;
         }
-        else if (Physics.Raycast(transform.position, Vector3.right, distToGround + 0.1f))
+        if (Physics.Raycast(transform.position, Vector3.right, out hit, distToWall + 0.1f) && !BlackListCheck(hit))
         {
             return Vector3.left;
         }
@@ -209,6 +211,17 @@ public class RB_PlayerController : MonoBehaviour
         {
             return new Vector3(0,0,0);
         }
+    }
+    private bool BlackListCheck(RaycastHit hit)
+    {
+        foreach (string tags in JumpTagBlacklist)
+        {
+            if (hit.transform.tag == tags)
+            {
+                return true;
+            }
+        }
+        return false;
     }
     private Vector3 VelocityOverride(Vector3 dir, Vector3 rbv)
     {
@@ -251,13 +264,10 @@ public class RB_PlayerController : MonoBehaviour
             for (int i = 0; i < CC; i++)
             {
                 Collectablefix child = transform.GetChild(0).gameObject.GetComponent<Collectablefix>();
-                //child.transform.parent = null;
-                //Destroy(child);
                 child.DistroyObject();
                 Speed -= ForceBoost;
                 rb.mass -= MassBoost;
             }
-            //gc.UpdateScoreBoard(CC);
         }
         if (other.tag == "MovingPlatform")
         {

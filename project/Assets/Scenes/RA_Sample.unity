@@ -21157,6 +21157,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
+      propertyPath: WallJumpTagBlacklist.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: JumpTagBlacklist.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
       propertyPath: JumpForce
       value: 10
       objectReference: {fileID: 0}
@@ -21183,12 +21193,42 @@ PrefabInstance:
     - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
       propertyPath: AddForceWallJumps
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
       propertyPath: AddForceDashs
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: WallJumpTagBlacklist.Array.data[0]
+      value: Collectable
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: WallJumpTagBlacklist.Array.data[1]
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: WallJumpTagBlacklist.Array.data[2]
+      value: Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: JumpTagBlacklist.Array.data[0]
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: JumpTagBlacklist.Array.data[1]
+      value: Collectable
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: JumpTagBlacklist.Array.data[2]
+      value: Spawner
       objectReference: {fileID: 0}
     - target: {fileID: 1902771239560932073, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
@@ -22872,7 +22912,7 @@ PrefabInstance:
     - target: {fileID: 7939146449897219503, guid: b161c91e1919edf4c96fcb0a241914f4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7939146449897219503, guid: b161c91e1919edf4c96fcb0a241914f4,
         type: 3}
@@ -37973,7 +38013,7 @@ PrefabInstance:
     - target: {fileID: 7939146449897219503, guid: b161c91e1919edf4c96fcb0a241914f4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 7939146449897219503, guid: b161c91e1919edf4c96fcb0a241914f4,
         type: 3}

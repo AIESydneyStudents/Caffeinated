@@ -7,6 +7,9 @@ public class BouncePad : MonoBehaviour
     public float BounceForce;
     private void OnTriggerEnter(Collider other)
     {
-        other.GetComponent<Rigidbody>().velocity = transform.up * BounceForce;
+        if (other.GetComponent<Rigidbody>() != null)
+        {
+            other.GetComponent<Rigidbody>().velocity = transform.up * BounceForce;
+        }        
     }
 }
