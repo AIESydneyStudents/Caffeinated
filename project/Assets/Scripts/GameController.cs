@@ -44,5 +44,9 @@ public class GameController : MonoBehaviour
     public void AddTime (float bonusTime)
     {
         curTime += bonusTime;
+        if (curTime >= 3600)
+        {
+            curTime = 3599f;
+        }
     }
 }
