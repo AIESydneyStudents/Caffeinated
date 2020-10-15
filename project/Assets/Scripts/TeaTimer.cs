@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TeaTimer : MonoBehaviour
 {
@@ -8,11 +9,14 @@ public class TeaTimer : MonoBehaviour
     public float durationInSeconds = 0f;
 
     private Material materialToChange;
+    private Color startingColour;
 
     // Start is called before the first frame update
     void Start()
     {
-        materialToChange = gameObject.GetComponent<Renderer>().material;
+        //materialToChange = gameObject.GetComponent<Renderer>().material;
+        materialToChange = gameObject.GetComponent<Image>().material;
+        startingColour = materialToChange.color;
         StartCoroutine(LerpFunction(targetColor, durationInSeconds));
     }
 
@@ -30,5 +34,10 @@ public class TeaTimer : MonoBehaviour
         }
 
         materialToChange.color = endValue;
+    }
+
+    private void OnDestroy()
+    {
+        materialToChange.color = startingColour;
     }
 }
