@@ -21157,13 +21157,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
+      propertyPath: WallJumpTagBlacklist.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: JumpTagBlacklist.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
       propertyPath: JumpForce
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
       propertyPath: MidAirJumps
-      value: 3
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
@@ -21174,6 +21184,51 @@ PrefabInstance:
         type: 3}
       propertyPath: DashForce
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: AddForceJumps
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: AddForceWallJumps
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: AddForceDashs
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: WallJumpTagBlacklist.Array.data[0]
+      value: Collectable
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: WallJumpTagBlacklist.Array.data[1]
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: WallJumpTagBlacklist.Array.data[2]
+      value: Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: JumpTagBlacklist.Array.data[0]
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: JumpTagBlacklist.Array.data[1]
+      value: Collectable
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: JumpTagBlacklist.Array.data[2]
+      value: Spawner
       objectReference: {fileID: 0}
     - target: {fileID: 1902771239560932073, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
@@ -22431,7 +22486,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh21912
+  m_Name: pb_Mesh17204
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -22857,7 +22912,7 @@ PrefabInstance:
     - target: {fileID: 7939146449897219503, guid: b161c91e1919edf4c96fcb0a241914f4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7939146449897219503, guid: b161c91e1919edf4c96fcb0a241914f4,
         type: 3}
@@ -22955,7 +23010,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1269485404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.81, z: -2.46}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -36541,7 +36596,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh22640
+  m_Name: pb_Mesh17924
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -37958,7 +38013,7 @@ PrefabInstance:
     - target: {fileID: 7939146449897219503, guid: b161c91e1919edf4c96fcb0a241914f4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 7939146449897219503, guid: b161c91e1919edf4c96fcb0a241914f4,
         type: 3}
@@ -40160,7 +40215,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh22224
+  m_Name: pb_Mesh17516
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

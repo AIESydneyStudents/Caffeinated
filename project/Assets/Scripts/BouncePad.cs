@@ -5,19 +5,11 @@ using UnityEngine;
 public class BouncePad : MonoBehaviour
 {
     public float BounceForce;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter(Collider other)
     {
-        other.GetComponent<Rigidbody>().AddForce(Vector3.up * BounceForce, ForceMode.VelocityChange);
+        if (other.GetComponent<Rigidbody>() != null)
+        {
+            other.GetComponent<Rigidbody>().velocity = transform.up * BounceForce;
+        }        
     }
 }

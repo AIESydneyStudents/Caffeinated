@@ -12,6 +12,10 @@ public class RB_PlayerController : MonoBehaviour
     public float JumpForce = 5;
     public int MidAirJumps = 1;
     public int MidAirDashs = 1;
+    public bool AddForceJumps;
+    public bool AddForceWallJumps;
+    public bool AddForceDashs;
+    public string[] JumpTagBlacklist;
 
 
     private PlayerControls Controls;
@@ -48,6 +52,11 @@ public class RB_PlayerController : MonoBehaviour
         gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         jumps = MidAirJumps;
         dashs = MidAirDashs;
+
+        if ((int)(rb.constraints & RigidbodyConstraints.FreezePositionZ) == 8)
+        {
+            constraintToggle = true;
+        }
 
         activeColour = Color.green;
         inactiveColour = Color.red;
@@ -89,22 +98,54 @@ public class RB_PlayerController : MonoBehaviour
                 DashDir = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             }
             DashDir = Vector3.Normalize(DashDir);
-            rb.velocity = DashDir * DashForce;
+            if (AddForceDashs)
+            {
+                if (rb.velocity.x * DashDir.x < 0)
+                {
+                    rb.velocity = new Vector3(0, rb.velocity.y, rb.velocity.z);
+                }
+                if (rb.velocity.z * DashDir.z < 0)
+                {
+                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0);
+                }
+                rb.AddForce(DashDir * DashForce, ForceMode.VelocityChange);
+            }
+            else
+            {
+                rb.velocity = DashDir * DashForce;
+            }
             dashs--;
         }
     }
 
     private void Jump()
     {
-        if (jumps > 0 || detectWall() != new Vector3(0, 0, 0) || isGrounded())
+        if (detectWall() != new Vector3(0, 0, 0))
         {
             Vector3 Jumpdir = Vector3.up + detectWall();
-            rb.AddForce(Jumpdir * JumpForce, ForceMode.VelocityChange);
-            if (detectWall() == new Vector3(0, 0, 0))
+            if (AddForceWallJumps)
             {
-                jumps--;
+                rb.AddForce(Jumpdir * JumpForce, ForceMode.VelocityChange);
+            }
+            else
+            {
+                rb.velocity = VelocityOverride(Jumpdir * JumpForce, rb.velocity);
             }
         }
+        else if (jumps > 0 || isGrounded())
+        {
+            Vector3 Jumpdir = Vector3.up;
+            if (AddForceJumps)
+            {
+                rb.AddForce(Jumpdir * JumpForce, ForceMode.VelocityChange);
+            }
+            else
+            {
+                rb.velocity = VelocityOverride(Jumpdir * JumpForce, rb.velocity);
+            }
+            jumps--;
+        }
+
     }
 
     private void Drop()
@@ -143,24 +184,26 @@ public class RB_PlayerController : MonoBehaviour
 
     bool isGrounded()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, distToGround+0.1f);
+        RaycastHit hit;
+        return Physics.Raycast(transform.position, -Vector3.up, out hit, distToGround+0.1f) && !BlackListCheck(hit);
     }
     
     Vector3 detectWall()
     {
-        if (Physics.Raycast(transform.position, Vector3.forward, distToGround + 0.1f))
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.forward, out hit, distToWall + 0.1f) && !BlackListCheck(hit))
         {
             return Vector3.back;
         }
-        else if (Physics.Raycast(transform.position, Vector3.back, distToGround + 0.1f))
+        if (Physics.Raycast(transform.position, Vector3.back, out hit, distToWall + 0.1f) && !BlackListCheck(hit))
         {
             return Vector3.forward;
         }
-        else if (Physics.Raycast(transform.position, Vector3.left, distToGround + 0.1f))
+        if (Physics.Raycast(transform.position, Vector3.left, out hit, distToWall + 0.1f) && !BlackListCheck(hit))
         {
             return Vector3.right;
         }
-        else if (Physics.Raycast(transform.position, Vector3.right, distToGround + 0.1f))
+        if (Physics.Raycast(transform.position, Vector3.right, out hit, distToWall + 0.1f) && !BlackListCheck(hit))
         {
             return Vector3.left;
         }
@@ -168,6 +211,49 @@ public class RB_PlayerController : MonoBehaviour
         {
             return new Vector3(0,0,0);
         }
+    }
+    private bool BlackListCheck(RaycastHit hit)
+    {
+        foreach (string tags in JumpTagBlacklist)
+        {
+            if (hit.transform.tag == tags)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private Vector3 VelocityOverride(Vector3 dir, Vector3 rbv)
+    {
+        Vector3 result = new Vector3(0, 0, 0);
+        // Set x
+        if (dir.x == 0)
+        {
+            result.x = rbv.x;
+        }
+        else
+        {
+            result.x = dir.x;
+        }
+        // Set y
+        if (dir.y == 0)
+        {
+            result.y = rbv.y;
+        }
+        else
+        {
+            result.y = dir.y;
+        }
+        // Set z
+        if (dir.z == 0)
+        {
+            result.z = rbv.z;
+        }
+        else
+        {
+            result.z = dir.z;
+        }
+        return result;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -178,13 +264,10 @@ public class RB_PlayerController : MonoBehaviour
             for (int i = 0; i < CC; i++)
             {
                 Collectablefix child = transform.GetChild(0).gameObject.GetComponent<Collectablefix>();
-                //child.transform.parent = null;
-                //Destroy(child);
                 child.DistroyObject();
                 Speed -= ForceBoost;
                 rb.mass -= MassBoost;
             }
-            //gc.UpdateScoreBoard(CC);
         }
         if (other.tag == "MovingPlatform")
         {

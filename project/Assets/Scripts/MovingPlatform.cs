@@ -20,12 +20,11 @@ public class MovingPlatform : MonoBehaviour
     private float rate;
 
     private bool direction = true;
-    private bool active = true;
     private float timer;
     private bool playerOn = false;
     private bool waiting = false;
 
-    private Renderer renderer;
+    private Renderer Colour;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +34,7 @@ public class MovingPlatform : MonoBehaviour
             xyz[i] = Path.transform.GetChild(i);
         }
         points = xyz;
-        renderer = gameObject.GetComponent<Renderer>();
+        Colour = gameObject.GetComponent<Renderer>();
         targetPos = points[0].position;
         time = Vector3.Distance(transform.position, points[0].position) / Speed;
     }
@@ -48,11 +47,11 @@ public class MovingPlatform : MonoBehaviour
             if (playerOn == true || (iter < points.Length - 1 && iter > 0))
             {
                 // Continue
-                renderer.material.color = ActiveColour;
+                Colour.material.color = ActiveColour;
             }
             else
             {
-                renderer.material.color = WaitColour;
+                Colour.material.color = WaitColour;
                 return;
             }
         }
@@ -74,11 +73,11 @@ public class MovingPlatform : MonoBehaviour
 
         if (waiting == true)
         {
-            renderer.material.color = WaitColour;
+            Colour.material.color = WaitColour;
         }
         else
         {
-            renderer.material.color = ActiveColour;
+            Colour.material.color = ActiveColour;
         }
     }
     private void TargetControle()
@@ -98,7 +97,6 @@ public class MovingPlatform : MonoBehaviour
             else
             {
                 this.enabled = false;
-                active = false;
             }
 
         }
