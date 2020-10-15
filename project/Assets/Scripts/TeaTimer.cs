@@ -4,36 +4,31 @@ using UnityEngine;
 
 public class TeaTimer : MonoBehaviour
 {
-    public Material timerMaterial;
+    public Color targetColor = new Color(0, 0, 1, 1);
+    public float durationInSeconds = 0f;
 
-    private Color colour;
-    private Renderer rend;
+    private Material materialToChange;
 
     // Start is called before the first frame update
     void Start()
     {
-        rend = GetComponent<Renderer>();
-        colour = timerMaterial.color;
+        materialToChange = gameObject.GetComponent<Renderer>().material;
+        StartCoroutine(LerpFunction(targetColor, durationInSeconds));
     }
 
     // Update is called once per frame
-    void Update()
+    IEnumerator LerpFunction(Color endValue, float duration)
     {
-        if (rend.material != timerMaterial)
+        float time = 0;
+        Color startValue = materialToChange.color;
+
+        while (time < duration)
         {
-            Debug.Log("Updating material");
-            rend.material = new Material(timerMaterial);
+            materialToChange.color = Color.Lerp(startValue, endValue, time / duration);
+            time += Time.deltaTime;
+            yield return null;
         }
 
-        if (colour.r <= 0)
-        {
-            colour.r = 0;
-        }
-        else
-        {
-            rend.material.color = new Color(colour.r - (1 * Time.deltaTime), colour.g, colour.b);
-        }
-
-        Debug.Log(rend.material.color);
+        materialToChange.color = endValue;
     }
 }
