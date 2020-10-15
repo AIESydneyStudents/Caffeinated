@@ -7,6 +7,8 @@ public class ObstacleBehaviour : MonoBehaviour
     private float timer = 0f;
 
     public float lifeTime = 3.0f;
+    public float timeLoss = 5.0f;
+    public int scoreLoss = 3;
     
     // Start is called before the first frame update
     void Start()
@@ -30,6 +32,7 @@ public class ObstacleBehaviour : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
+            other.GetComponent<RB_PlayerController>().Damaged(scoreLoss, timeLoss);
         }
     }
 }

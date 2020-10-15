@@ -48,5 +48,10 @@ public class GameController : MonoBehaviour
         {
             curTime = 3599f;
         }
+        if (curTime < 0)
+        {
+            curTime = 0f;
+        }
+        UpdateTimer();
     }
 }

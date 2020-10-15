@@ -16,6 +16,8 @@ public class RB_PlayerController : MonoBehaviour
     public bool AddForceWallJumps;
     public bool AddForceDashs;
     public string[] JumpTagBlacklist;
+    public float HitStunDuration;
+    public float HitGracePeriod;
 
 
     private PlayerControls Controls;
@@ -29,6 +31,8 @@ public class RB_PlayerController : MonoBehaviour
     private bool pickup = true;
     private GameController gc;
     private bool constraintToggle = false;
+    private bool invulnerable;
+    private bool stuned;
     
 
     private Color activeColour;
@@ -254,6 +258,14 @@ public class RB_PlayerController : MonoBehaviour
             result.z = dir.z;
         }
         return result;
+    }
+    public void Damaged(int score, float time)
+    {
+        if (!invulnerable && !stuned)
+        {
+            gc.AddTime(-time);
+            gc.UpdateScoreBoard(-score);
+        }    
     }
 
     private void OnTriggerEnter(Collider other)

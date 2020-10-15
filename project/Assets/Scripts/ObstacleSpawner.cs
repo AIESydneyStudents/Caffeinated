@@ -5,7 +5,6 @@ using UnityEngine;
 public class ObstacleSpawner : MonoBehaviour
 {
     public GameObject obstacle;
-    public GameObject spawner;
 
     public float minRangeX;
     public float maxRangeX;
