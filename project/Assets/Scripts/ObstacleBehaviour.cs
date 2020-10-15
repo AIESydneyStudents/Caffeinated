@@ -5,6 +5,8 @@ using UnityEngine;
 public class ObstacleBehaviour : MonoBehaviour
 {
     private float timer = 0f;
+
+    public float lifeTime = 3.0f;
     
     // Start is called before the first frame update
     void Start()
@@ -15,7 +17,12 @@ public class ObstacleBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timer += 1 * Time.deltaTime;
 
+        if (timer > lifeTime)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
