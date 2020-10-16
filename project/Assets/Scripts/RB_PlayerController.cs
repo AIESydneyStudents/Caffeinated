@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class RB_PlayerController : MonoBehaviour
 {
-    public float Speed = 1;
+    public float GroundSpeed = 1;
+    public float AirSpeed = 1;
+    public float GravMultiplyer = 1;
+    public float VelocityCap = 50;
     public float PickupBonusTime = 5f;
     private float ForceBoost = 0.8f;
     private float MassBoost = 0.1f;
@@ -21,6 +24,7 @@ public class RB_PlayerController : MonoBehaviour
 
 
     private PlayerControls Controls;
+    private float Speed;
     private Vector3 moveDir;
     private int jumps;
     private int dashs;
@@ -46,6 +50,7 @@ public class RB_PlayerController : MonoBehaviour
         Controls.Player.Dash.performed += _ => Dash();
         Controls.Player.Drop.performed += _ => Drop();
         Controls.Player.Jump.performed += _ => Jump();
+        Controls.Player.Slam.performed += _ => Slam();
         Controls.Debug.toggle2D.performed += _ => Toggle2D_performed();
 
         rb = GetComponent<Rigidbody>();
@@ -108,9 +113,30 @@ public class RB_PlayerController : MonoBehaviour
                 {
                     rb.velocity = new Vector3(0, rb.velocity.y, rb.velocity.z);
                 }
-                if (rb.velocity.z * DashDir.z < 0)
+                if (rb.velocity.y * DashDir.y < 0)
                 {
-                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0);
+                    rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                }
+                rb.AddForce(DashDir * DashForce, ForceMode.VelocityChange);
+            }
+            else
+            {
+                rb.velocity = DashDir * DashForce;
+            }
+            dashs--;
+        }
+    }
+
+    private void Slam()
+    {
+        if (dashs > 0)
+        {
+            Vector3 DashDir = new Vector3(0,-1,0);
+            if (AddForceDashs)
+            {
+                if (rb.velocity.y * DashDir.y < 0)
+                {
+                    rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                 }
                 rb.AddForce(DashDir * DashForce, ForceMode.VelocityChange);
             }
@@ -173,6 +199,22 @@ public class RB_PlayerController : MonoBehaviour
         {
             jumps = MidAirJumps;
             dashs = MidAirDashs;
+        }
+    }
+    private void FixedUpdate()
+    {
+        if (isGrounded())
+        {
+            Speed = GroundSpeed;
+        }
+        else
+        {
+            rb.AddForce(Vector3.down * (9.81f * (GravMultiplyer - 1)));
+            Speed = AirSpeed;
+        }
+        if (Vector3.Distance(rb.velocity, new Vector3(0, 0, 0)) > VelocityCap)
+        {
+            rb.velocity = Vector3.Normalize(rb.velocity) * VelocityCap;
         }
     }
 
