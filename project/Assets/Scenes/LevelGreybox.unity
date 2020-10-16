@@ -637,7 +637,7 @@ PrefabInstance:
     - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
       propertyPath: JumpForce
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1902771239560932072, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
@@ -1225,7 +1225,7 @@ PrefabInstance:
     - target: {fileID: 6913611299475558775, guid: 0d034c33db73bd349ba35774699d3576,
         type: 3}
       propertyPath: BounceForce
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d034c33db73bd349ba35774699d3576, type: 3}
@@ -1241,7 +1241,7 @@ GameObject:
   - component: {fileID: 476474212}
   - component: {fileID: 476474211}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: ResumeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1713,7 +1713,7 @@ PrefabInstance:
     - target: {fileID: 6913611299475558775, guid: 0d034c33db73bd349ba35774699d3576,
         type: 3}
       propertyPath: BounceForce
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d034c33db73bd349ba35774699d3576, type: 3}
@@ -2221,8 +2221,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.7830189, g: 0.114498034, b: 0.770455, a: 1}
+    m_PressedColor: {r: 0.6586774, g: 0.09611962, b: 0.754717, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -2239,7 +2239,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 941032052}
+  m_TargetGraphic: {fileID: 1761359329}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -2350,8 +2350,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.8113208, g: 0.7305547, b: 0.04209684, a: 1}
+    m_PressedColor: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -2368,7 +2368,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 955795154}
+  m_TargetGraphic: {fileID: 476474211}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -3136,8 +3136,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.09233712, g: 0.41422978, b: 0.7830189, a: 1}
+    m_PressedColor: {r: 0.52139264, g: 0.16456035, b: 0.8113208, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -3154,7 +3154,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1237669203}
+  m_TargetGraphic: {fileID: 1545367043}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -3952,7 +3952,7 @@ GameObject:
   - component: {fileID: 1545367044}
   - component: {fileID: 1545367043}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: MenuText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4480,7 +4480,7 @@ GameObject:
   - component: {fileID: 1761359330}
   - component: {fileID: 1761359329}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: QuitText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4699,7 +4699,7 @@ PrefabInstance:
     - target: {fileID: 6913611299475558775, guid: 0d034c33db73bd349ba35774699d3576,
         type: 3}
       propertyPath: BounceForce
-      value: 47
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d034c33db73bd349ba35774699d3576, type: 3}
