@@ -10,6 +10,7 @@ public class TeaTimer : MonoBehaviour
 
     private Material materialToChange;
     private Color startingColour;
+    private GameObject gameController;
 
     // Start is called before the first frame update
     void Start()
@@ -17,10 +18,19 @@ public class TeaTimer : MonoBehaviour
         //materialToChange = gameObject.GetComponent<Renderer>().material;
         materialToChange = gameObject.GetComponent<Image>().material;
         startingColour = materialToChange.color;
-        StartCoroutine(LerpFunction(targetColor, durationInSeconds));
     }
 
     // Update is called once per frame
+    private void Update()
+    {
+        StartCoroutine(LerpFunction(targetColor, durationInSeconds));
+    }
+
+    private void OnDestroy()
+    {
+        materialToChange.color = startingColour;
+    }
+
     IEnumerator LerpFunction(Color endValue, float duration)
     {
         float time = 0;
@@ -34,10 +44,5 @@ public class TeaTimer : MonoBehaviour
         }
 
         materialToChange.color = endValue;
-    }
-
-    private void OnDestroy()
-    {
-        materialToChange.color = startingColour;
     }
 }
