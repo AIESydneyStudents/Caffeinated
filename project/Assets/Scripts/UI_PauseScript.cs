@@ -33,12 +33,12 @@ public class UI_PauseScript : MonoBehaviour
         Cursor.visible = false;
     }
 
-    //public void LoadMenu()
-    //{
-        //isPaused = false;
-        //Time.timeScale = 1f;
-       // SceneManager.LoadScene("MainMenu");
-    //}
+    public void LoadMenu()
+    {
+        isPaused = false;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
+    }
 
     public void QuitGame()
     {
