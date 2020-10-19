@@ -21,7 +21,8 @@ public class RB_PlayerController : MonoBehaviour
     public string[] JumpTagBlacklist;
     public float HitStunDuration;
     public float HitGracePeriod;
-
+    public float SpeedBoost = 1f;
+    public bool invulnerable;
 
     private PlayerControls Controls;
     private float Speed;
@@ -35,7 +36,7 @@ public class RB_PlayerController : MonoBehaviour
     private bool pickup = true;
     private GameController gc;
     private bool constraintToggle = false;
-    private bool invulnerable;
+    
     private bool stuned;
     
 
@@ -194,7 +195,7 @@ public class RB_PlayerController : MonoBehaviour
 
     private void Update()
     {
-        rb.AddForce(moveDir * Speed);
+        rb.AddForce(moveDir * Speed * SpeedBoost);
         if (isGrounded() && (jumps < MidAirJumps || dashs < MidAirDashs))
         {
             jumps = MidAirJumps;
@@ -307,6 +308,7 @@ public class RB_PlayerController : MonoBehaviour
         {
             gc.AddTime(-time);
             gc.UpdateScoreBoard(-score);
+            StartCoroutine(Hit());
         }    
     }
 
@@ -327,6 +329,7 @@ public class RB_PlayerController : MonoBehaviour
         {
             transform.parent = other.transform;
         }
+
     }
     private void OnTriggerExit(Collider other)
     {
@@ -376,5 +379,20 @@ public class RB_PlayerController : MonoBehaviour
             Debug.DrawRay(transform.position, Vector3.right, inactiveColour, distToGround + 0.1f);
         }
         
+    }
+    IEnumerator Hit()
+    {
+        //Instantiate(pickupEffect, transform.position, transform.rotation);
+        rb.velocity = new Vector3(0, 0, 0);
+
+        invulnerable = true;
+        Controls.Disable();
+        moveDir = new Vector3(0, 0, 0);
+
+        yield return new WaitForSeconds(HitStunDuration);
+        Controls.Enable();
+
+        yield return new WaitForSeconds(HitGracePeriod);
+        invulnerable = false;
     }
 }
