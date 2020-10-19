@@ -319,8 +319,8 @@ public class RB_PlayerController : MonoBehaviour
             {
                 Collectablefix child = transform.GetChild(0).gameObject.GetComponent<Collectablefix>();
                 child.DistroyObject();
-                Speed -= ForceBoost;
-                rb.mass -= MassBoost;
+                //Speed -= ForceBoost;
+                //rb.mass -= MassBoost;
             }
         }
         if (other.tag == "MovingPlatform")
@@ -345,8 +345,8 @@ public class RB_PlayerController : MonoBehaviour
             {
                 Destroy(collision.transform.GetComponent<Rigidbody>());
             }
-            Speed += ForceBoost;
-            rb.mass += MassBoost;
+            //Speed += ForceBoost;
+            //rb.mass += MassBoost;
             gc.AddTime(PickupBonusTime);
         }
     }

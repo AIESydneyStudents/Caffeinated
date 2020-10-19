@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI ScoreBoard;
     public TextMeshProUGUI Timer;
 
-    private float curTime;
+    public float curTime;
     // Start is called before the first frame update
     void Start()
     {
