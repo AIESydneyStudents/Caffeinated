@@ -11,6 +11,7 @@ TagManager:
   - LR_LeftWall
   - LR_RightWall
   - MovingPlatform
+  - Obstacle
   layers:
   - Default
   - TransparentFX
