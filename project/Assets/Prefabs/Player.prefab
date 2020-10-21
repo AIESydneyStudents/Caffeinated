@@ -103,6 +103,7 @@ MonoBehaviour:
   JumpForce: 15
   MidAirJumps: 1
   MidAirDashs: 1
+  CoyoteTime: 0.2
   AddForceJumps: 0
   AddForceWallJumps: 0
   AddForceDashs: 0

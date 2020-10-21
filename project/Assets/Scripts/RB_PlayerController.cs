@@ -15,6 +15,7 @@ public class RB_PlayerController : MonoBehaviour
     public float JumpForce = 5;
     public int MidAirJumps = 1;
     public int MidAirDashs = 1;
+    public float CoyoteTime = 0.2f;
     public bool AddForceJumps;
     public bool AddForceWallJumps;
     public bool AddForceDashs;
@@ -37,8 +38,10 @@ public class RB_PlayerController : MonoBehaviour
     private GameController gc;
     private bool constraintToggle = false;
     
-    private bool stuned;
-    
+    private bool stuned = false;
+    private bool grounded = true;
+
+    private float timer;
 
     private Color activeColour;
     private Color inactiveColour;
@@ -162,8 +165,9 @@ public class RB_PlayerController : MonoBehaviour
             {
                 rb.velocity = VelocityOverride(Jumpdir * JumpForce, rb.velocity);
             }
+            grounded = false;
         }
-        else if (jumps > 0 || isGrounded())
+        else if (jumps > 0 || grounded)
         {
             Vector3 Jumpdir = Vector3.up;
             if (AddForceJumps)
@@ -174,7 +178,11 @@ public class RB_PlayerController : MonoBehaviour
             {
                 rb.velocity = VelocityOverride(Jumpdir * JumpForce, rb.velocity);
             }
-            jumps--;
+            if (!grounded)
+            {
+                jumps--;
+            }
+            grounded = false;
         }
 
     }
@@ -192,11 +200,25 @@ public class RB_PlayerController : MonoBehaviour
         }
         pickup = !pickup;
     }
-
     private void Update()
     {
-        rb.AddForce(moveDir * Speed * SpeedBoost);
-        if (isGrounded() && (jumps < MidAirJumps || dashs < MidAirDashs))
+        if (!isGrounded())
+        {
+            timer += Time.deltaTime;
+            if (timer >= CoyoteTime)
+            {
+                grounded = false;
+            }
+        }
+        else
+        {
+            if (Controls.Player.Jump.phase != UnityEngine.InputSystem.InputActionPhase.Performed)
+            {
+                timer = 0;
+                grounded = true;
+            }           
+        }
+        if (grounded && (jumps < MidAirJumps || dashs < MidAirDashs))
         {
             jumps = MidAirJumps;
             dashs = MidAirDashs;
@@ -204,7 +226,7 @@ public class RB_PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (isGrounded())
+        if (grounded)
         {
             Speed = GroundSpeed;
         }
@@ -217,6 +239,8 @@ public class RB_PlayerController : MonoBehaviour
         {
             rb.velocity = Vector3.Normalize(rb.velocity) * VelocityCap;
         }
+        rb.AddForce(moveDir * Speed * SpeedBoost);
+
     }
 
     private void OnDisable()
@@ -232,9 +256,9 @@ public class RB_PlayerController : MonoBehaviour
     bool isGrounded()
     {
         RaycastHit hit;
-        return Physics.Raycast(transform.position, -Vector3.up, out hit, distToGround+0.1f) && !BlackListCheck(hit);
+        return Physics.Raycast(transform.position, -Vector3.up, out hit, distToGround) && !BlackListCheck(hit);
     }
-    
+
     Vector3 detectWall()
     {
         RaycastHit hit;
@@ -356,7 +380,7 @@ public class RB_PlayerController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (isGrounded())
+        if (grounded)
         {
             Debug.DrawRay(transform.position, Vector3.down, activeColour, distToGround + 0.1f);
         }
