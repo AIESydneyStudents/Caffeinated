@@ -6,7 +6,7 @@ public class WindowQuestPointer : MonoBehaviour
 {
     public Camera cam;
 
-    public Vector3 targetPosition;
+    public GameObject targetObject;
     private RectTransform pointerRectTransform;
 
     private void Awake()
@@ -16,8 +16,8 @@ public class WindowQuestPointer : MonoBehaviour
 
     void Update()
     {
-        float borderSize = 100f;
-        Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(targetPosition);
+        float borderSize = 50f;
+        Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(targetObject.transform.position);
         bool isOffscreen = targetPositionScreenPoint.x <= borderSize || targetPositionScreenPoint.x >= Screen.width - borderSize || targetPositionScreenPoint.y <= borderSize || targetPositionScreenPoint.y >= Screen.height - borderSize;
 
         if (isOffscreen)
@@ -25,10 +25,8 @@ public class WindowQuestPointer : MonoBehaviour
             RotatePointerTowardsTargetPosition();
             
             Vector3 cappedTargetScreenPosition = targetPositionScreenPoint;
-            if (cappedTargetScreenPosition.x <= borderSize) cappedTargetScreenPosition.x = borderSize;
-            if (cappedTargetScreenPosition.x >= Screen.width - borderSize) cappedTargetScreenPosition.x = Screen.width - borderSize;
-            if (cappedTargetScreenPosition.y <= borderSize) cappedTargetScreenPosition.y = borderSize;
-            if (cappedTargetScreenPosition.y >= Screen.height - borderSize) cappedTargetScreenPosition.y = Screen.height - borderSize;
+            cappedTargetScreenPosition.x = Mathf.Clamp(cappedTargetScreenPosition.x, borderSize, Screen.width - borderSize);
+            cappedTargetScreenPosition.y = Mathf.Clamp(cappedTargetScreenPosition.y, borderSize, Screen.height - borderSize);
 
             Vector3 pointerWorldPosition = cam.ScreenToWorldPoint(cappedTargetScreenPosition);
             pointerRectTransform.position = pointerWorldPosition;
@@ -55,7 +53,7 @@ public class WindowQuestPointer : MonoBehaviour
 
     private void RotatePointerTowardsTargetPosition()
     {
-        Vector3 toPosition = targetPosition;
+        Vector3 toPosition = targetObject.transform.position;
         Vector3 fromPosition = Camera.main.transform.position;
         fromPosition.z = 0f;
         Vector3 dir = (toPosition - fromPosition).normalized;
