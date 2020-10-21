@@ -6903,7 +6903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score: 0
-  LevelTime: 0
+  LevelTime: 61
   ScoreBoard: {fileID: 2100396219}
   Timer: {fileID: 261741352}
   curTime: 0
