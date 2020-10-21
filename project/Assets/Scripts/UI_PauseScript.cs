@@ -7,6 +7,7 @@ public class UI_PauseScript : MonoBehaviour
 {
     public static bool isPaused = false;
     public GameObject pauseMenuUI;
+    public GameObject TimerIncrease;
     //public AudioSource sound;
 
     // Update is called once per frame
@@ -29,6 +30,7 @@ public class UI_PauseScript : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+        TimerIncrease.SetActive(true);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -58,6 +60,7 @@ public class UI_PauseScript : MonoBehaviour
         Cursor.visible = true;
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
+        TimerIncrease.SetActive(false);
         isPaused = true;
     }
 
