@@ -11,20 +11,9 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI Timer;
 
     public float curTime;
-
-    private GameObject player;
     // Start is called before the first frame update
     void Start()
     {
-        if (GameObject.FindGameObjectWithTag("Player") != null)
-        {
-            player = GameObject.FindGameObjectWithTag("Player");
-        }
-        else
-        {
-            Debug.LogError("Add add an object witht he player tag into the scene");
-        }
-        
         UpdateScoreBoard(0);
         curTime = LevelTime;
     }
@@ -33,7 +22,10 @@ public class GameController : MonoBehaviour
     void Update()
     {
         curTime -= Time.deltaTime;
-        UpdateTimer();
+        if (curTime >= 0)
+        {
+            UpdateTimer();
+        } 
     }
     public void UpdateScoreBoard(int points)
     {
@@ -42,11 +34,6 @@ public class GameController : MonoBehaviour
     }
     private void UpdateTimer()
     {
-        if (curTime <= 0)
-        {
-            GameOver();
-            return;
-        }
         int seconds = (int)curTime % 60;
         int minutes = (int)(curTime / 60) % 60;
 
@@ -66,9 +53,5 @@ public class GameController : MonoBehaviour
             curTime = 0f;
         }
         UpdateTimer();
-    }
-    void GameOver()
-    {
-        
     }
 }

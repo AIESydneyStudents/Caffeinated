@@ -37,12 +37,12 @@ public class RB_PlayerController : MonoBehaviour
     private bool pickup = true;
     private GameController gc;
     private bool constraintToggle = false;
-    private PhysicMaterial PP;
     
     private bool stuned = false;
     private bool grounded = true;
 
     private float timer;
+
     private Color activeColour;
     private Color inactiveColour;
 
@@ -58,7 +58,6 @@ public class RB_PlayerController : MonoBehaviour
         Controls.Debug.toggle2D.performed += _ => Toggle2D_performed();
 
         rb = GetComponent<Rigidbody>();
-        PP = GetComponent<CapsuleCollider>().material;
         rbConstraints = rb.constraints;
         distToGround = GetComponent<Collider>().bounds.extents.y;
         distToWall = GetComponent<Collider>().bounds.extents.x;
@@ -121,10 +120,6 @@ public class RB_PlayerController : MonoBehaviour
                 if (rb.velocity.y * DashDir.y < 0)
                 {
                     rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-                }
-                if (rb.velocity.z * DashDir.z < 0)
-                {
-                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0);
                 }
                 rb.AddForce(DashDir * DashForce, ForceMode.VelocityChange);
             }
