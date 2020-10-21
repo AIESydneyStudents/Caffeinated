@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
     public void UpdateScoreBoard(int points)
     {
         Score += points;
-        ScoreBoard.text = "Score: " + Score;
+        ScoreBoard.text = "SCORE: " + Score;
     }
     private void UpdateTimer()
     {

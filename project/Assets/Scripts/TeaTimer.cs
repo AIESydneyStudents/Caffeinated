@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class TeaTimer : MonoBehaviour
 {
-    public Color targetColor = new Color(0, 0, 1, 1);
+    public Color targetColour = new Color(0, 0, 1, 1);
     public float durationInSeconds = 0f;
 
     private Material materialToChange;
     private Color startingColour;
-    private GameObject gameController;
+    private GameController gameControllerScript;
+    public GameObject gameController;
 
     // Start is called before the first frame update
     void Start()
@@ -18,12 +19,34 @@ public class TeaTimer : MonoBehaviour
         //materialToChange = gameObject.GetComponent<Renderer>().material;
         materialToChange = gameObject.GetComponent<Image>().material;
         startingColour = materialToChange.color;
+        gameControllerScript = gameController.GetComponent<GameController>();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        StartCoroutine(LerpFunction(targetColor, durationInSeconds));
+        //StartCoroutine(LerpFunction(targetColour, durationInSeconds));
+
+        //Get percentage
+        float percentage = ((gameControllerScript.curTime / gameControllerScript.LevelTime) * 100);
+        float time = 0f;
+
+        //Validation
+        if (percentage > 100)
+        {
+            percentage = 100;
+        }
+
+        if (percentage < 0)
+        {
+            // This is here until I fix how I mannage current time
+            percentage = 0;
+        }
+
+        //Change Material
+        materialToChange.color = Color.Lerp(targetColour, startingColour, percentage / gameControllerScript.LevelTime);
+       // materialToChange.color = Color.Lerp(targetColour, materialToChange.color, percentage / gameControllerScript.LevelTime);
+        time += Time.deltaTime;
     }
 
     private void OnDestroy()
