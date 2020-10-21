@@ -17,6 +17,10 @@ public class CameraFollow : MonoBehaviour
     {
         Controls = new PlayerControls();
         offset = offset3D;
+        if (target == null)
+        {
+            Debug.LogError("Give Camera a target");
+        }
     }
     private void OnEnable()
     {
