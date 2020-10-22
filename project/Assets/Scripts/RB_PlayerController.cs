@@ -378,6 +378,8 @@ public class RB_PlayerController : MonoBehaviour
                 child.DistroyObject();
                 //Speed -= ForceBoost;
                 //rb.mass -= MassBoost;
+                other.gameObject.GetComponent<Renderer>().material.color = activeColour;
+                
             }
         }
         if (other.tag == "MovingPlatform")
