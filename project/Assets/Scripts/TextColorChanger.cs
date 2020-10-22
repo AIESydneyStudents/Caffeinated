@@ -5,7 +5,7 @@ using TMPro;
 
 public class TextColorChanger : MonoBehaviour
 {
-    public TextMeshProUGUI timerIncrease;
+    public TextMeshProUGUI textToChange;
     public float timeToChange = 0.2f;
     private float timeSinceChange = 0f;
 
@@ -13,7 +13,7 @@ public class TextColorChanger : MonoBehaviour
     {
         timeSinceChange += Time.deltaTime;
 
-        if(timerIncrease != null && timeSinceChange >= timeToChange)
+        if(textToChange != null && timeSinceChange >= timeToChange)
         {
             Color newColor = new Color(
                 Random.value,
@@ -21,7 +21,7 @@ public class TextColorChanger : MonoBehaviour
                 Random.value
                 );
 
-            timerIncrease.color = newColor;
+            textToChange.color = newColor;
             timeSinceChange = 0f;
         }
     }
