@@ -16,7 +16,7 @@ public class LR_MovingPlatform : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // Go to first point
         if (points.Length != 0)
