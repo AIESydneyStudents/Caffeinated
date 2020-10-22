@@ -9,7 +9,7 @@ public class SpawnerManager : MonoBehaviour
     public Vector3 offset = new Vector3(0.4f, 0.1f, 0.3f);
 
     private int index = 0;
-    private int emptySpawners = 4;
+    private int emptySpawners = 0;
     
     
     //// Start is called before the first frame update
@@ -21,13 +21,13 @@ public class SpawnerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //for (int i = 0; i < spawners.Length; i++)
-        //{
-        //    if (!spawners[i].transform.Find(itemToBeSpawned.name + "(Clone)"))
-        //    {
-        //        emptySpawners++;
-        //    }
-        //}
+        for (int i = 0; i < spawners.Length; i++)
+        {
+            if (!spawners[i].transform.Find(itemToBeSpawned.name + "(Clone)"))
+            {
+                emptySpawners++;
+            }
+        }
 
         if (emptySpawners == spawners.Length)
         {
