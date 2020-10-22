@@ -27,7 +27,7 @@ public class RB_PlayerController : MonoBehaviour
 
     private PlayerControls Controls;
     private float Speed;
-    private Vector3 moveDir;
+    public Vector3 moveDir;
     private int jumps;
     private int dashs;
     private float distToGround;
@@ -39,7 +39,7 @@ public class RB_PlayerController : MonoBehaviour
     private bool constraintToggle = false;
     
     private bool stuned = false;
-    private bool grounded = true;
+    public bool grounded = true;
 
     private float timer;
 
@@ -235,10 +235,41 @@ public class RB_PlayerController : MonoBehaviour
             rb.AddForce(Vector3.down * (9.81f * (GravMultiplyer - 1)));
             Speed = AirSpeed;
         }
-        if (Vector3.Distance(rb.velocity, new Vector3(0, 0, 0)) > VelocityCap)
+        // Velocity Cap
+        if (rb.velocity.x > VelocityCap)
         {
-            rb.velocity = Vector3.Normalize(rb.velocity) * VelocityCap;
+            Vector3 newVelocity = new Vector3(VelocityCap, 0, 0);
+            rb.velocity = VelocityOverride(newVelocity, rb.velocity);
         }
+        if (rb.velocity.x < -VelocityCap)
+        {
+            Vector3 newVelocity = new Vector3(-VelocityCap, 0, 0);
+            rb.velocity = VelocityOverride(newVelocity, rb.velocity);
+        }
+        if (rb.velocity.y > VelocityCap)
+        {
+            Vector3 newVelocity = new Vector3(0, VelocityCap, 0);
+            rb.velocity = VelocityOverride(newVelocity, rb.velocity);
+        }
+        if (rb.velocity.y < -VelocityCap)
+        {
+            Vector3 newVelocity = new Vector3(0, -VelocityCap, 0);
+            rb.velocity = VelocityOverride(newVelocity, rb.velocity);
+        }
+        if (rb.velocity.z > VelocityCap)
+        {
+            Vector3 newVelocity = new Vector3(0, 0, VelocityCap);
+            rb.velocity = VelocityOverride(newVelocity, rb.velocity);
+        }
+        if (rb.velocity.z < -VelocityCap)
+        {
+            Vector3 newVelocity = new Vector3(0, 0, -VelocityCap);
+            rb.velocity = VelocityOverride(newVelocity, rb.velocity);
+        }
+        //if (Vector3.Distance(rb.velocity, new Vector3(0, 0, 0)) > VelocityCap)
+        //{
+        //    rb.velocity = Vector3.Normalize(rb.velocity) * VelocityCap;
+        //}
         rb.AddForce(moveDir * Speed * SpeedBoost);
 
     }
@@ -294,7 +325,7 @@ public class RB_PlayerController : MonoBehaviour
         }
         return false;
     }
-    private Vector3 VelocityOverride(Vector3 dir, Vector3 rbv)
+    public Vector3 VelocityOverride(Vector3 dir, Vector3 rbv)
     {
         Vector3 result = new Vector3(0, 0, 0);
         // Set x
