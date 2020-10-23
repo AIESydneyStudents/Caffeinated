@@ -79,6 +79,7 @@ public class SpawnerManager : MonoBehaviour
             }
             else
             {
+                Debug.Log("Tea not here");
                 emptySpawners++;
             }
         }
