@@ -7,26 +7,57 @@ public class SpawnerManager : MonoBehaviour
     public GameObject[] spawners;
     public GameObject itemToBeSpawned;
     public Vector3 offset = new Vector3(0.4f, 0.1f, 0.3f);
+    public WindowQuestPointer windowQuestPointer;
 
     private int index = 0;
     private int emptySpawners = 0;
+    private DestroyCollectable destroyCollectable;
 
+    private bool teaSpawner;
+    private bool powerUpSpawner;
+    private bool customerSpawner;
 
-    //// Start is called before the first frame update
-    //void Start()
-    //{
+    private void Start()
+    {
+        destroyCollectable = GameObject.Find("Player").GetComponent<DestroyCollectable>();
 
-    //}
+        if (itemToBeSpawned.name == "TeaBag")
+        {
+            teaSpawner = true;
+        }
+        else if (itemToBeSpawned.name == "PowerUp")
+        {
+            powerUpSpawner = true;
+        }
+        else if (itemToBeSpawned.name == "Customer")
+        {
+            customerSpawner = true;
+        }
+    }
 
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < spawners.Length; i++)
+        if (teaSpawner)
         {
-            if (!spawners[i].transform.Find(itemToBeSpawned.name + "(Clone)"))
-            {
-                emptySpawners++;
-            }
+            SpawnTea();
+        }
+        else if (powerUpSpawner)
+        {
+            SpawnPowerUp();
+        }
+        else if (customerSpawner)
+        {
+            SpawnCustomer();
+        }
+
+        if (GameObject.Find("TeaBag(Clone)"))
+        {
+            windowQuestPointer.Show(GameObject.FindGameObjectWithTag("Collectable"));
+        }
+        else if (GameObject.Find("Customer(Clone)"))
+        {
+            windowQuestPointer.Show(GameObject.FindGameObjectWithTag("Customer"));
         }
 
         if (emptySpawners == spawners.Length)
@@ -34,6 +65,52 @@ public class SpawnerManager : MonoBehaviour
             // Generate a random number between 0 and the length of the spawners array
             index = Random.Range(0, spawners.Length);
             Instantiate(itemToBeSpawned, spawners[index].transform.position + offset, Quaternion.identity);
+            emptySpawners = 0;
+        }
+    }
+
+    private void SpawnTea()
+    {
+        for (int i = 0; i < spawners.Length; i++)
+        {
+            if (GameObject.Find(itemToBeSpawned.name + "(Clone)") || destroyCollectable.teaBags > 0)
+            {
+                break;
+            }
+            else
+            {
+                emptySpawners++;
+            }
+        }
+    }
+
+    private void SpawnPowerUp()
+    {
+        for (int i = 0; i < spawners.Length; i++)
+        {
+            if (GameObject.Find(itemToBeSpawned.name + "(Clone)"))
+            {
+                break;
+            }
+            else
+            {
+                emptySpawners++;
+            }
+        }
+    }
+
+    private void SpawnCustomer()
+    {
+        for (int i = 0; i < spawners.Length; i++)
+        {
+            if (GameObject.Find(itemToBeSpawned.name + "(Clone)"))
+            {
+                break;
+            }
+            else
+            {
+                emptySpawners++;
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ public class WindowQuestPointer : MonoBehaviour
     private void Awake()
     {
         pointerRectTransform = transform.Find("Pointer").GetComponent<RectTransform>();
+        targetObject = GameObject.FindGameObjectWithTag("Collectable");
     }
 
     void Update()
@@ -59,5 +60,16 @@ public class WindowQuestPointer : MonoBehaviour
         Vector3 dir = (toPosition - fromPosition).normalized;
         float angle = GetAngleFromVectorFloat(dir);
         pointerRectTransform.localEulerAngles = new Vector3(0, 0, angle);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void Show(GameObject targetObject)
+    {
+        gameObject.SetActive(true);
+        this.targetObject = targetObject;
     }
 }
