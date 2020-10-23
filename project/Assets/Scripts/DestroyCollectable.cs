@@ -26,6 +26,7 @@ public class DestroyCollectable : MonoBehaviour
         {
             Destroy(collision.gameObject);
             teaBags++;
+            gameController.AddTime(5f);
         }
     }
 
@@ -36,6 +37,7 @@ public class DestroyCollectable : MonoBehaviour
             gameController.UpdateScoreBoard(teaBags);
             teaBags = 0;
             other.gameObject.GetComponent<Renderer>().material.color = new Color(0, 1, 0);
+            gameController.AddTime(15f);
             StartCoroutine(DisappearCustomer(other.gameObject));
         }
     }
