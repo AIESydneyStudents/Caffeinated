@@ -290,13 +290,13 @@ public class RB_PlayerController : MonoBehaviour
     bool isGrounded()
     {
         RaycastHit hit;
-        if (Physics.SphereCast(transform.position, 0.5f, -Vector3.up, out hit, distToGround/2 + 0.1f) && !BlackListCheck(hit))
+        if (Physics.SphereCast(transform.position, 0.5f, -Vector3.up, out hit, distToGround/2 + 0.5f) && !BlackListCheck(hit))
         {
             curHitObject = hit.transform.gameObject;
             currentHitDistance = hit.distance;
             return true;
         }
-        currentHitDistance = distToGround/2 + 0.1f;
+        currentHitDistance = distToGround/2 + 0.5f;
         curHitObject = null;
         return false;
         //return Physics.Raycast(transform.position, -Vector3.up, out hit, distToGround) && !BlackListCheck(hit);
