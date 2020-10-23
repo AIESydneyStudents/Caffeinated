@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class RB_PlayerController : MonoBehaviour
 {
+    //Debugging
+    public GameObject curHitObject;
+    private float currentHitDistance;
+
     public float GroundSpeed = 1;
     public float AirSpeed = 1;
     public float GravMultiplyer = 1;
@@ -286,7 +290,16 @@ public class RB_PlayerController : MonoBehaviour
     bool isGrounded()
     {
         RaycastHit hit;
-        return Physics.Raycast(transform.position, -Vector3.up, out hit, distToGround) && !BlackListCheck(hit);
+        if (Physics.SphereCast(transform.position, 0.5f, -Vector3.up, out hit, distToGround/2 + 0.1f) && !BlackListCheck(hit))
+        {
+            curHitObject = hit.transform.gameObject;
+            currentHitDistance = hit.distance;
+            return true;
+        }
+        currentHitDistance = distToGround/2 + 0.1f;
+        curHitObject = null;
+        return false;
+        //return Physics.Raycast(transform.position, -Vector3.up, out hit, distToGround) && !BlackListCheck(hit);
     }
 
     Vector3 detectWall()
@@ -433,6 +446,12 @@ public class RB_PlayerController : MonoBehaviour
             Debug.DrawRay(transform.position, Vector3.right, inactiveColour, distToGround + 0.1f);
         }
         
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Debug.DrawLine(transform.position, transform.position + Vector3.down * currentHitDistance);
+        Gizmos.DrawWireSphere(transform.position + Vector3.down * currentHitDistance, 0.5f);
     }
     IEnumerator Hit()
     {
