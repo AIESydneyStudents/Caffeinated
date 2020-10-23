@@ -9,8 +9,8 @@ public class RB_PlayerController : MonoBehaviour
     public float GravMultiplyer = 1;
     public float VelocityCap = 50;
     public float PickupBonusTime = 5f;
-    private float ForceBoost = 0.8f;
-    private float MassBoost = 0.1f;
+    //private float ForceBoost = 0.8f;
+    //private float MassBoost = 0.1f;
     public float DashForce = 10;
     public float JumpForce = 5;
     public int MidAirJumps = 1;
@@ -42,6 +42,7 @@ public class RB_PlayerController : MonoBehaviour
     public bool grounded = true;
 
     private float timer;
+    private List<GameObject> Colectables; 
 
     private Color activeColour;
     private Color inactiveColour;
@@ -57,6 +58,7 @@ public class RB_PlayerController : MonoBehaviour
         Controls.Player.Slam.performed += _ => Slam();
         Controls.Debug.toggle2D.performed += _ => Toggle2D_performed();
 
+        Colectables = new List<GameObject>();
         rb = GetComponent<Rigidbody>();
         rbConstraints = rb.constraints;
         distToGround = GetComponent<Collider>().bounds.extents.y;
@@ -189,14 +191,11 @@ public class RB_PlayerController : MonoBehaviour
 
     private void Drop()
     {
-        int CC = transform.childCount;
-        for (int i = 0; i < CC; i++)
+        foreach (GameObject colectable in Colectables)
         {
-            GameObject child = transform.GetChild(0).gameObject;
-            child.transform.parent = null;
-            child.AddComponent<Rigidbody>();
-            Speed -= ForceBoost;
-            rb.mass -= MassBoost;
+            colectable.transform.parent = null;
+            colectable.AddComponent<Rigidbody>();
+            colectable.AddComponent<MeshCollider>();
         }
         pickup = !pickup;
     }
@@ -371,16 +370,12 @@ public class RB_PlayerController : MonoBehaviour
     {
         if (other.tag == "Customer" && transform.childCount > 0)
         {
-            int CC = transform.childCount;
-            for (int i = 0; i < CC; i++)
+            foreach (GameObject colectable in Colectables)
             {
-                Collectablefix child = transform.GetChild(0).gameObject.GetComponent<Collectablefix>();
-                child.DistroyObject();
-                //Speed -= ForceBoost;
-                //rb.mass -= MassBoost;
-                other.gameObject.GetComponent<Renderer>().material.color = activeColour;
-                
+                colectable.GetComponent<Collectablefix>().DistroyObject();
             }
+            Colectables.Clear();
+            other.gameObject.GetComponent<Renderer>().material.color = activeColour;
         }
         if (other.tag == "MovingPlatform")
         {
@@ -404,10 +399,12 @@ public class RB_PlayerController : MonoBehaviour
             if (collision.transform.GetComponent<Rigidbody>() != null)
             {
                 Destroy(collision.transform.GetComponent<Rigidbody>());
+                Destroy(collision.transform.GetComponent<MeshCollider>());
             }
             //Speed += ForceBoost;
             //rb.mass += MassBoost;
             gc.AddTime(PickupBonusTime);
+            Colectables.Add(collision.gameObject);
         }
     }
 
