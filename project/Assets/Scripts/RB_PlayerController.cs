@@ -7,6 +7,9 @@ public class RB_PlayerController : MonoBehaviour
     //Debugging
     public GameObject curHitObject;
     private float currentHitDistance;
+    public float sphereRadius;
+    private float sphereDistance;
+    private float giveDist = 0.1f;
 
     public float GroundSpeed = 1;
     public float AirSpeed = 1;
@@ -79,6 +82,9 @@ public class RB_PlayerController : MonoBehaviour
 
         activeColour = Color.green;
         inactiveColour = Color.red;
+
+        sphereRadius = GetComponent<Collider>().bounds.extents.x;
+        sphereDistance = distToGround - sphereRadius + giveDist;
     }
     private void OnEnable()
     {
@@ -290,13 +296,13 @@ public class RB_PlayerController : MonoBehaviour
     bool isGrounded()
     {
         RaycastHit hit;
-        if (Physics.SphereCast(transform.position, 0.5f, -Vector3.up, out hit, distToGround/2 + 0.5f) && !BlackListCheck(hit))
+        if (Physics.SphereCast(transform.position, sphereRadius, -Vector3.up, out hit, sphereDistance) && !BlackListCheck(hit))
         {
             curHitObject = hit.transform.gameObject;
             currentHitDistance = hit.distance;
             return true;
         }
-        currentHitDistance = distToGround/2 + 0.5f;
+        currentHitDistance = sphereDistance;
         curHitObject = null;
         return false;
         //return Physics.Raycast(transform.position, -Vector3.up, out hit, distToGround) && !BlackListCheck(hit);
@@ -305,19 +311,19 @@ public class RB_PlayerController : MonoBehaviour
     Vector3 detectWall()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.forward, out hit, distToWall + 0.1f) && !BlackListCheck(hit))
+        if (Physics.Raycast(transform.position, Vector3.forward, out hit, distToWall+giveDist) && !BlackListCheck(hit))
         {
             return Vector3.back;
         }
-        if (Physics.Raycast(transform.position, Vector3.back, out hit, distToWall + 0.1f) && !BlackListCheck(hit))
+        if (Physics.Raycast(transform.position, Vector3.back, out hit, distToWall + giveDist) && !BlackListCheck(hit))
         {
             return Vector3.forward;
         }
-        if (Physics.Raycast(transform.position, Vector3.left, out hit, distToWall + 0.1f) && !BlackListCheck(hit))
+        if (Physics.Raycast(transform.position, Vector3.left, out hit, distToWall + giveDist) && !BlackListCheck(hit))
         {
             return Vector3.right;
         }
-        if (Physics.Raycast(transform.position, Vector3.right, out hit, distToWall + 0.1f) && !BlackListCheck(hit))
+        if (Physics.Raycast(transform.position, Vector3.right, out hit, distToWall + giveDist) && !BlackListCheck(hit))
         {
             return Vector3.left;
         }
@@ -423,35 +429,44 @@ public class RB_PlayerController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (grounded)
-        {
-            Debug.DrawRay(transform.position, Vector3.down, activeColour, distToGround + 0.1f);
-        }
+        Color lineColour;
+        //if (grounded)
+        //{
+        //    Debug.DrawRay(transform.position, Vector3.down, activeColour, distToGround + 0.1f);
+        //}
+        //else
+        //{
+        //    Debug.DrawRay(transform.position, Vector3.down, inactiveColour, distToGround + 0.1f);
+        //}
+        if (detectWall() == Vector3.back)
+            lineColour = activeColour;
         else
-        {
-            Debug.DrawRay(transform.position, Vector3.down, inactiveColour, distToGround + 0.1f);
-        }
-        if (detectWall() != new Vector3(0,0,0))
-        {
-            Debug.DrawRay(transform.position, Vector3.forward, activeColour, distToGround + 0.1f);
-            Debug.DrawRay(transform.position, Vector3.back, activeColour, distToGround + 0.1f);
-            Debug.DrawRay(transform.position, Vector3.left, activeColour, distToGround + 0.1f);
-            Debug.DrawRay(transform.position, Vector3.right, activeColour, distToGround + 0.1f);
-        }
+            lineColour = inactiveColour;
+        Debug.DrawRay(transform.position, Vector3.forward, lineColour, distToWall + giveDist);
+
+        if (detectWall() == Vector3.forward)
+            lineColour = activeColour;
         else
-        {
-            Debug.DrawRay(transform.position, Vector3.forward, inactiveColour, distToGround + 0.1f);
-            Debug.DrawRay(transform.position, Vector3.back, inactiveColour, distToGround + 0.1f);
-            Debug.DrawRay(transform.position, Vector3.left, inactiveColour, distToGround + 0.1f);
-            Debug.DrawRay(transform.position, Vector3.right, inactiveColour, distToGround + 0.1f);
-        }
-        
+            lineColour = inactiveColour;
+        Debug.DrawRay(transform.position, Vector3.back, lineColour, distToWall + giveDist);
+
+        if (detectWall() == Vector3.left)
+            lineColour = activeColour;
+        else
+            lineColour = inactiveColour;
+        Debug.DrawRay(transform.position, Vector3.right, lineColour, distToWall + giveDist);
+
+        if (detectWall() == Vector3.right)
+            lineColour = activeColour;
+        else
+            lineColour = inactiveColour;
+        Debug.DrawRay(transform.position, Vector3.left, lineColour, distToWall + giveDist);
     }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Debug.DrawLine(transform.position, transform.position + Vector3.down * currentHitDistance);
-        Gizmos.DrawWireSphere(transform.position + Vector3.down * currentHitDistance, 0.5f);
+        Gizmos.DrawWireSphere(transform.position + Vector3.down * currentHitDistance, sphereRadius);
     }
     IEnumerator Hit()
     {
