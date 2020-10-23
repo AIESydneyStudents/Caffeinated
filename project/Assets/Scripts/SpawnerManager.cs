@@ -21,7 +21,7 @@ public class SpawnerManager : MonoBehaviour
     {
         destroyCollectable = GameObject.Find("Player").GetComponent<DestroyCollectable>();
 
-        if (itemToBeSpawned.name == "TeaBag")
+        if (itemToBeSpawned.CompareTag("Collectable"))
         {
             teaSpawner = true;
         }
@@ -29,7 +29,7 @@ public class SpawnerManager : MonoBehaviour
         {
             powerUpSpawner = true;
         }
-        else if (itemToBeSpawned.name == "Customer")
+        else if (itemToBeSpawned.CompareTag("Customer"))
         {
             customerSpawner = true;
         }
@@ -79,6 +79,7 @@ public class SpawnerManager : MonoBehaviour
             }
             else
             {
+                Debug.Log("Tea not here");
                 emptySpawners++;
             }
         }
