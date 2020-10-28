@@ -5,6 +5,7 @@ using UnityEngine;
 public class BouncePad : MonoBehaviour
 {
     public float BounceForce;
+    public string[] JumpTagBlacklist;
     //private void OnTriggerEnter(Collider other)
     //{
     //    if (other.GetComponent<Rigidbody>() != null)
@@ -14,9 +15,20 @@ public class BouncePad : MonoBehaviour
     //}
     private void OnTriggerStay(Collider other)
     {
-        if (other.GetComponent<Rigidbody>() != null)
+        if (other.GetComponent<Rigidbody>() != null && !BlackListCheck(other.tag))
         {
             other.GetComponent<Rigidbody>().velocity = transform.up * BounceForce;
         }
+    }
+    private bool BlackListCheck(string tag)
+    {
+        foreach (string tags in JumpTagBlacklist)
+        {
+            if (tag == tags)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

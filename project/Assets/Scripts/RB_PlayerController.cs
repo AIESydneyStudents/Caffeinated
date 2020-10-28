@@ -10,6 +10,12 @@ public class RB_PlayerController : MonoBehaviour
     public float sphereRadius;
     private float sphereDistance;
     private float giveDist = 0.1f;
+    public float rotateBuffer = 0.1f;
+
+    public GameObject curHitObjectW;
+    private float currentHitDistanceW;
+    public Vector3 boxHalfExtents;
+    public float boxDistance;
 
     public float GroundSpeed = 1;
     public float AirSpeed = 1;
@@ -85,6 +91,9 @@ public class RB_PlayerController : MonoBehaviour
 
         sphereRadius = GetComponent<Collider>().bounds.extents.x;
         sphereDistance = distToGround - sphereRadius + giveDist;
+
+        boxHalfExtents = new Vector3(0.1f, (distToGround - distToWall) * 2, GetComponent<Collider>().bounds.extents.z);
+        boxDistance = distToWall - boxHalfExtents.x + giveDist;
     }
     private void OnEnable()
     {
@@ -244,6 +253,23 @@ public class RB_PlayerController : MonoBehaviour
             rb.AddForce(Vector3.down * (9.81f * (GravMultiplyer - 1)));
             Speed = AirSpeed;
         }
+        // Rotate based on velocity
+        if (rb.velocity.x > rotateBuffer)
+        {
+            transform.eulerAngles = new Vector3(
+                transform.eulerAngles.x,
+                90,
+                transform.eulerAngles.z
+            );
+        }
+        if (rb.velocity.x < -rotateBuffer)
+        {
+            transform.eulerAngles = new Vector3(
+                transform.eulerAngles.x,
+                -90,
+                transform.eulerAngles.z
+            );
+        }
         // Velocity Cap
         if (rb.velocity.x > VelocityCap)
         {
@@ -307,31 +333,45 @@ public class RB_PlayerController : MonoBehaviour
         return false;
         //return Physics.Raycast(transform.position, -Vector3.up, out hit, distToGround) && !BlackListCheck(hit);
     }
-
     Vector3 detectWall()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.forward, out hit, distToWall+giveDist) && !BlackListCheck(hit))
+        if (Physics.BoxCast(transform.position, boxHalfExtents, transform.forward, out hit, Quaternion.identity, boxDistance) && !BlackListCheck(hit))
         {
-            return Vector3.back;
+            curHitObjectW = hit.transform.gameObject;
+            currentHitDistanceW= hit.distance;
+            return -transform.forward;
         }
-        if (Physics.Raycast(transform.position, Vector3.back, out hit, distToWall + giveDist) && !BlackListCheck(hit))
-        {
-            return Vector3.forward;
-        }
-        if (Physics.Raycast(transform.position, Vector3.left, out hit, distToWall + giveDist) && !BlackListCheck(hit))
-        {
-            return Vector3.right;
-        }
-        if (Physics.Raycast(transform.position, Vector3.right, out hit, distToWall + giveDist) && !BlackListCheck(hit))
-        {
-            return Vector3.left;
-        }
-        else
-        {
-            return new Vector3(0,0,0);
-        }
+        currentHitDistanceW = boxDistance;
+        curHitObjectW = null;
+        return new Vector3(0, 0, 0);
     }
+
+    //Vector3 detectWall()
+    //{
+    //    RaycastHit hit;
+    //    if (Physics.Raycast(transform.position, Vector3.forward, out hit, distToWall+giveDist) && !BlackListCheck(hit))
+    //    {
+    //        return Vector3.back;
+    //    }
+    //    if (Physics.Raycast(transform.position, Vector3.back, out hit, distToWall + giveDist) && !BlackListCheck(hit))
+    //    {
+    //        return Vector3.forward;
+    //    }
+    //    if (Physics.Raycast(transform.position, Vector3.left, out hit, distToWall + giveDist) && !BlackListCheck(hit))
+    //    {
+    //        return Vector3.right;
+    //    }
+    //    if (Physics.Raycast(transform.position, Vector3.right, out hit, distToWall + giveDist) && !BlackListCheck(hit))
+    //    {
+    //        return Vector3.left;
+    //    }
+    //    else
+    //    {
+    //        return new Vector3(0,0,0);
+    //    }
+    //}
+
     private bool BlackListCheck(RaycastHit hit)
     {
         foreach (string tags in JumpTagBlacklist)
@@ -427,46 +467,48 @@ public class RB_PlayerController : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Color lineColour;
-        //if (grounded)
-        //{
-        //    Debug.DrawRay(transform.position, Vector3.down, activeColour, distToGround + 0.1f);
-        //}
-        //else
-        //{
-        //    Debug.DrawRay(transform.position, Vector3.down, inactiveColour, distToGround + 0.1f);
-        //}
-        if (detectWall() == Vector3.back)
-            lineColour = activeColour;
-        else
-            lineColour = inactiveColour;
-        Debug.DrawRay(transform.position, Vector3.forward, lineColour, distToWall + giveDist);
+    //private void OnDrawGizmos()
+    //{
+    //    Color lineColour;
+    //    if (grounded)
+    //    {
+    //        Debug.DrawRay(transform.position, Vector3.down, activeColour, distToGround + 0.1f);
+    //    }
+    //    else
+    //    {
+    //        Debug.DrawRay(transform.position, Vector3.down, inactiveColour, distToGround + 0.1f);
+    //    }
+    //    if (detectWall() == Vector3.back)
+    //        lineColour = activeColour;
+    //    else
+    //        lineColour = inactiveColour;
+    //    Debug.DrawRay(transform.position, Vector3.forward, lineColour, distToWall + giveDist);
 
-        if (detectWall() == Vector3.forward)
-            lineColour = activeColour;
-        else
-            lineColour = inactiveColour;
-        Debug.DrawRay(transform.position, Vector3.back, lineColour, distToWall + giveDist);
+    //    if (detectWall() == Vector3.forward)
+    //        lineColour = activeColour;
+    //    else
+    //        lineColour = inactiveColour;
+    //    Debug.DrawRay(transform.position, Vector3.back, lineColour, distToWall + giveDist);
 
-        if (detectWall() == Vector3.left)
-            lineColour = activeColour;
-        else
-            lineColour = inactiveColour;
-        Debug.DrawRay(transform.position, Vector3.right, lineColour, distToWall + giveDist);
+    //    if (detectWall() == Vector3.left)
+    //        lineColour = activeColour;
+    //    else
+    //        lineColour = inactiveColour;
+    //    Debug.DrawRay(transform.position, Vector3.right, lineColour, distToWall + giveDist);
 
-        if (detectWall() == Vector3.right)
-            lineColour = activeColour;
-        else
-            lineColour = inactiveColour;
-        Debug.DrawRay(transform.position, Vector3.left, lineColour, distToWall + giveDist);
-    }
+    //    if (detectWall() == Vector3.right)
+    //        lineColour = activeColour;
+    //    else
+    //        lineColour = inactiveColour;
+    //    Debug.DrawRay(transform.position, Vector3.left, lineColour, distToWall + giveDist);
+    //}
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Debug.DrawLine(transform.position, transform.position + Vector3.down * currentHitDistance);
         Gizmos.DrawWireSphere(transform.position + Vector3.down * currentHitDistance, sphereRadius);
+        Debug.DrawLine(transform.position, transform.position + transform.forward * currentHitDistanceW);
+        Gizmos.DrawWireCube(transform.position + transform.forward * currentHitDistanceW, boxHalfExtents);
     }
     IEnumerator Hit()
     {
