@@ -17,7 +17,7 @@ public class JumpPowerUp : MonoBehaviour
     }
     IEnumerator Pickup(Collider player)
     {
-        Instantiate(pickupEffect, transform.position, transform.rotation);
+        pickupEffect.SetActive(true);
 
         RB_PlayerController pc = player.GetComponent<RB_PlayerController>();
         pc.MidAirJumps += MidairJumpsGiven;
