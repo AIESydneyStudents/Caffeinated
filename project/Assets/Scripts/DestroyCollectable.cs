@@ -22,16 +22,23 @@ public class DestroyCollectable : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Collectable") && teaBags < 1)
-        {
-            Destroy(collision.gameObject);
-            teaBags++;
-            gameController.AddTime(5f);
-        }
+        //if (collision.collider.CompareTag("Collectable") && teaBags < 1)
+        //{
+        //    Destroy(collision.gameObject);
+        //    teaBags++;
+        //    gameController.AddTime(5f);
+        //}
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Collectable") && teaBags < 1)
+        {
+            Destroy(other.gameObject);
+            teaBags++;
+            gameController.AddTime(5f);
+        }
+
         if (other.CompareTag("Customer") && teaBags > 0)
         {
             gameController.UpdateScoreBoard(teaBags);
