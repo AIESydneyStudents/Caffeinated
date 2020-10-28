@@ -7,6 +7,7 @@ public class WindowQuestPointer : MonoBehaviour
     public Camera cam;
 
     public GameObject targetObject;
+    public Vector3 offset;
     private RectTransform pointerRectTransform;
 
     private void Awake()
@@ -36,7 +37,7 @@ public class WindowQuestPointer : MonoBehaviour
         else
         {
             Vector3 pointerWorldPosition = cam.ScreenToWorldPoint(targetPositionScreenPoint);
-            pointerRectTransform.position = pointerWorldPosition;
+            pointerRectTransform.position = pointerWorldPosition + offset;
             pointerRectTransform.localPosition = new Vector3(pointerRectTransform.localPosition.x, pointerRectTransform.localPosition.y, 0f);
 
             pointerRectTransform.localEulerAngles = new Vector3(0, 0, -90);
