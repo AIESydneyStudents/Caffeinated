@@ -4769,7 +4769,7 @@ GameObject:
   - component: {fileID: 4066074586903103948}
   m_Layer: 0
   m_Name: PU_Invincible
-  m_TagString: Collectable
+  m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
