@@ -1939,7 +1939,8 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 998979179590468318, guid: bc1d863b930532c49afd72751fd6ffe0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bc1d863b930532c49afd72751fd6ffe0, type: 3}
 --- !u!1001 &303549058
 PrefabInstance:
@@ -2804,7 +2805,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 396340599}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
@@ -11778,6 +11779,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teaBags: 0
+--- !u!65 &1221747289
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221747286}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1237669200
 GameObject:
   m_ObjectHideFlags: 0
