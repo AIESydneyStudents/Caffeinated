@@ -638,10 +638,20 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1456323839040432830, guid: 6903cb051ef605c41bfb8a5d071021ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 1456323839103310232, guid: 6903cb051ef605c41bfb8a5d071021ec,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456323839103310235, guid: 6903cb051ef605c41bfb8a5d071021ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: JumpBlacklist
       objectReference: {fileID: 0}
     - target: {fileID: 1456323839107446674, guid: 6903cb051ef605c41bfb8a5d071021ec,
         type: 3}
@@ -652,6 +662,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456323839107446677, guid: 6903cb051ef605c41bfb8a5d071021ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: JumpBlacklist
       objectReference: {fileID: 0}
     - target: {fileID: 7812171787394179849, guid: 6903cb051ef605c41bfb8a5d071021ec,
         type: 3}
@@ -732,54 +747,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1113073692}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &90348848
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 90348849}
-  - component: {fileID: 90348850}
-  m_Layer: 0
-  m_Name: Obstacles (5)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &90348849
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 90348848}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 70.84, y: 28.5, z: 2.6784592}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1842462907}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &90348850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 90348848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a0fbb6a5b5148c429c6d918210aae1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstacle: {fileID: 5040890808669439844, guid: 70072f5074b38c648b04e0351b7f9274,
-    type: 3}
-  minRangeX: 0
-  maxRangeX: 5
-  timeToRespawn: 4
 --- !u!4 &123349213 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6913611299475558771, guid: 0d034c33db73bd349ba35774699d3576,
@@ -1735,7 +1702,7 @@ PrefabInstance:
     - target: {fileID: 998979179590468317, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
       propertyPath: JumpTagBlacklist.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 998979179590468317, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
@@ -1771,6 +1738,21 @@ PrefabInstance:
         type: 3}
       propertyPath: JumpTagBlacklist.Array.data[3]
       value: Customer
+      objectReference: {fileID: 0}
+    - target: {fileID: 998979179590468317, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: MidAirJumps
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 998979179590468317, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: MidAirDashs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 998979179590468317, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: JumpTagBlacklist.Array.data[4]
+      value: JumpBlacklist
       objectReference: {fileID: 0}
     - target: {fileID: 998979179590468322, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
@@ -5698,6 +5680,11 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1456323839040432830, guid: 6903cb051ef605c41bfb8a5d071021ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 1456323839103310232, guid: 6903cb051ef605c41bfb8a5d071021ec,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8424,6 +8411,11 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1456323839040432830, guid: 6903cb051ef605c41bfb8a5d071021ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 1456323839103310232, guid: 6903cb051ef605c41bfb8a5d071021ec,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9423,6 +9415,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456323839040432830, guid: 6903cb051ef605c41bfb8a5d071021ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1456323839103310232, guid: 6903cb051ef605c41bfb8a5d071021ec,
         type: 3}
@@ -11217,7 +11214,7 @@ MonoBehaviour:
     type: 3}
   minRangeX: 0
   maxRangeX: 0.3
-  timeToRespawn: 3
+  timeToRespawn: 8
 --- !u!1 &1162575773
 GameObject:
   m_ObjectHideFlags: 0
@@ -11457,7 +11454,7 @@ MonoBehaviour:
     type: 3}
   minRangeX: 0
   maxRangeX: 0
-  timeToRespawn: 4
+  timeToRespawn: 9
 --- !u!1 &1186389678
 GameObject:
   m_ObjectHideFlags: 0
@@ -11943,7 +11940,7 @@ MonoBehaviour:
     type: 3}
   minRangeX: 0
   maxRangeX: 15
-  timeToRespawn: 3
+  timeToRespawn: 8.4
 --- !u!4 &1243308929
 Transform:
   m_ObjectHideFlags: 0
@@ -13095,7 +13092,7 @@ MonoBehaviour:
     type: 3}
   minRangeX: 0
   maxRangeX: 15
-  timeToRespawn: 3
+  timeToRespawn: 16
 --- !u!1 &1410474917
 GameObject:
   m_ObjectHideFlags: 0
@@ -14248,6 +14245,11 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1456323839040432830, guid: 6903cb051ef605c41bfb8a5d071021ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 1456323839103310232, guid: 6903cb051ef605c41bfb8a5d071021ec,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14605,6 +14607,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456323839040432830, guid: 6903cb051ef605c41bfb8a5d071021ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1456323839103310232, guid: 6903cb051ef605c41bfb8a5d071021ec,
         type: 3}
@@ -15301,6 +15308,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.y
       value: -0.1635313
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456323839040432830, guid: 6903cb051ef605c41bfb8a5d071021ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1456323839103310232, guid: 6903cb051ef605c41bfb8a5d071021ec,
         type: 3}
@@ -16292,7 +16304,7 @@ MonoBehaviour:
     type: 3}
   minRangeX: 0
   maxRangeX: 5
-  timeToRespawn: 4
+  timeToRespawn: 15
 --- !u!1 &1709819939
 GameObject:
   m_ObjectHideFlags: 0
@@ -17403,7 +17415,6 @@ Transform:
   - {fileID: 1148053814}
   - {fileID: 1184052408}
   - {fileID: 1685855922}
-  - {fileID: 90348849}
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19684,6 +19695,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456323839040432830, guid: 6903cb051ef605c41bfb8a5d071021ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1456323839103310232, guid: 6903cb051ef605c41bfb8a5d071021ec,
         type: 3}
