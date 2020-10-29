@@ -236,6 +236,10 @@ public class RB_PlayerController : MonoBehaviour
                 grounded = true;
             }           
         }
+        if (jumps > MidAirJumps)
+        {
+            jumps = MidAirJumps;
+        }
         if (grounded && (jumps < MidAirJumps || dashs < MidAirDashs))
         {
             jumps = MidAirJumps;

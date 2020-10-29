@@ -54,4 +54,10 @@ public class GameController : MonoBehaviour
         }
         UpdateTimer();
     }
+    private void GameOver()
+    {
+        // GameOver screen apears here
+        // SaveScores
+        // Load High-score sceen
+    }
 }
