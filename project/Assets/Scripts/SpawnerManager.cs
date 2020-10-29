@@ -97,7 +97,6 @@ public class SpawnerManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("SpawnPowerUp Called");
                 emptySpawners++;
             }
         }
