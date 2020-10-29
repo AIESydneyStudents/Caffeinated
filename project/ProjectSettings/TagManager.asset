@@ -12,6 +12,8 @@ TagManager:
   - LR_RightWall
   - MovingPlatform
   - Obstacle
+  - PowerUp
+  - JumpBlacklist
   layers:
   - Default
   - TransparentFX

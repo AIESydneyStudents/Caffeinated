@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 1456323839103310233}
   m_Layer: 0
   m_Name: StartPos
-  m_TagString: Untagged
+  m_TagString: JumpBlacklist
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 1456323839107446675}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: JumpBlacklist
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

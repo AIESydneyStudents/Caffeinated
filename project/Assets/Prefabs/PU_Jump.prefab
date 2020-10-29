@@ -4769,7 +4769,7 @@ GameObject:
   - component: {fileID: 3084101445783621118}
   m_Layer: 0
   m_Name: PU_Jump
-  m_TagString: Untagged
+  m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4861,6 +4861,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04067e55d3c71a4a87595d3d6aa57cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MidairJumpsGiven: 1
+  MidairJumpsGiven: 100
   duration: 4
   pickupEffect: {fileID: 1163317285406053285}

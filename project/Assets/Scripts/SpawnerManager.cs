@@ -25,7 +25,7 @@ public class SpawnerManager : MonoBehaviour
         {
             teaSpawner = true;
         }
-        else if (itemToBeSpawned.name == "PowerUp")
+        else if (itemToBeSpawned.CompareTag("PowerUp"))
         {
             powerUpSpawner = true;
         }
@@ -79,7 +79,6 @@ public class SpawnerManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("Tea not here");
                 emptySpawners++;
             }
         }
@@ -95,6 +94,7 @@ public class SpawnerManager : MonoBehaviour
             }
             else
             {
+                Debug.Log("SpawnPowerUp Called");
                 emptySpawners++;
             }
         }

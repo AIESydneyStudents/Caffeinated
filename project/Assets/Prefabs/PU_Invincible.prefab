@@ -4769,7 +4769,7 @@ GameObject:
   - component: {fileID: 4066074586903103948}
   m_Layer: 0
   m_Name: PU_Invincible
-  m_TagString: Untagged
+  m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4861,5 +4861,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e187010250b7724f8aacf63355fc290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 10
+  duration: 3
   pickupEffect: {fileID: 320662402444102519}

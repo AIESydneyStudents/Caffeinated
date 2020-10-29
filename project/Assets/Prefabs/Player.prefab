@@ -95,6 +95,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f760f2a12935fa44995a2db4034474c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curHitObject: {fileID: 0}
+  sphereRadius: 0.5
+  rotateBuffer: 0.1
+  curHitObjectW: {fileID: 0}
+  boxHalfExtents: {x: 0, y: 0, z: 0}
+  boxDistance: 0
   GroundSpeed: 20
   AirSpeed: 20
   GravMultiplyer: 2
