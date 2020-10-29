@@ -11779,19 +11779,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teaBags: 0
---- !u!65 &1221747289
-BoxCollider:
+--- !u!114 &1221747293
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1221747286}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9fc30c84ead744586be09a40bd0514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetColour: {r: 1, g: 0, b: 0, a: 1}
+  flashes: 10
 --- !u!1 &1237669200
 GameObject:
   m_ObjectHideFlags: 0

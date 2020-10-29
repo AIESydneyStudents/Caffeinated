@@ -28020,7 +28020,7 @@ MonoBehaviour:
   - {fileID: 1499447501}
   - {fileID: 1111111437}
   - {fileID: 219524541}
-  itemToBeSpawned: {fileID: 4066074586903103991, guid: 210bb78c5054ded4abb07118dbe1d366,
+  itemToBeSpawned: {fileID: 3084101445783621119, guid: 4c30ed25ea8b452428f11b69c7c3cda1,
     type: 3}
   offset: {x: 0, y: 1, z: 0}
   windowQuestPointer: {fileID: 2093652678}
