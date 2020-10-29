@@ -12,6 +12,7 @@ TagManager:
   - LR_RightWall
   - MovingPlatform
   - Obstacle
+  - PowerUp
   layers:
   - Default
   - TransparentFX

@@ -25,7 +25,7 @@ public class SpawnerManager : MonoBehaviour
         {
             teaSpawner = true;
         }
-        else if (itemToBeSpawned.name == "PowerUp")
+        else if (itemToBeSpawned.CompareTag("PowerUp"))
         {
             powerUpSpawner = true;
         }
