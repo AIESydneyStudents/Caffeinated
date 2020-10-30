@@ -51,13 +51,16 @@ public class SpawnerManager : MonoBehaviour
             SpawnCustomer();
         }
 
-        if (GameObject.Find("TeaBag(Clone)"))
+        if  (windowQuestPointer != null)
         {
-            windowQuestPointer.Show(GameObject.FindGameObjectWithTag("Collectable"));
-        }
-        else if (GameObject.Find("Customer(Clone)"))
-        {
-            windowQuestPointer.Show(GameObject.FindGameObjectWithTag("Customer"));
+            if (GameObject.Find("TeaBag(Clone)"))
+            {
+                windowQuestPointer.Show(GameObject.FindGameObjectWithTag("Collectable"));
+            }
+            else if (GameObject.Find("Customer(Clone)"))
+            {
+                windowQuestPointer.Show(GameObject.FindGameObjectWithTag("Customer"));
+            }
         }
 
         if (emptySpawners == spawners.Length)
@@ -94,7 +97,6 @@ public class SpawnerManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("SpawnPowerUp Called");
                 emptySpawners++;
             }
         }

@@ -125,4 +125,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Points: 500
-  TimeBonus: 15
+  TimeBonus: 0

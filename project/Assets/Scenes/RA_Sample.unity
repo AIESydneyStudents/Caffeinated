@@ -2849,7 +2849,7 @@ Transform:
   m_LocalScale: {x: 1, y: 9.25, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 36
+  m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &380696283
 GameObject:
@@ -5343,7 +5343,7 @@ Transform:
   m_LocalScale: {x: 2, y: 32, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 33
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!65 &468067380
 BoxCollider:
@@ -25600,7 +25600,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 31
+  m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
 --- !u!1 &861706080
 GameObject:
@@ -26485,11 +26485,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3084101445783621118, guid: 4c30ed25ea8b452428f11b69c7c3cda1,
-        type: 3}
-      propertyPath: MidairJumpsGiven
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 3084101445783621119, guid: 4c30ed25ea8b452428f11b69c7c3cda1,
         type: 3}
       propertyPath: m_Name
@@ -27159,6 +27154,11 @@ PrefabInstance:
       propertyPath: VelocityCap
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 998979179590468318, guid: bc1d863b930532c49afd72751fd6ffe0,
+        type: 3}
+      propertyPath: m_Direction
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 998979179590468322, guid: bc1d863b930532c49afd72751fd6ffe0,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -27626,7 +27626,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 34
+  m_RootOrder: 36
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1086963089
 GameObject:
@@ -28020,7 +28020,7 @@ MonoBehaviour:
   - {fileID: 1499447501}
   - {fileID: 1111111437}
   - {fileID: 219524541}
-  itemToBeSpawned: {fileID: 4066074586903103991, guid: 210bb78c5054ded4abb07118dbe1d366,
+  itemToBeSpawned: {fileID: 3084101445783621119, guid: 4c30ed25ea8b452428f11b69c7c3cda1,
     type: 3}
   offset: {x: 0, y: 1, z: 0}
   windowQuestPointer: {fileID: 2093652678}
@@ -46204,7 +46204,7 @@ PrefabInstance:
     - target: {fileID: 7939146449897219503, guid: b161c91e1919edf4c96fcb0a241914f4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 22
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7939146449897219503, guid: b161c91e1919edf4c96fcb0a241914f4,
         type: 3}
@@ -46657,7 +46657,7 @@ Transform:
   - {fileID: 890564435}
   - {fileID: 2006923841}
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1992253556
 GameObject:

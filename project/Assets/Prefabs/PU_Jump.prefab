@@ -4862,5 +4862,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MidairJumpsGiven: 100
-  duration: 4
+  duration: 1
   pickupEffect: {fileID: 1163317285406053285}
