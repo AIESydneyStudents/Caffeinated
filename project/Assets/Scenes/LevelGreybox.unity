@@ -18535,10 +18535,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb2939fc4a00b2d4dad7e031dd1c8eb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Score: 0
-  LevelTime: 61
+  name: 
+  score: 0
+  LevelTime: 5
   ScoreBoard: {fileID: 2100396219}
   Timer: {fileID: 261741352}
+  GameOverScreen: {fileID: 480406481}
+  GameOverDuration: 2
   curTime: 0
 --- !u!4 &1810754895
 Transform:

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public int Score;
+    public string name;
+    public int score;
     public int LevelTime;
     public TextMeshProUGUI ScoreBoard;
     public TextMeshProUGUI Timer;
@@ -26,28 +28,15 @@ public class GameController : MonoBehaviour
     void Update()
     {
         curTime -= Time.deltaTime;
-        if (curTime >= 0)
-        {
-            UpdateTimer();
-        } 
+        UpdateTimer();
     }
     public void UpdateScoreBoard(int points)
     {
-        Score += points;
-        ScoreBoard.text = "SCORE: " + Score;
+        score += points;
+        ScoreBoard.text = "SCORE: " + score;
     }
     private void UpdateTimer()
     {
-        int seconds = (int)curTime % 60;
-        int minutes = (int)(curTime / 60) % 60;
-
-        string timerString = string.Format("{0:00}:{1:00}", minutes, seconds);
-
-        Timer.text = timerString;
-    }
-    public void AddTime (float bonusTime)
-    {
-        curTime += bonusTime;
         if (curTime >= 3600)
         {
             curTime = 3599f;
@@ -56,25 +45,28 @@ public class GameController : MonoBehaviour
         {
             curTime = 0f;
         }
+        int seconds = (int)curTime % 60;
+        int minutes = (int)(curTime / 60) % 60;
+
+        string timerString = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+        Timer.text = timerString;
+        if (curTime == 0)
+        {
+            GameOver();
+        }
+    }
+    public void AddTime (float bonusTime)
+    {
+        curTime += bonusTime;
         UpdateTimer();
     }
-    IEnumerator GameOver()
+    private void GameOver()
     {
         // GameOver screen apears here
         GameOverScreen.SetActive(true);
         // SaveScores
-
-        // Load High-score sceen
-        yield return new WaitForSeconds(GameOverDuration);
-    }
-    public static void UpdateScore()
-    {
-        using (BinaryWriter writer = new BinaryWriter(File.Open(fileName, FileMode.Create)))
-        {
-            //writer.Write(Score);
-            writer.Write(@"c:\Temp");
-            writer.Write(10);
-            writer.Write(true);
-        }
+        SaveSystem.SavePlayer(this);
+        Destroy(this);
     }
 }
