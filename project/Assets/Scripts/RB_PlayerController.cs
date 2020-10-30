@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class RB_PlayerController : MonoBehaviour
 {
-    //Debugging
-    public GameObject curHitObject;
-    private float currentHitDistance;
-    public float sphereRadius;
-    private float sphereDistance;
     private float giveDist = 0.1f;
     public float rotateBuffer = 0.1f;
+    //Is Grounded check
+    public GameObject curHitObject;
+    private float currentHitDistance;
+    public Vector3 boxHalfExtentsG;
+    public float boxDistanceG;
+    //public float sphereRadius;
+    //private float sphereDistance;
 
+    //Wall Jump check
     public GameObject curHitObjectW;
     private float currentHitDistanceW;
     public Vector3 boxHalfExtents;
@@ -74,8 +77,8 @@ public class RB_PlayerController : MonoBehaviour
         Colectables = new List<GameObject>();
         rb = GetComponent<Rigidbody>();
         rbConstraints = rb.constraints;
-        distToGround = GetComponent<Collider>().bounds.extents.y;
-        distToWall = GetComponent<Collider>().bounds.extents.x;
+        distToGround = GetComponent<BoxCollider>().bounds.extents.y;
+        distToWall = GetComponent<BoxCollider>().bounds.extents.x;
 
         gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         jumps = MidAirJumps;
@@ -89,10 +92,10 @@ public class RB_PlayerController : MonoBehaviour
         activeColour = Color.green;
         inactiveColour = Color.red;
 
-        sphereRadius = GetComponent<Collider>().bounds.extents.x;
-        sphereDistance = distToGround - sphereRadius + giveDist;
+        boxHalfExtentsG = new Vector3(GetComponent<BoxCollider>().bounds.extents.x*2, 0.1f, GetComponent<BoxCollider>().bounds.extents.z*2);
+        boxDistanceG = distToGround - boxHalfExtentsG.y + giveDist;
 
-        boxHalfExtents = new Vector3(0.1f, (distToGround - distToWall) * 2, GetComponent<Collider>().bounds.extents.z);
+        boxHalfExtents = new Vector3(0.1f, (distToGround - distToWall) * 2, GetComponent<BoxCollider>().bounds.extents.z);
         boxDistance = distToWall - boxHalfExtents.x + giveDist;
     }
     private void OnEnable()
@@ -326,13 +329,20 @@ public class RB_PlayerController : MonoBehaviour
     bool isGrounded()
     {
         RaycastHit hit;
-        if (Physics.SphereCast(transform.position, sphereRadius, -Vector3.up, out hit, sphereDistance) && !BlackListCheck(hit))
+        //if (Physics.SphereCast(transform.position, sphereRadius, -Vector3.up, out hit, sphereDistance) && !BlackListCheck(hit))
+        //{
+        //    curHitObject = hit.transform.gameObject;
+        //    currentHitDistance = hit.distance;
+        //    return true;
+        //}
+        if (Physics.BoxCast(transform.position, boxHalfExtentsG, -Vector3.up, out hit, Quaternion.identity, boxDistanceG) && !BlackListCheck(hit))
         {
             curHitObject = hit.transform.gameObject;
             currentHitDistance = hit.distance;
             return true;
         }
-        currentHitDistance = sphereDistance;
+        //currentHitDistance = sphereDistance;
+        currentHitDistance = boxDistanceG;
         curHitObject = null;
         return false;
         //return Physics.Raycast(transform.position, -Vector3.up, out hit, distToGround) && !BlackListCheck(hit);
@@ -470,47 +480,11 @@ public class RB_PlayerController : MonoBehaviour
             Colectables.Add(collision.gameObject);
         }
     }
-
-    //private void OnDrawGizmos()
-    //{
-    //    Color lineColour;
-    //    if (grounded)
-    //    {
-    //        Debug.DrawRay(transform.position, Vector3.down, activeColour, distToGround + 0.1f);
-    //    }
-    //    else
-    //    {
-    //        Debug.DrawRay(transform.position, Vector3.down, inactiveColour, distToGround + 0.1f);
-    //    }
-    //    if (detectWall() == Vector3.back)
-    //        lineColour = activeColour;
-    //    else
-    //        lineColour = inactiveColour;
-    //    Debug.DrawRay(transform.position, Vector3.forward, lineColour, distToWall + giveDist);
-
-    //    if (detectWall() == Vector3.forward)
-    //        lineColour = activeColour;
-    //    else
-    //        lineColour = inactiveColour;
-    //    Debug.DrawRay(transform.position, Vector3.back, lineColour, distToWall + giveDist);
-
-    //    if (detectWall() == Vector3.left)
-    //        lineColour = activeColour;
-    //    else
-    //        lineColour = inactiveColour;
-    //    Debug.DrawRay(transform.position, Vector3.right, lineColour, distToWall + giveDist);
-
-    //    if (detectWall() == Vector3.right)
-    //        lineColour = activeColour;
-    //    else
-    //        lineColour = inactiveColour;
-    //    Debug.DrawRay(transform.position, Vector3.left, lineColour, distToWall + giveDist);
-    //}
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Debug.DrawLine(transform.position, transform.position + Vector3.down * currentHitDistance);
-        Gizmos.DrawWireSphere(transform.position + Vector3.down * currentHitDistance, sphereRadius);
+        Gizmos.DrawWireCube(transform.position + Vector3.down * currentHitDistance, boxHalfExtentsG);
         Debug.DrawLine(transform.position, transform.position + transform.forward * currentHitDistanceW);
         Gizmos.DrawWireCube(transform.position + transform.forward * currentHitDistanceW, boxHalfExtents);
     }

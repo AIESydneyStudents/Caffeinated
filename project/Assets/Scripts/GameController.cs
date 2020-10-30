@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using TMPro;
 
@@ -9,7 +10,10 @@ public class GameController : MonoBehaviour
     public int LevelTime;
     public TextMeshProUGUI ScoreBoard;
     public TextMeshProUGUI Timer;
+    public GameObject GameOverScreen;
+    public float GameOverDuration;
 
+    private const string fileName = "HighScore.dat";
     public float curTime;
     // Start is called before the first frame update
     void Start()
@@ -54,10 +58,23 @@ public class GameController : MonoBehaviour
         }
         UpdateTimer();
     }
-    private void GameOver()
+    IEnumerator GameOver()
     {
         // GameOver screen apears here
+        GameOverScreen.SetActive(true);
         // SaveScores
+
         // Load High-score sceen
+        yield return new WaitForSeconds(GameOverDuration);
+    }
+    public static void UpdateScore()
+    {
+        using (BinaryWriter writer = new BinaryWriter(File.Open(fileName, FileMode.Create)))
+        {
+            //writer.Write(Score);
+            writer.Write(@"c:\Temp");
+            writer.Write(10);
+            writer.Write(true);
+        }
     }
 }
