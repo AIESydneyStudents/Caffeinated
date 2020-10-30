@@ -8,6 +8,7 @@ public class LR_MovingPlatform : MonoBehaviour
     
     public GameObject[] points;
     private int index = 0;
+    public BoxCollider boxCollider;
     
     // Start is called before the first frame update
     void Start()
@@ -41,7 +42,21 @@ public class LR_MovingPlatform : MonoBehaviour
         {
             index++;
         }
+
+        if (other.CompareTag("Player"))
+        {
+            boxCollider.enabled = true;
+        }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            boxCollider.enabled = false;
+        }
+    }
+
     private void OnDrawGizmos()
     {
         //Transform[] xyz = new Transform[path.transform.childCount];
