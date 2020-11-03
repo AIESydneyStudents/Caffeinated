@@ -448,7 +448,7 @@ public class RB_PlayerController : MonoBehaviour
                 colectable.GetComponent<Collectablefix>().DistroyObject();
             }
             Colectables.Clear();
-            other.gameObject.GetComponent<Renderer>().material.color = activeColour;
+            //other.gameObject.GetComponent<Renderer>().material.color = activeColour;
         }
         if (other.tag == "MovingPlatform")
         {

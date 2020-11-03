@@ -8,6 +8,7 @@ public class UI_PauseScript : MonoBehaviour
     public static bool isPaused = false;
     public GameObject pauseMenuUI;
     public GameObject TimerIncrease;
+    
     //public AudioSource sound;
 
     // Update is called once per frame
