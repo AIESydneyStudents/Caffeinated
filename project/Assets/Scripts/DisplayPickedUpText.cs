@@ -5,13 +5,15 @@ using UnityEngine.UI;
 
 public class DisplayPickedUpText : MonoBehaviour
 {
-    public Image pickedUpSprite;
+    public Image speedPickedUp;
+    public Image invincibilityPickedUp;
+    public Image jumpPickedUp;
     public RB_PlayerController playerController;
 
     // Start is called before the first frame update
     void Start()
     {
-        pickedUpSprite.enabled = false;
+        speedPickedUp.enabled = false;
     }
 
     // Update is called once per frame
@@ -19,19 +21,21 @@ public class DisplayPickedUpText : MonoBehaviour
     {
         if (playerController.MidAirJumps > 1)
         {
-            pickedUpSprite.enabled = true;
+            jumpPickedUp.enabled = true;
         }
         else if (playerController.invulnerable == true)
         {
-            pickedUpSprite.enabled = true;
+            invincibilityPickedUp.enabled = true;
         }
         else if (playerController.SpeedBoost > 1)
         {
-            pickedUpSprite.enabled = true;
+            speedPickedUp.enabled = true;
         }
         else
         {
-            pickedUpSprite.enabled = false;
+            jumpPickedUp.enabled = false;
+            invincibilityPickedUp.enabled = false;
+            speedPickedUp.enabled = false;
         }
     }
 }

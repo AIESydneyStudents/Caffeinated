@@ -45,11 +45,11 @@ public class DestroyCollectable : MonoBehaviour
 
         if (other.CompareTag("Customer") && teaBags > 0)
         {
+            displayTimerIncrease.DisplayTime(playerController.PickupBonusTime, teaBags);
             gameController.UpdateScoreBoard(teaBags);
             teaBags = 0;
             other.gameObject.GetComponent<Renderer>().material.color = new Color(0, 1, 0);
             gameController.AddTime(playerController.PickupBonusTime);
-            displayTimerIncrease.DisplayTime(playerController.PickupBonusTime);
             StartCoroutine(DisappearCustomer(other.gameObject));
         }
     }
