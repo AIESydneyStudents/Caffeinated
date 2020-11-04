@@ -8,11 +8,19 @@ public class SpeedPowerUp : MonoBehaviour
     public float duration = 4f;
 
     public GameObject pickupEffect;
+    private DisplayPickedUpText displayPicked;
+
+    private void Start()
+    {
+        displayPicked = GameObject.Find("Canvas").GetComponent<DisplayPickedUpText>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             StartCoroutine(Pickup(other));
+            displayPicked.StartCoroutine(displayPicked.DisplaySpeedPickedUp());
         }
     }
     IEnumerator Pickup(Collider player)

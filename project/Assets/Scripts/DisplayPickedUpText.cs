@@ -17,10 +17,6 @@ public class DisplayPickedUpText : MonoBehaviour
 
     public float interval = 1f;
 
-    private bool jumpCoroutine = false;
-    private bool speedCoroutine = false;
-    private bool invincibilityCoroutine = false;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -29,26 +25,7 @@ public class DisplayPickedUpText : MonoBehaviour
         jumpPickedUp.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (playerController.MidAirJumps > 1 && !jumpCoroutine)
-        {
-            StartCoroutine(DisplayJumpPickedUp());
-        }
-
-        if (playerController.invulnerable == true && !invincibilityCoroutine)
-        {
-            StartCoroutine(DisplayInvincibilityPickedUp());
-        }
-
-        if (playerController.SpeedBoost > 1 && !speedCoroutine)
-        {
-            StartCoroutine(DisplaySpeedPickedUp());
-        }
-    }
-
-    public void ToggleSpeedState()
+    void ToggleSpeedState()
     {
         if (speedPickedUp.IsActive())
         {
@@ -60,7 +37,7 @@ public class DisplayPickedUpText : MonoBehaviour
         }
     }
 
-    public void ToggleInvincibilityState()
+    void ToggleInvincibilityState()
     {
         if (invincibilityPickedUp.IsActive())
         {
@@ -72,7 +49,7 @@ public class DisplayPickedUpText : MonoBehaviour
         }
     }
 
-    public void ToggleJumpState()
+    void ToggleJumpState()
     {
         if (jumpPickedUp.IsActive())
         {
@@ -84,11 +61,10 @@ public class DisplayPickedUpText : MonoBehaviour
         }
     }
 
-    IEnumerator DisplayJumpPickedUp()
+    public IEnumerator DisplayJumpPickedUp()
     {
         float pause = jumpPowerup.duration / 2.0f;
 
-        jumpCoroutine = true;
         jumpPickedUp.enabled = true;
 
         yield return new WaitForSeconds(pause);
@@ -100,14 +76,12 @@ public class DisplayPickedUpText : MonoBehaviour
 
         CancelInvoke();
         jumpPickedUp.enabled = false;
-        jumpCoroutine = false;
     }
 
-    IEnumerator DisplayInvincibilityPickedUp()
+    public IEnumerator DisplayInvincibilityPickedUp()
     {
         float pause = invinciblePowerUp.duration / 2.0f;
 
-        invincibilityCoroutine = true;
         invincibilityPickedUp.enabled = true;
 
         yield return new WaitForSeconds(pause);
@@ -118,14 +92,12 @@ public class DisplayPickedUpText : MonoBehaviour
 
         CancelInvoke();
         invincibilityPickedUp.enabled = false;
-        invincibilityCoroutine = false;
     }
 
-    IEnumerator DisplaySpeedPickedUp()
+    public IEnumerator DisplaySpeedPickedUp()
     {
         float pause = speedPowerUp.duration / 2.0f;
 
-        speedCoroutine = true;
         speedPickedUp.enabled = true;
 
         yield return new WaitForSeconds(pause);
@@ -136,6 +108,5 @@ public class DisplayPickedUpText : MonoBehaviour
 
         CancelInvoke();
         speedPickedUp.enabled = false;
-        speedCoroutine = false;
     }
 }
