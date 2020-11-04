@@ -8,6 +8,9 @@ public class WindowQuestPointer : MonoBehaviour
 
     public GameObject targetObject;
     public Vector3 offset;
+    public Vector3 offscreenOffset;
+    public float xPosForArrowToSwitch;
+    public float yPosForArrowToSwitch;
     private RectTransform pointerRectTransform;
 
     private void Awake()
@@ -31,7 +34,42 @@ public class WindowQuestPointer : MonoBehaviour
             cappedTargetScreenPosition.y = Mathf.Clamp(cappedTargetScreenPosition.y, borderSize, Screen.height - borderSize);
 
             Vector3 pointerWorldPosition = cam.ScreenToWorldPoint(cappedTargetScreenPosition);
-            pointerRectTransform.position = pointerWorldPosition;
+
+            if (pointerRectTransform.position.x > xPosForArrowToSwitch)
+            {
+                // If the x position of the offscreen offset is a positive number then switch it to a negative number
+                if (offscreenOffset.x > 0)
+                {
+                    offscreenOffset.x = -offscreenOffset.x;
+                }
+            }
+            else if (pointerRectTransform.position.x < -xPosForArrowToSwitch)
+            {
+                // If the x position of the offscreen offset is a negative number then switch it to a positive number
+                if (offscreenOffset.x < 0)
+                {
+                    offscreenOffset.x = -offscreenOffset.x;
+                }
+            }
+
+            if (pointerRectTransform.position.y > yPosForArrowToSwitch)
+            {
+                // If the y position of the offscreen offset is a positive number then switch it to a negative number
+                if (offscreenOffset.y > 0)
+                {
+                    offscreenOffset.y = -offscreenOffset.y;
+                }
+            }
+            else if (pointerRectTransform.position.y < -yPosForArrowToSwitch)
+            {
+                // If the y position of the offscreen offset is a negative number then switch it to a positive number
+                if (offscreenOffset.y < 0)
+                {
+                    offscreenOffset.y = -offscreenOffset.y;
+                }
+            }
+
+            pointerRectTransform.position = pointerWorldPosition + offscreenOffset;
             pointerRectTransform.localPosition = new Vector3(pointerRectTransform.localPosition.x, pointerRectTransform.localPosition.y, 0f);
         }
         else
