@@ -8,6 +8,7 @@ public class DisplayPickedUpText : MonoBehaviour
     public Image speedPickedUp;
     public Image invincibilityPickedUp;
     public Image jumpPickedUp;
+    public Image teaPickedUp;
 
     public RB_PlayerController playerController;
 
@@ -23,6 +24,12 @@ public class DisplayPickedUpText : MonoBehaviour
         speedPickedUp.enabled = false;
         invincibilityPickedUp.enabled = false;
         jumpPickedUp.enabled = false;
+        teaPickedUp.enabled = false;
+    }
+
+    private void Update()
+    {
+        
     }
 
     void ToggleSpeedState()
@@ -59,6 +66,11 @@ public class DisplayPickedUpText : MonoBehaviour
         {
             jumpPickedUp.enabled = true;
         }
+    }
+
+    public void ToggleTeaImage()
+    {
+        teaPickedUp.enabled = !teaPickedUp.enabled;
     }
 
     public IEnumerator DisplayJumpPickedUp()
