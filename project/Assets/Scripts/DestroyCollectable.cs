@@ -7,11 +7,14 @@ public class DestroyCollectable : MonoBehaviour
     public int teaBags;
 
     private GameController gameController;
+    private RB_PlayerController playerController;
+    public DisplayTimerIncrease displayTimerIncrease;
     
     // Start is called before the first frame update
     void Start()
     {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<RB_PlayerController>();
     }
 
     // Update is called once per frame
@@ -37,14 +40,16 @@ public class DestroyCollectable : MonoBehaviour
             Destroy(other.gameObject);
             teaBags++;
             gameController.AddTime(5f);
+            displayTimerIncrease.DisplayTime(5f);
         }
 
         if (other.CompareTag("Customer") && teaBags > 0)
         {
+            displayTimerIncrease.DisplayTime(playerController.PickupBonusTime, teaBags);
             gameController.UpdateScoreBoard(teaBags);
             teaBags = 0;
             other.gameObject.GetComponent<Renderer>().material.color = new Color(0, 1, 0);
-            gameController.AddTime(15f);
+            gameController.AddTime(playerController.PickupBonusTime);
             StartCoroutine(DisappearCustomer(other.gameObject));
         }
     }

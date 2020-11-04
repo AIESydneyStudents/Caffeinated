@@ -14,6 +14,8 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI Timer;
     public GameObject GameOverScreen;
     public float GameOverDuration;
+    public GameObject compassCanvas;
+    public RB_PlayerController playerController;
 
     private const string fileName = "HighScore.dat";
     public float curTime;
@@ -65,6 +67,11 @@ public class GameController : MonoBehaviour
     {
         // GameOver screen apears here
         GameOverScreen.SetActive(true);
+        // Turn off compass
+        compassCanvas.SetActive(false);
+
+        playerController.enabled = false;
+        
         // SaveScores
         SaveSystem.SavePlayer(this);
         Destroy(this);

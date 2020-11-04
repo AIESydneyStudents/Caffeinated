@@ -4861,6 +4861,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04067e55d3c71a4a87595d3d6aa57cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MidairJumpsGiven: 100
-  duration: 1
+  MidairJumpsGiven: 1
+  duration: 5
   pickupEffect: {fileID: 1163317285406053285}
