@@ -29,19 +29,32 @@ public class DisplayTimerIncrease : MonoBehaviour
 
     IEnumerator TimeIncrease(float time, float score)
     {
+        float tempTime = time;
         timerIncreaseText.enabled = true;
 
-        if (score > 0)
+        if (score > 0 || score < 0)
         {
             scoreIncreaseText.enabled = true;
         }
 
-        int seconds = (int)time % 60;
-        int minutes = (int)(time / 60) % 60;
+        if (tempTime < 0)
+        {
+            tempTime = -tempTime;
+        }
+
+        int seconds = (int)tempTime % 60;
+        int minutes = (int)(tempTime / 60) % 60;
 
         string timerString = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-        timerIncreaseText.SetText("+" + timerString);
+        if (time < 0)
+        {
+            timerIncreaseText.SetText("-" + timerString);
+        }
+        else
+        {
+            timerIncreaseText.SetText("+" + timerString);
+        }
         scoreIncreaseText.SetText("+" + score);
         yield return new WaitForSeconds(timeToDisplayText);
         timerIncreaseText.enabled = false;
