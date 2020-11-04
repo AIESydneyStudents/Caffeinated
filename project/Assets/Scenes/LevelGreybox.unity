@@ -1700,6 +1700,13 @@ MonoBehaviour:
   invincibilityPickedUp: {fileID: 203356613}
   jumpPickedUp: {fileID: 1080029951}
   playerController: {fileID: 333378785}
+  jumpPowerup: {fileID: 3084101445783621118, guid: 4c30ed25ea8b452428f11b69c7c3cda1,
+    type: 3}
+  invinciblePowerUp: {fileID: 4066074586903103948, guid: 210bb78c5054ded4abb07118dbe1d366,
+    type: 3}
+  speedPowerUp: {fileID: 1599738925593205738, guid: 34f84e9838f054a4094671460fd9bba1,
+    type: 3}
+  interval: 1
 --- !u!114 &210271334
 MonoBehaviour:
   m_ObjectHideFlags: 0

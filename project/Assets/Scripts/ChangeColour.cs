@@ -63,11 +63,5 @@ public class ChangeColour : MonoBehaviour
 
         routines++;
         CR_running = false;
-
-        //materialToChange.color = targetColour;
-
-        //yield return new WaitForSeconds(0.25f);
-
-        //materialToChange.color = startingColour;
     }
 }
