@@ -7,7 +7,7 @@ public static class SaveSystem
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/player.dat";
-        FileStream stream = new FileStream(path, FileMode.Create);
+        FileStream stream = new FileStream(path, FileMode.Append);
 
         PlayerData data = new PlayerData(gc);
 
@@ -15,7 +15,7 @@ public static class SaveSystem
         stream.Close();
     }
 
-    public static PlayerData LoadPlayer ()
+    public static PlayerData[] LoadPlayer ()
     {
         string path = Application.persistentDataPath + "/player.dat";
         if (File.Exists(path))
@@ -23,7 +23,7 @@ public static class SaveSystem
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
 
-            PlayerData data = formatter.Deserialize(stream) as PlayerData;
+            PlayerData[] data = formatter.Deserialize(stream) as PlayerData[];
             stream.Close();
 
             return data;

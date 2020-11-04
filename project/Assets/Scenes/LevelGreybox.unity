@@ -18758,8 +18758,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: 
-  score: 0
-  LevelTime: 5
+  score: 8
+  LevelTime: 10
   ScoreBoard: {fileID: 2100396219}
   Timer: {fileID: 261741352}
   GameOverScreen: {fileID: 480406481}
