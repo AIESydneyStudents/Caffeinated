@@ -1,17 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 public class DisplayPickedUpText : MonoBehaviour
 {
-    public TextMeshProUGUI pickedUpText;
+    public Image pickedUpSprite;
     public RB_PlayerController playerController;
 
     // Start is called before the first frame update
     void Start()
     {
-        pickedUpText.enabled = false;
+        pickedUpSprite.enabled = false;
     }
 
     // Update is called once per frame
@@ -19,22 +19,19 @@ public class DisplayPickedUpText : MonoBehaviour
     {
         if (playerController.MidAirJumps > 1)
         {
-            pickedUpText.enabled = true;
-            pickedUpText.SetText("Jump Power Up Collected");
+            pickedUpSprite.enabled = true;
         }
         else if (playerController.invulnerable == true)
         {
-            pickedUpText.enabled = true;
-            pickedUpText.SetText("Invincibility Power Up Collected");
+            pickedUpSprite.enabled = true;
         }
         else if (playerController.SpeedBoost > 1)
         {
-            pickedUpText.enabled = true;
-            pickedUpText.SetText("Speed Power Up Collected");
+            pickedUpSprite.enabled = true;
         }
         else
         {
-            pickedUpText.enabled = false;
+            pickedUpSprite.enabled = false;
         }
     }
 }

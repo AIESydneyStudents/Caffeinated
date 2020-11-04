@@ -6,11 +6,12 @@ using TMPro;
 public class DisplayTimerIncrease : MonoBehaviour
 {
     public TextMeshProUGUI timerIncreaseText;
+    public float timeToDisplayText;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        timerIncreaseText.enabled = false;
     }
 
     // Update is called once per frame
@@ -27,6 +28,14 @@ public class DisplayTimerIncrease : MonoBehaviour
     IEnumerator TimeIncrease(float time)
     {
         timerIncreaseText.enabled = true;
-        yield return new WaitForSeconds(2f);
+
+        int seconds = (int)time % 60;
+        int minutes = (int)(time / 60) % 60;
+
+        string timerString = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+        timerIncreaseText.SetText("+" + timerString);
+        yield return new WaitForSeconds(timeToDisplayText);
+        timerIncreaseText.enabled = false;
     }
 }
