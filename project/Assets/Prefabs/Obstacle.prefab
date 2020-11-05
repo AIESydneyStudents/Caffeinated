@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c16b4770453c14a8f873f9c96019c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 10
+  lifeTime: 5
   timeLoss: 2
   scoreLoss: 0
+  displayTimerIncrease: {fileID: 0}
