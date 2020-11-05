@@ -34,4 +34,26 @@ public static class SaveSystem
             return null;
         }
     }
+    public static void AddHighScoreEntry(int score, string name)
+    {
+        // Create HighscoreEntry
+        HighscoreEntry highscoreEntry = new HighscoreEntry { score = score, name = name };
+
+        // Load saved HIghscores
+        string jsonString = PlayerPrefs.GetString("highscoreTable");
+        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+        if (highscores == null)
+        {
+            Debug.Log("No HighScores found, creating new list");
+            highscores = new Highscores();
+        }
+
+        // Add new entry to Highscores
+        highscores.highscoreEntryList.Add(highscoreEntry);
+
+        // Save updated Highscores
+        string json = JsonUtility.ToJson(highscores);
+        PlayerPrefs.SetString("highscoreTable", json);
+        PlayerPrefs.Save();
+    }
 }

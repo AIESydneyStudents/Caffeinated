@@ -53,6 +53,10 @@ public class UI_PauseScript : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    public void HighScores()
+    {
+        SceneManager.LoadScene("HighScoreMenu");
+    }
 
     public void Pause()
     {

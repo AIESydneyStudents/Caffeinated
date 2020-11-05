@@ -71,9 +71,9 @@ public class GameController : MonoBehaviour
         compassCanvas.SetActive(false);
 
         playerController.enabled = false;
-        
+
         // SaveScores
-        SaveSystem.SavePlayer(this);
-        Destroy(this);
+        SaveSystem.AddHighScoreEntry(score, name);
+        Destroy(gameObject);
     }
 }
