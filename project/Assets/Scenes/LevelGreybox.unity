@@ -4683,6 +4683,7 @@ MonoBehaviour:
     type: 3}
   offset: {x: 0, y: 2.5, z: 0.3}
   windowQuestPointer: {fileID: 0}
+  numberOfItemsToBeSpawned: 1
 --- !u!1001 &379636668
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12988,6 +12989,7 @@ MonoBehaviour:
     type: 3}
   offset: {x: 0, y: 2.5, z: 0.3}
   windowQuestPointer: {fileID: 0}
+  numberOfItemsToBeSpawned: 1
 --- !u!1 &989789300
 GameObject:
   m_ObjectHideFlags: 0
@@ -15759,6 +15761,7 @@ MonoBehaviour:
     type: 3}
   offset: {x: 0.4, y: 0.5, z: 0.3}
   windowQuestPointer: {fileID: 176895151}
+  numberOfItemsToBeSpawned: 0
 --- !u!4 &1200595428
 Transform:
   m_ObjectHideFlags: 0
@@ -15824,6 +15827,7 @@ MonoBehaviour:
     type: 3}
   offset: {x: 0, y: 2.5, z: 0.3}
   windowQuestPointer: {fileID: 0}
+  numberOfItemsToBeSpawned: 2
 --- !u!1001 &1212299012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17523,6 +17527,7 @@ MonoBehaviour:
     type: 3}
   offset: {x: 0, y: 1, z: 0}
   windowQuestPointer: {fileID: 176895151}
+  numberOfItemsToBeSpawned: 0
 --- !u!1 &1381505479 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7939146449897219411, guid: b161c91e1919edf4c96fcb0a241914f4,
