@@ -18,13 +18,27 @@ public class GameController : MonoBehaviour
     public RB_PlayerController playerController;
     public GameObject pickedUpImages;
 
-    private const string fileName = "HighScore.dat";
+    private PlayerData playerdata;
+    public GameObject tutorialScrene;
+
     public float curTime;
     // Start is called before the first frame update
     void Start()
     {
+        playerdata = SaveSystem.LoadPlayer();
+        if (!playerdata.tutorial)
+        {
+            Tutorial();
+        }
         UpdateScoreBoard(0);
         curTime = LevelTime;
+
+    }
+    void Tutorial()
+    {
+        tutorialScrene.SetActive(true);
+        playerdata.tutorial = true;
+        SaveSystem.SavePlayer(playerdata);
     }
 
     // Update is called once per frame

@@ -5,12 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
-    public string name; // 4 byte address
-    public int score;   // 4 bytes
-    // public float time;
-    public PlayerData (GameController gc)
+    public bool tutorial = false;
+    public PlayerData (bool Tutorial)
     {
-        name = gc.playerName;
-        score = gc.playerScore;
+        tutorial = Tutorial;
     }
 }
