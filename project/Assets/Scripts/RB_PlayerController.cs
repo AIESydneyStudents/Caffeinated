@@ -172,7 +172,7 @@ public class RB_PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (detectWall() != new Vector3(0, 0, 0))
+        if (detectWall() != new Vector3(0, 0, 0) && !grounded)
         {
             Vector3 Jumpdir = Vector3.up + detectWall();
             if (AddForceWallJumps)

@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public string name;
-    public int score;
+    public string playerName;
+    public int playerScore;
     public int LevelTime;
     public TextMeshProUGUI ScoreBoard;
     public TextMeshProUGUI Timer;
@@ -35,8 +35,8 @@ public class GameController : MonoBehaviour
     }
     public void UpdateScoreBoard(int points)
     {
-        score += points;
-        ScoreBoard.text = "SCORE: " + score;
+        playerScore += points;
+        ScoreBoard.text = "SCORE: " + playerScore;
     }
     private void UpdateTimer()
     {
@@ -75,7 +75,7 @@ public class GameController : MonoBehaviour
         playerController.enabled = false;
 
         // SaveScores
-        SaveSystem.AddHighScoreEntry(score, name);
+        SaveSystem.AddHighScoreEntry(playerScore, playerName);
         Destroy(gameObject);
     }
 }

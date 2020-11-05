@@ -10,7 +10,7 @@ public class PlayerData
     // public float time;
     public PlayerData (GameController gc)
     {
-        name = gc.name;
-        score = gc.score;
+        name = gc.playerName;
+        score = gc.playerScore;
     }
 }
