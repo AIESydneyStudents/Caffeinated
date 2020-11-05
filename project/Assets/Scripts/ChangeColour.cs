@@ -8,6 +8,7 @@ public class ChangeColour : MonoBehaviour
     public int flashes;
 
     private Color startingColour;
+    public GameObject playerGameObjectChild;
     private Material materialToChange;
     private RB_PlayerController playerController;
     private int routines;
@@ -18,7 +19,7 @@ public class ChangeColour : MonoBehaviour
 
     private void Start()
     {
-        materialToChange = gameObject.GetComponent<Renderer>().material;
+        materialToChange = playerGameObjectChild.GetComponent<MeshRenderer>().material;
         startingColour = materialToChange.color;
         playerController = gameObject.GetComponent<RB_PlayerController>();
     }
