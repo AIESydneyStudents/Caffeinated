@@ -60,9 +60,6 @@ public class RB_PlayerController : MonoBehaviour
     private float timer;
     private List<GameObject> Colectables; 
 
-    private Color activeColour;
-    private Color inactiveColour;
-
     // Start is called before the first frame update
     private void Awake()
     {
@@ -88,9 +85,6 @@ public class RB_PlayerController : MonoBehaviour
         {
             constraintToggle = true;
         }
-
-        activeColour = Color.green;
-        inactiveColour = Color.red;
 
         boxHalfExtentsG = new Vector3(GetComponent<BoxCollider>().bounds.extents.x*2, 0.1f, GetComponent<BoxCollider>().bounds.extents.z*2);
         boxDistanceG = distToGround - boxHalfExtentsG.y + giveDist;
@@ -448,7 +442,6 @@ public class RB_PlayerController : MonoBehaviour
                 colectable.GetComponent<Collectablefix>().DistroyObject();
             }
             Colectables.Clear();
-            //other.gameObject.GetComponent<Renderer>().material.color = activeColour;
         }
         if (other.tag == "MovingPlatform")
         {

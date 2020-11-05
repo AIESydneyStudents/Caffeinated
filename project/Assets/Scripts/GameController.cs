@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
     public float GameOverDuration;
     public GameObject compassCanvas;
     public RB_PlayerController playerController;
+    public GameObject pickedUpImages;
 
     private const string fileName = "HighScore.dat";
     public float curTime;
@@ -69,6 +70,7 @@ public class GameController : MonoBehaviour
         GameOverScreen.SetActive(true);
         // Turn off compass
         compassCanvas.SetActive(false);
+        pickedUpImages.SetActive(false);
 
         playerController.enabled = false;
 

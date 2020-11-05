@@ -8,6 +8,7 @@ public class DisplayPickedUpText : MonoBehaviour
     public Image speedPickedUp;
     public Image invincibilityPickedUp;
     public Image jumpPickedUp;
+    public Image teaPickedUp;
 
     public RB_PlayerController playerController;
 
@@ -17,38 +18,21 @@ public class DisplayPickedUpText : MonoBehaviour
 
     public float interval = 1f;
 
-    private bool jumpCoroutine = false;
-    private bool speedCoroutine = false;
-    private bool invincibilityCoroutine = false;
-
     // Start is called before the first frame update
     void Start()
     {
         speedPickedUp.enabled = false;
         invincibilityPickedUp.enabled = false;
         jumpPickedUp.enabled = false;
+        teaPickedUp.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (playerController.MidAirJumps > 1 && !jumpCoroutine)
-        {
-            StartCoroutine(DisplayJumpPickedUp());
-        }
-
-        if (playerController.invulnerable == true && !invincibilityCoroutine)
-        {
-            StartCoroutine(DisplayInvincibilityPickedUp());
-        }
-
-        if (playerController.SpeedBoost > 1 && !speedCoroutine)
-        {
-            StartCoroutine(DisplaySpeedPickedUp());
-        }
+        
     }
 
-    public void ToggleSpeedState()
+    void ToggleSpeedState()
     {
         if (speedPickedUp.IsActive())
         {
@@ -60,7 +44,7 @@ public class DisplayPickedUpText : MonoBehaviour
         }
     }
 
-    public void ToggleInvincibilityState()
+    void ToggleInvincibilityState()
     {
         if (invincibilityPickedUp.IsActive())
         {
@@ -72,7 +56,7 @@ public class DisplayPickedUpText : MonoBehaviour
         }
     }
 
-    public void ToggleJumpState()
+    void ToggleJumpState()
     {
         if (jumpPickedUp.IsActive())
         {
@@ -84,11 +68,15 @@ public class DisplayPickedUpText : MonoBehaviour
         }
     }
 
-    IEnumerator DisplayJumpPickedUp()
+    public void ToggleTeaImage()
+    {
+        teaPickedUp.enabled = !teaPickedUp.enabled;
+    }
+
+    public IEnumerator DisplayJumpPickedUp()
     {
         float pause = jumpPowerup.duration / 2.0f;
 
-        jumpCoroutine = true;
         jumpPickedUp.enabled = true;
 
         yield return new WaitForSeconds(pause);
@@ -100,14 +88,12 @@ public class DisplayPickedUpText : MonoBehaviour
 
         CancelInvoke();
         jumpPickedUp.enabled = false;
-        jumpCoroutine = false;
     }
 
-    IEnumerator DisplayInvincibilityPickedUp()
+    public IEnumerator DisplayInvincibilityPickedUp()
     {
         float pause = invinciblePowerUp.duration / 2.0f;
 
-        invincibilityCoroutine = true;
         invincibilityPickedUp.enabled = true;
 
         yield return new WaitForSeconds(pause);
@@ -118,14 +104,12 @@ public class DisplayPickedUpText : MonoBehaviour
 
         CancelInvoke();
         invincibilityPickedUp.enabled = false;
-        invincibilityCoroutine = false;
     }
 
-    IEnumerator DisplaySpeedPickedUp()
+    public IEnumerator DisplaySpeedPickedUp()
     {
         float pause = speedPowerUp.duration / 2.0f;
 
-        speedCoroutine = true;
         speedPickedUp.enabled = true;
 
         yield return new WaitForSeconds(pause);
@@ -136,6 +120,5 @@ public class DisplayPickedUpText : MonoBehaviour
 
         CancelInvoke();
         speedPickedUp.enabled = false;
-        speedCoroutine = false;
     }
 }
