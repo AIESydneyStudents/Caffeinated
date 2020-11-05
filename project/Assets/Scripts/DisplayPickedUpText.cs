@@ -18,9 +18,13 @@ public class DisplayPickedUpText : MonoBehaviour
 
     public float interval = 1f;
 
-    public bool jumpCoroutine;
-    public bool invCoroutine;
-    public bool speedCoroutine;
+    public bool jumpCoroutineStarting;
+    public bool invCoroutineStarting;
+    public bool speedCoroutineStarting;
+
+    private Coroutine jumpCoroutine;
+    private Coroutine invCoroutine;
+    private Coroutine speedCoroutine;
 
     // Start is called before the first frame update
     void Start()
@@ -36,40 +40,34 @@ public class DisplayPickedUpText : MonoBehaviour
         
     }
 
-    void ToggleSpeedState()
+    IEnumerator ToggleSpeedState(float interval)
     {
-        if (speedPickedUp.IsActive())
-        {
-            speedPickedUp.enabled = false;
-        }
-        else
-        {
-            speedPickedUp.enabled = true;
-        }
+        speedPickedUp.enabled = true;
+
+        yield return new WaitForSeconds(interval);
+
+        speedPickedUp.enabled = true;
+        StartCoroutine(ToggleSpeedState(interval));
     }
 
-    void ToggleInvincibilityState()
+    IEnumerator ToggleInvincibilityState(float interval)
     {
-        if (invincibilityPickedUp.IsActive())
-        {
-            invincibilityPickedUp.enabled = false;
-        }
-        else
-        {
-            invincibilityPickedUp.enabled = true;
-        }
+        invincibilityPickedUp.enabled = false;
+
+        yield return new WaitForSeconds(interval);
+
+        invincibilityPickedUp.enabled = true;
+        StartCoroutine(ToggleInvincibilityState(interval));
     }
 
-    void ToggleJumpState()
+    IEnumerator ToggleJumpState(float interval)
     {
-        if (jumpPickedUp.IsActive())
-        {
-            jumpPickedUp.enabled = false;
-        }
-        else
-        {
-            jumpPickedUp.enabled = true;
-        }
+        jumpPickedUp.enabled = false;
+
+        yield return new WaitForSeconds(interval);
+
+        jumpPickedUp.enabled = true;
+        StartCoroutine(ToggleJumpState(interval));
     }
 
     public void ToggleTeaImage()
@@ -81,26 +79,41 @@ public class DisplayPickedUpText : MonoBehaviour
     {
         float pause = jumpPowerup.duration / 2.0f;
 
-        jumpCoroutine = true;
+        if (jumpCoroutineStarting)
+        {
+            //StopCoroutine()
+        }
+        else
+        {
+            jumpCoroutineStarting = true;
+        }
+        
         jumpPickedUp.enabled = true;
 
         yield return new WaitForSeconds(pause);
 
-        jumpPickedUp.enabled = false;
-        InvokeRepeating("ToggleJumpState", 0, interval);
+        //InvokeRepeating("ToggleJumpState", 0, interval);
 
         yield return new WaitForSeconds(pause);
 
         CancelInvoke();
         jumpPickedUp.enabled = false;
-        jumpCoroutine = false;
+        jumpCoroutineStarting = false;
     }
 
     public IEnumerator DisplayInvincibilityPickedUp()
     {
         float pause = invinciblePowerUp.duration / 2.0f;
 
-        invCoroutine = true;
+        if (invCoroutineStarting)
+        {
+            CancelInvoke("ToggleInvincibilityState");
+        }
+        else
+        {
+            invCoroutineStarting = true;
+        }
+
         invincibilityPickedUp.enabled = true;
 
         yield return new WaitForSeconds(pause);
@@ -111,14 +124,22 @@ public class DisplayPickedUpText : MonoBehaviour
 
         CancelInvoke();
         invincibilityPickedUp.enabled = false;
-        invCoroutine = false;
+        invCoroutineStarting = false;
     }
 
     public IEnumerator DisplaySpeedPickedUp()
     {
         float pause = speedPowerUp.duration / 2.0f;
 
-        speedCoroutine = true;
+        if (speedCoroutineStarting)
+        {
+            CancelInvoke("ToggleSpeedState");
+        }
+        else
+        {
+            speedCoroutineStarting = true;
+        }
+        
         speedPickedUp.enabled = true;
 
         yield return new WaitForSeconds(pause);
@@ -129,6 +150,6 @@ public class DisplayPickedUpText : MonoBehaviour
 
         CancelInvoke();
         speedPickedUp.enabled = false;
-        speedCoroutine = false;
+        speedCoroutineStarting = false;
     }
 }

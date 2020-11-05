@@ -9,6 +9,7 @@ public class SpeedPowerUp : MonoBehaviour
 
     public GameObject pickupEffect;
     private DisplayPickedUpText displayPicked;
+    private Coroutine currentCoroutine;
 
     private void Start()
     {
@@ -20,16 +21,12 @@ public class SpeedPowerUp : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             StartCoroutine(Pickup(other));
-            if (displayPicked.speedCoroutine)
+            if (displayPicked.speedCoroutineStarting)
             {
-                displayPicked.StopCoroutine(displayPicked.DisplaySpeedPickedUp());
-                displayPicked.StartCoroutine(displayPicked.DisplaySpeedPickedUp());
+                displayPicked.StopCoroutine(currentCoroutine);
+                //displayPicked.CancelInvoke();
             }
-            else
-            {
-                displayPicked.StartCoroutine(displayPicked.DisplaySpeedPickedUp());
-            }
-            
+            currentCoroutine = displayPicked.StartCoroutine(displayPicked.DisplaySpeedPickedUp());
         }
     }
     IEnumerator Pickup(Collider player)

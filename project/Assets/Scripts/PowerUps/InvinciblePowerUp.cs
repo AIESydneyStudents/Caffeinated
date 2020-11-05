@@ -8,6 +8,7 @@ public class InvinciblePowerUp : MonoBehaviour
 
     public GameObject pickupEffect;
     private DisplayPickedUpText displayPicked;
+    private Coroutine currentCoroutine;
 
     private void Start()
     {
@@ -19,15 +20,12 @@ public class InvinciblePowerUp : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             StartCoroutine(Pickup(other));
-            if (displayPicked.invCoroutine)
+            if (displayPicked.invCoroutineStarting)
             {
-                displayPicked.StopCoroutine(displayPicked.DisplayInvincibilityPickedUp());
-                displayPicked.StartCoroutine(displayPicked.DisplayInvincibilityPickedUp());
+                displayPicked.StopCoroutine(currentCoroutine);
+                //displayPicked.CancelInvoke();
             }
-            else
-            {
-                displayPicked.StartCoroutine(displayPicked.DisplayInvincibilityPickedUp());
-            }
+            currentCoroutine = displayPicked.StartCoroutine(displayPicked.DisplayInvincibilityPickedUp());
         }
     }
     IEnumerator Pickup(Collider player)

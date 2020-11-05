@@ -9,6 +9,7 @@ public class JumpPowerUp : MonoBehaviour
 
     public GameObject pickupEffect;
     private DisplayPickedUpText displayPicked;
+    private Coroutine currentCoroutine;
 
     private void Start()
     {
@@ -20,15 +21,12 @@ public class JumpPowerUp : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             StartCoroutine(Pickup(other));
-            if (displayPicked.jumpCoroutine)
+            if (displayPicked.jumpCoroutineStarting)
             {
-                displayPicked.StopCoroutine(displayPicked.DisplayJumpPickedUp());
-                displayPicked.StartCoroutine(displayPicked.DisplayJumpPickedUp());
+                displayPicked.StopCoroutine(currentCoroutine);
+                //displayPicked.CancelInvoke();
             }
-            else
-            {
-                displayPicked.StartCoroutine(displayPicked.DisplayJumpPickedUp());
-            }
+            currentCoroutine = displayPicked.StartCoroutine(displayPicked.DisplayJumpPickedUp());
         }
     }
     IEnumerator Pickup(Collider player)
