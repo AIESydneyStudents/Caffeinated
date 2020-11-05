@@ -19,7 +19,15 @@ public class InvinciblePowerUp : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             StartCoroutine(Pickup(other));
-            displayPicked.StartCoroutine(displayPicked.DisplayInvincibilityPickedUp());
+            if (displayPicked.invCoroutine)
+            {
+                displayPicked.StopCoroutine(displayPicked.DisplayInvincibilityPickedUp());
+                displayPicked.StartCoroutine(displayPicked.DisplayInvincibilityPickedUp());
+            }
+            else
+            {
+                displayPicked.StartCoroutine(displayPicked.DisplayInvincibilityPickedUp());
+            }
         }
     }
     IEnumerator Pickup(Collider player)

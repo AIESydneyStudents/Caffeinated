@@ -20,7 +20,15 @@ public class JumpPowerUp : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             StartCoroutine(Pickup(other));
-            displayPicked.StartCoroutine(displayPicked.DisplayJumpPickedUp());
+            if (displayPicked.jumpCoroutine)
+            {
+                displayPicked.StopCoroutine(displayPicked.DisplayJumpPickedUp());
+                displayPicked.StartCoroutine(displayPicked.DisplayJumpPickedUp());
+            }
+            else
+            {
+                displayPicked.StartCoroutine(displayPicked.DisplayJumpPickedUp());
+            }
         }
     }
     IEnumerator Pickup(Collider player)
