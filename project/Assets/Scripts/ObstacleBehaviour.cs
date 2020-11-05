@@ -9,12 +9,14 @@ public class ObstacleBehaviour : MonoBehaviour
     public float lifeTime = 3.0f;
     public float timeLoss = 5.0f;
     public int scoreLoss = 3;
+    public float yVelocity = 1;
     public DisplayTimerIncrease displayTimerIncrease;
 
     // Start is called before the first frame update
     void Start()
     {
         displayTimerIncrease = GameObject.Find("Canvas").GetComponent<DisplayTimerIncrease>();
+        gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, yVelocity, 0);
     }
 
     // Update is called once per frame

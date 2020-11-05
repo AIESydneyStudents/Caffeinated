@@ -126,4 +126,5 @@ MonoBehaviour:
   lifeTime: 5
   timeLoss: 2
   scoreLoss: 0
+  mass: -15.77
   displayTimerIncrease: {fileID: 0}
