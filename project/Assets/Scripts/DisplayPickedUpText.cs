@@ -18,6 +18,10 @@ public class DisplayPickedUpText : MonoBehaviour
 
     public float interval = 1f;
 
+    public bool jumpCoroutine;
+    public bool invCoroutine;
+    public bool speedCoroutine;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -77,6 +81,7 @@ public class DisplayPickedUpText : MonoBehaviour
     {
         float pause = jumpPowerup.duration / 2.0f;
 
+        jumpCoroutine = true;
         jumpPickedUp.enabled = true;
 
         yield return new WaitForSeconds(pause);
@@ -88,12 +93,14 @@ public class DisplayPickedUpText : MonoBehaviour
 
         CancelInvoke();
         jumpPickedUp.enabled = false;
+        jumpCoroutine = false;
     }
 
     public IEnumerator DisplayInvincibilityPickedUp()
     {
         float pause = invinciblePowerUp.duration / 2.0f;
 
+        invCoroutine = true;
         invincibilityPickedUp.enabled = true;
 
         yield return new WaitForSeconds(pause);
@@ -104,12 +111,14 @@ public class DisplayPickedUpText : MonoBehaviour
 
         CancelInvoke();
         invincibilityPickedUp.enabled = false;
+        invCoroutine = false;
     }
 
     public IEnumerator DisplaySpeedPickedUp()
     {
         float pause = speedPowerUp.duration / 2.0f;
 
+        speedCoroutine = true;
         speedPickedUp.enabled = true;
 
         yield return new WaitForSeconds(pause);
@@ -120,5 +129,6 @@ public class DisplayPickedUpText : MonoBehaviour
 
         CancelInvoke();
         speedPickedUp.enabled = false;
+        speedCoroutine = false;
     }
 }

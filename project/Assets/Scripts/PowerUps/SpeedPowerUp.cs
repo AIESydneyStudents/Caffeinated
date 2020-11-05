@@ -20,7 +20,16 @@ public class SpeedPowerUp : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             StartCoroutine(Pickup(other));
-            displayPicked.StartCoroutine(displayPicked.DisplaySpeedPickedUp());
+            if (displayPicked.speedCoroutine)
+            {
+                displayPicked.StopCoroutine(displayPicked.DisplaySpeedPickedUp());
+                displayPicked.StartCoroutine(displayPicked.DisplaySpeedPickedUp());
+            }
+            else
+            {
+                displayPicked.StartCoroutine(displayPicked.DisplaySpeedPickedUp());
+            }
+            
         }
     }
     IEnumerator Pickup(Collider player)
