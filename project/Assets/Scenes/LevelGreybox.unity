@@ -13446,7 +13446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &985815903
 Transform:
   m_ObjectHideFlags: 0
@@ -16279,7 +16279,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1204459160
 Transform:
   m_ObjectHideFlags: 0
@@ -16440,7 +16440,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1215181772
 Transform:
   m_ObjectHideFlags: 0
@@ -19715,7 +19715,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1518358316
 Transform:
   m_ObjectHideFlags: 0
@@ -22960,7 +22960,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: 
   playerScore: 0
-  LevelTime: 61
+  LevelTime: 1000
   ScoreBoard: {fileID: 2100396219}
   Timer: {fileID: 261741352}
   GameOverScreen: {fileID: 480406481}
