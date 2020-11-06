@@ -12,6 +12,7 @@ public class UI_PauseScript : MonoBehaviour
     public GameObject compassCanvas;
     public GameObject pickedUpImages;
     public GameObject GameOverScreen;
+    public GameObject GameHUD;
 
     //public AudioSource sound;
 
@@ -33,6 +34,8 @@ public class UI_PauseScript : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
+        GameHUD.SetActive(true);
+        compassCanvas.SetActive(true);
         Time.timeScale = 1f;
         isPaused = false;
         TimerIncrease.SetActive(true);
@@ -66,11 +69,15 @@ public class UI_PauseScript : MonoBehaviour
     {
         //sound.Play();
         Cursor.lockState = CursorLockMode.None;
+        GameHUD.SetActive(false);
+        compassCanvas.SetActive(false);
+        
         Cursor.visible = true;
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         TimerIncrease.SetActive(false);
         isPaused = true;
+        
     }
     public void TutorialOn()
     {
@@ -78,8 +85,8 @@ public class UI_PauseScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         TutorialScreen.SetActive(true);
-        Time.timeScale = 0f;
         TimerIncrease.SetActive(false);
+        Time.timeScale = 0f;
         isPaused = true;
     }
     public void TutorialOff()
