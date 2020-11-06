@@ -6,13 +6,19 @@ public class JumpPowerUp : MonoBehaviour
 {
     public int MidairJumpsGiven = 1;
     public float duration = 4f;
+    public int scoreIncrease = 0;
+    public float timerIncrease = 0;
 
     public GameObject pickupEffect;
+    private GameController gameController;
     private DisplayPickedUpText displayPicked;
+    private DisplayTimerIncrease displayTimerIncrease;
 
     private void Start()
     {
         displayPicked = GameObject.Find("Canvas").GetComponent<DisplayPickedUpText>();
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        displayTimerIncrease = gameObject.GetComponent<DisplayTimerIncrease>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -22,6 +28,9 @@ public class JumpPowerUp : MonoBehaviour
             StartCoroutine(Pickup(other));
             displayPicked.StartCoroutine(displayPicked.DisplayJumpPickedUp());
             displayPicked.jumpPickedUp.fillAmount = 1;
+            gameController.UpdateScoreBoard(scoreIncrease);
+            gameController.AddTime(timerIncrease);
+            displayTimerIncrease.DisplayTime(timerIncrease, scoreIncrease);
         }
     }
     IEnumerator Pickup(Collider player)

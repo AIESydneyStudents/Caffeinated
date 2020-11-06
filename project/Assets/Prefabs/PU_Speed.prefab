@@ -109,6 +109,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpeedBoost: 1
   duration: 10
+  scoreIncrease: 5
+  timerIncrease: 5
   pickupEffect: {fileID: 3408822193810130247}
 --- !u!1 &3408822193810130247
 GameObject:
