@@ -4862,6 +4862,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 15
-  scoreIncrease: 5
+  scoreIncrease: 50
   timerIncrease: 0
   pickupEffect: {fileID: 320662402444102519}
