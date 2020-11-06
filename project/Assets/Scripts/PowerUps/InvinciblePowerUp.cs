@@ -8,24 +8,18 @@ public class InvinciblePowerUp : MonoBehaviour
 
     public GameObject pickupEffect;
     private DisplayPickedUpText displayPicked;
-    private Coroutine currentCoroutine;
 
     private void Start()
     {
-        displayPicked = GameObject.Find("Canvas").GetComponent<DisplayPickedUpText>();
-    }
+        displayPicked = GameObject.Find("Canvas").GetComponent<DisplayPickedUpText>();    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             StartCoroutine(Pickup(other));
-            if (displayPicked.invCoroutineStarting)
-            {
-                displayPicked.StopCoroutine(currentCoroutine);
-                //displayPicked.CancelInvoke();
-            }
-            currentCoroutine = displayPicked.StartCoroutine(displayPicked.DisplayInvincibilityPickedUp());
+            displayPicked.StartCoroutine(displayPicked.DisplayInvincibilityPickedUp());
+            displayPicked.invincibilityPickedUp.fillAmount = 1;
         }
     }
     IEnumerator Pickup(Collider player)
