@@ -15,9 +15,9 @@ public class HighscoreTable : MonoBehaviour
         entryTemplate = entryContainer.Find("HighscoreEntryTemplate");
 
         entryTemplate.gameObject.SetActive(false);
-
-        string jsonString = PlayerPrefs.GetString("highscoreTable");
-        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+        //PlayerPrefs.SetString("highscoreTable", "");
+        //string jsonString = PlayerPrefs.GetString("highscoreTable");
+        Highscores highscores = SaveSystem.LoadScores();
 
         for (int i = 0; i < highscores.highscoreEntryList.Count; i++)
         {
@@ -38,11 +38,13 @@ public class HighscoreTable : MonoBehaviour
         {
             x++;
             CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);
+            highscoreEntry.newest = false;
             if (x >= 10)
             {
                 break;
             }
         }
+        SaveSystem.SaveScores(highscores);
     }
     private void CreateHighscoreEntryTransform(HighscoreEntry highscoreEntry, Transform container, List<Transform> transformList)
     {
@@ -62,6 +64,7 @@ public class HighscoreTable : MonoBehaviour
         string name = highscoreEntry.name;
         entryTransform.Find("nameText").GetComponent<TextMeshProUGUI>().text = name;
 
+        entryTransform.Find("background").gameObject.SetActive(highscoreEntry.newest);
         transformList.Add(entryTransform);
     }
     //public void AddHighscoreEntry(int score, string name)

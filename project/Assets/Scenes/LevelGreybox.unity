@@ -167,7 +167,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9841579
 GameObject:
@@ -2480,7 +2480,7 @@ RectTransform:
   - {fileID: 480406482}
   - {fileID: 1931653311}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2500,7 +2500,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 528249434}
+  TutorialScreen: {fileID: 1931653310}
   TimerIncrease: {fileID: 289695541}
+  compassCanvas: {fileID: 1709819939}
+  pickedUpImages: {fileID: 225375926}
+  GameOverScreen: {fileID: 480406481}
 --- !u!114 &210271333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2525,9 +2529,9 @@ MonoBehaviour:
   speedPowerUp: {fileID: 1599738925593205738, guid: 34f84e9838f054a4094671460fd9bba1,
     type: 3}
   interval: 0.1
-  jumpCoroutine: 0
-  invCoroutine: 0
-  speedCoroutine: 0
+  jumpCoroutineStarting: 0
+  invCoroutineStarting: 0
+  speedCoroutineStarting: 0
 --- !u!114 &210271334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5123,7 +5127,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &396340603
 MonoBehaviour:
@@ -21695,7 +21699,7 @@ RectTransform:
   m_Children:
   - {fileID: 176895150}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -22950,15 +22954,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: 
   playerScore: 0
-  LevelTime: 61
+  LevelTime: 5
   ScoreBoard: {fileID: 2100396219}
   Timer: {fileID: 261741352}
-  GameOverScreen: {fileID: 480406481}
-  GameOverDuration: 2
-  compassCanvas: {fileID: 1709819939}
   playerController: {fileID: 333378785}
-  pickedUpImages: {fileID: 1852636722}
-  tutorialScrene: {fileID: 1931653310}
+  UI: {fileID: 210271332}
   curTime: 0
 --- !u!4 &1810754895
 Transform:
@@ -23245,7 +23245,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1817867095
 GameObject:
@@ -24391,6 +24391,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1931653311}
+  - component: {fileID: 1931653312}
   m_Layer: 5
   m_Name: TutorialScreen
   m_TagString: Untagged
@@ -24428,6 +24429,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1931653312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931653310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e84699014719a654798dd427c93b86ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UI: {fileID: 210271332}
 --- !u!4 &1939735654 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6913611299475558771, guid: 0d034c33db73bd349ba35774699d3576,

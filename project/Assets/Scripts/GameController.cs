@@ -12,19 +12,16 @@ public class GameController : MonoBehaviour
     public int LevelTime;
     public TextMeshProUGUI ScoreBoard;
     public TextMeshProUGUI Timer;
-    public GameObject GameOverScreen;
-    public float GameOverDuration;
-    public GameObject compassCanvas;
     public RB_PlayerController playerController;
-    public GameObject pickedUpImages;
 
     private PlayerData playerdata;
-    public GameObject tutorialScrene;
+    public UI_PauseScript UI;
 
     public float curTime;
     // Start is called before the first frame update
     void Start()
     {
+        //playerdata = new PlayerData(false);
         playerdata = SaveSystem.LoadPlayer();
         if (!playerdata.tutorial)
         {
@@ -36,7 +33,7 @@ public class GameController : MonoBehaviour
     }
     void Tutorial()
     {
-        tutorialScrene.SetActive(true);
+        UI.TutorialOn();
         playerdata.tutorial = true;
         SaveSystem.SavePlayer(playerdata);
     }
@@ -81,10 +78,7 @@ public class GameController : MonoBehaviour
     private void GameOver()
     {
         // GameOver screen apears here
-        GameOverScreen.SetActive(true);
-        // Turn off compass
-        compassCanvas.SetActive(false);
-        pickedUpImages.SetActive(false);
+        UI.GameOver();
 
         playerController.enabled = false;
 

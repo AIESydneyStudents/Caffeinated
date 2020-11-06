@@ -7,8 +7,12 @@ public class UI_PauseScript : MonoBehaviour
 {
     public static bool isPaused = false;
     public GameObject pauseMenuUI;
+    public GameObject TutorialScreen;
     public GameObject TimerIncrease;
-    
+    public GameObject compassCanvas;
+    public GameObject pickedUpImages;
+    public GameObject GameOverScreen;
+
     //public AudioSource sound;
 
     // Update is called once per frame
@@ -61,12 +65,41 @@ public class UI_PauseScript : MonoBehaviour
     public void Pause()
     {
         //sound.Play();
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         TimerIncrease.SetActive(false);
         isPaused = true;
     }
-
+    public void TutorialOn()
+    {
+        //sound.Play();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        TutorialScreen.SetActive(true);
+        Time.timeScale = 0f;
+        TimerIncrease.SetActive(false);
+        isPaused = true;
+    }
+    public void TutorialOff()
+    {
+        TutorialScreen.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
+        TimerIncrease.SetActive(true);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+    public void GameOver()
+    {
+        // Turn on gameover screen
+        GameOverScreen.SetActive(true);
+        // Turn off compass
+        compassCanvas.SetActive(false);
+        pickedUpImages.SetActive(false);
+        // Turn on mouse
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
 }

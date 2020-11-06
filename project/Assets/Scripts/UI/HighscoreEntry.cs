@@ -7,4 +7,5 @@ public class HighscoreEntry
 {
     public int score;
     public string name;
+    public bool newest;
 }

@@ -49,10 +49,21 @@ public static class SaveSystem
         //    return null;
         //}
     }
+    public static void SaveScores(Highscores highscores)
+    {
+        string json = JsonUtility.ToJson(highscores);
+        PlayerPrefs.SetString("highscoreTable", json);
+        PlayerPrefs.Save();
+    }
+    public static Highscores LoadScores()
+    {
+        string jsonString = PlayerPrefs.GetString("highscoreTable");
+        return JsonUtility.FromJson<Highscores>(jsonString);
+    }
     public static void AddHighScoreEntry(int score, string name)
     {
         // Create HighscoreEntry
-        HighscoreEntry highscoreEntry = new HighscoreEntry { score = score, name = name };
+        HighscoreEntry highscoreEntry = new HighscoreEntry { score = score, name = name, newest = true };
 
         // Load saved Highscores
         string jsonString = PlayerPrefs.GetString("highscoreTable");
