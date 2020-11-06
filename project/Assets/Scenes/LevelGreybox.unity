@@ -2528,6 +2528,9 @@ MonoBehaviour:
   jumpCoroutineStarting: 0
   invCoroutineStarting: 0
   speedCoroutineStarting: 0
+  jumpStartFlashing: 0
+  invStartFlashing: 0
+  speedStartFlashing: 0
 --- !u!114 &210271334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22960,7 +22963,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: 
   playerScore: 0
-  LevelTime: 1000
+  LevelTime: 60
   ScoreBoard: {fileID: 2100396219}
   Timer: {fileID: 261741352}
   GameOverScreen: {fileID: 480406481}
