@@ -6304,6 +6304,12 @@ PrefabInstance:
       propertyPath: displayTimerIncrease
       value: 
       objectReference: {fileID: 210271334}
+    - target: {fileID: 4280465158584901727, guid: ea7d54d0fe699ce48ba6fffb128ae2e6,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 738a0b5d9fa31c24eb24db71dc17e7e9,
+        type: 2}
     - target: {fileID: 4312371866698591182, guid: ea7d54d0fe699ce48ba6fffb128ae2e6,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -11266,7 +11272,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.19, y: 0.16}
   m_AnchorMax: {x: 0.19, y: 0.17}
-  m_AnchoredPosition: {x: -224.00024, y: -138.63348}
+  m_AnchoredPosition: {x: -224.00024, y: -138.63347}
   m_SizeDelta: {x: 112.44, y: 27.91307}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &832668457
@@ -22775,7 +22781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: 
   playerScore: 0
-  LevelTime: 5
+  LevelTime: 21
   ScoreBoard: {fileID: 2100396219}
   Timer: {fileID: 261741352}
   playerController: {fileID: 333378785}

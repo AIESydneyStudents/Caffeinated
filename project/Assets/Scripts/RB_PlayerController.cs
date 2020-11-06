@@ -126,7 +126,7 @@ public class RB_PlayerController : MonoBehaviour
             }
             else
             {
-                DashDir = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                DashDir = transform.forward;
             }
             DashDir = Vector3.Normalize(DashDir);
             if (AddForceDashs)
@@ -245,7 +245,7 @@ public class RB_PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (grounded)
+        if (isGrounded())
         {
             Speed = GroundSpeed;
         }

@@ -4864,5 +4864,5 @@ MonoBehaviour:
   MidairJumpsGiven: 1
   duration: 15
   scoreIncrease: 5
-  timerIncrease: 5
+  timerIncrease: 0
   pickupEffect: {fileID: 1163317285406053285}
