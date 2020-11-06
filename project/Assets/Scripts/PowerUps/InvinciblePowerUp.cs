@@ -19,6 +19,7 @@ public class InvinciblePowerUp : MonoBehaviour
         {
             StartCoroutine(Pickup(other));
             displayPicked.StartCoroutine(displayPicked.DisplayInvincibilityPickedUp());
+            displayPicked.invincibilityPickedUp.fillAmount = 1;
         }
     }
     IEnumerator Pickup(Collider player)

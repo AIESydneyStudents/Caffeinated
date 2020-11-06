@@ -21,6 +21,7 @@ public class SpeedPowerUp : MonoBehaviour
         {
             StartCoroutine(Pickup(other));
             displayPicked.StartCoroutine(displayPicked.DisplaySpeedPickedUp());
+            displayPicked.speedPickedUp.fillAmount = 1;
         }
     }
     IEnumerator Pickup(Collider player)

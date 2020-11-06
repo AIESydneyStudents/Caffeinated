@@ -51,6 +51,11 @@ public class DisplayPickedUpText : MonoBehaviour
             speedPickedUp.enabled = false;
         }
 
+        if (speedCoroutineStarting)
+        {
+            speedPickedUp.fillAmount -= 1.0f / speedPowerUp.duration * Time.deltaTime;
+        }
+
         // Invincibility Power-up
         if (invCoroutineStarting && !invStartFlashing)
         {
@@ -61,6 +66,11 @@ public class DisplayPickedUpText : MonoBehaviour
             invincibilityPickedUp.enabled = false;
         }
 
+        if (invCoroutineStarting)
+        {
+            invincibilityPickedUp.fillAmount -= 1.0f / invinciblePowerUp.duration * Time.deltaTime;
+        }
+
         // Jump Power-up
         if (jumpCoroutineStarting && !jumpStartFlashing)
         {
@@ -69,6 +79,11 @@ public class DisplayPickedUpText : MonoBehaviour
         else if (!jumpCoroutineStarting)
         {
             jumpPickedUp.enabled = false;
+        }
+
+        if (jumpCoroutineStarting)
+        {
+            jumpPickedUp.fillAmount -= 1.0f / jumpPowerup.duration * Time.deltaTime;
         }
     }
 
@@ -137,7 +152,10 @@ public class DisplayPickedUpText : MonoBehaviour
 
         yield return new WaitForSeconds(pause);
 
-        jumpStartFlashing = true;
+        if (jumpPickedUp.fillAmount < 0.5)
+        {
+            jumpStartFlashing = true;
+        }
         StartCoroutine(ToggleJumpState());
 
         yield return new WaitForSeconds(pause);
@@ -168,7 +186,10 @@ public class DisplayPickedUpText : MonoBehaviour
 
         yield return new WaitForSeconds(pause);
 
-        invStartFlashing = true;
+        if (invincibilityPickedUp.fillAmount < 0.5)
+        {
+            invStartFlashing = true;
+        }
         StartCoroutine(ToggleInvincibilityState());
 
         yield return new WaitForSeconds(pause);
@@ -199,7 +220,10 @@ public class DisplayPickedUpText : MonoBehaviour
 
         yield return new WaitForSeconds(pause);
 
-        speedStartFlashing = true;
+        if (speedPickedUp.fillAmount < 0.5)
+        {
+            speedStartFlashing = true;
+        }
         StartCoroutine(ToggleSpeedState());
 
         yield return new WaitForSeconds(pause);

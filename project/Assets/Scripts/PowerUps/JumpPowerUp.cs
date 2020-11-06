@@ -21,6 +21,7 @@ public class JumpPowerUp : MonoBehaviour
         {
             StartCoroutine(Pickup(other));
             displayPicked.StartCoroutine(displayPicked.DisplayJumpPickedUp());
+            displayPicked.jumpPickedUp.fillAmount = 1;
         }
     }
     IEnumerator Pickup(Collider player)
