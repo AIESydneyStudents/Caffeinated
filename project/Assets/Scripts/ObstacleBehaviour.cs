@@ -35,8 +35,11 @@ public class ObstacleBehaviour : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
+            if (!other.GetComponent<RB_PlayerController>().invulnerable)
+            {
+                displayTimerIncrease.DisplayTime(-timeLoss, -scoreLoss);
+            }
             other.GetComponent<RB_PlayerController>().Damaged(scoreLoss, timeLoss);
-            displayTimerIncrease.DisplayTime(-timeLoss, -scoreLoss);
         }
     }
 }

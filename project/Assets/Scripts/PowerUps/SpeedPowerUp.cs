@@ -18,7 +18,7 @@ public class SpeedPowerUp : MonoBehaviour
     {
         displayPicked = GameObject.Find("Canvas").GetComponent<DisplayPickedUpText>();
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-        displayTimerIncrease = gameObject.GetComponent<DisplayTimerIncrease>();
+        displayTimerIncrease = GameObject.Find("Canvas").GetComponent<DisplayTimerIncrease>();
     }
 
     private void OnTriggerEnter(Collider other)
