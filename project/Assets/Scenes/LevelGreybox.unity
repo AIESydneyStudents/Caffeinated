@@ -1363,7 +1363,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 135489604}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: 8ea35fc8c44369a4f977bf2e73e00b49, type: 3}
   m_Controller: {fileID: 9100000, guid: 31b3dca0835da284ba0b584dc89c3b02, type: 2}
   m_CullingMode: 0
@@ -1381,7 +1381,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 135489604}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a616b2069e856b40ae853c7113b8f66, type: 3}
   m_Name: 
@@ -1463,7 +1463,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0.000015258789}
+  m_AnchoredPosition: {x: -0.000030517578, y: 0.000030517578}
   m_SizeDelta: {x: 700, y: 236}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &144619554
@@ -2029,7 +2029,7 @@ MonoBehaviour:
   cam: {fileID: 1817453604}
   targetObject: {fileID: 0}
   offset: {x: 0, y: 40, z: 0}
-  offscreenOffset: {x: 15, y: 0, z: 0}
+  offscreenOffset: {x: 15, y: 15, z: 0}
   xPosForArrowToSwitch: 150
   yPosForArrowToSwitch: 50
 --- !u!1 &180637915
@@ -6598,6 +6598,7 @@ MonoBehaviour:
   SpeedBoost: 1
   invulnerable: 0
   moveDir: {x: 0, y: 0, z: 0}
+  UI: {fileID: 0}
   grounded: 1
 --- !u!114 &448162258
 MonoBehaviour:
@@ -7405,6 +7406,11 @@ PrefabInstance:
       propertyPath: GravMultiplyer
       value: 4.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4280465158584901713, guid: ea7d54d0fe699ce48ba6fffb128ae2e6,
+        type: 3}
+      propertyPath: UI
+      value: 
+      objectReference: {fileID: 210271332}
     - target: {fileID: 4280465158584901714, guid: ea7d54d0fe699ce48ba6fffb128ae2e6,
         type: 3}
       propertyPath: displayTimerIncrease
