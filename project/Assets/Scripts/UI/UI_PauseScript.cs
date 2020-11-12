@@ -19,16 +19,16 @@ public class UI_PauseScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (isPaused)
-            {
-                Resume();
-            } else
-            {
-                Pause();
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    if (isPaused)
+        //    {
+        //        Resume();
+        //    } else
+        //    {
+        //        Pause();
+        //    }
+        //}
     }
 
     public void Resume()
@@ -39,8 +39,34 @@ public class UI_PauseScript : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
         TimerIncrease.SetActive(true);
+        // Cursor controle
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+    public void Pause()
+    {
+        //sound.Play();
+        Cursor.lockState = CursorLockMode.None;
+        GameHUD.SetActive(false);
+        compassCanvas.SetActive(false);
+
+        Cursor.visible = true;
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        TimerIncrease.SetActive(false);
+        isPaused = true;
+    }
+    public void PauseToggle()
+    {
+        isPaused = !isPaused;
+        pauseMenuUI.SetActive(isPaused);
+        GameHUD.SetActive(!isPaused);
+        compassCanvas.SetActive(!isPaused);
+        Time.timeScale = isPaused ? 0f : 1f;
+        TimerIncrease.SetActive(!isPaused);
+        // Cursor controle
+        Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = isPaused;
     }
 
     public void LoadMenu()
@@ -63,21 +89,6 @@ public class UI_PauseScript : MonoBehaviour
     public void HighScores()
     {
         SceneManager.LoadScene("HighScoreMenu");
-    }
-
-    public void Pause()
-    {
-        //sound.Play();
-        Cursor.lockState = CursorLockMode.None;
-        GameHUD.SetActive(false);
-        compassCanvas.SetActive(false);
-        
-        Cursor.visible = true;
-        pauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
-        TimerIncrease.SetActive(false);
-        isPaused = true;
-        
     }
     public void TutorialOn()
     {

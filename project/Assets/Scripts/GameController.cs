@@ -21,8 +21,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //playerdata = new PlayerData(false);
-        playerdata = SaveSystem.LoadPlayer();
+        playerdata = new PlayerData(false);
+        //playerdata = SaveSystem.LoadPlayer();
         if (!playerdata.tutorial)
         {
             Tutorial();

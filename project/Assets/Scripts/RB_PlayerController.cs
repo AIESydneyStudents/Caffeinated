@@ -52,6 +52,7 @@ public class RB_PlayerController : MonoBehaviour
     private RigidbodyConstraints rbConstraints;
     private bool pickup = true;
     private GameController gc;
+    public UI_PauseScript UI;
     private bool constraintToggle = false;
     
     private bool stuned = false;
@@ -69,6 +70,7 @@ public class RB_PlayerController : MonoBehaviour
         Controls.Player.Drop.performed += _ => Drop();
         Controls.Player.Jump.performed += _ => Jump();
         Controls.Player.Slam.performed += _ => Slam();
+        Controls.Player.Pause.performed += _ => Pause();
         Controls.Debug.toggle2D.performed += _ => Toggle2D_performed();
 
         Colectables = new List<GameObject>();
@@ -95,6 +97,10 @@ public class RB_PlayerController : MonoBehaviour
     private void OnEnable()
     {
         Controls.Enable();
+    }
+    private void Pause()
+    {
+        UI.PauseToggle();
     }
 
     private void Toggle2D_performed()
@@ -316,6 +322,7 @@ public class RB_PlayerController : MonoBehaviour
         Controls.Player.Dash.performed -= _ => Dash();
         Controls.Player.Drop.performed -= _ => Drop();
         Controls.Player.Jump.performed -= _ =>Jump();
+        Controls.Player.Pause.performed -= _ => Pause();
         Controls.Debug.toggle2D.performed -= _ => Toggle2D_performed();
         Controls.Disable();
     }
