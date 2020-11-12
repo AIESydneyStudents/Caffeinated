@@ -8,6 +8,7 @@ public class JumpPowerUp : MonoBehaviour
     public float duration = 4f;
     public int scoreIncrease = 0;
     public float timerIncrease = 0;
+    public float rotateSpeed;
 
     public GameObject pickupEffect;
     private GameController gameController;
@@ -17,6 +18,10 @@ public class JumpPowerUp : MonoBehaviour
     {
         displayPicked = GameObject.Find("Canvas").GetComponent<DisplayPickedUpText>();
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+    }
+    void Update()
+    {
+        rotate();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,5 +50,9 @@ public class JumpPowerUp : MonoBehaviour
         pc.MidAirJumps -= MidairJumpsGiven;
 
         Destroy(gameObject);
+    }
+    void rotate()
+    {
+        transform.Rotate(0, 1, 0 * rotateSpeed * Time.deltaTime, Space.World);
     }
 }

@@ -10,6 +10,7 @@ public class ObstacleBehaviour : MonoBehaviour
     public float timeLoss = 5.0f;
     public int scoreLoss = 3;
     public float yVelocity = 1;
+    public float rotateSpeed;
     public DisplayTimerIncrease displayTimerIncrease;
 
     // Start is called before the first frame update
@@ -22,12 +23,14 @@ public class ObstacleBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        rotate();
         timer += 1 * Time.deltaTime;
 
         if (timer > lifeTime)
         {
             Destroy(gameObject);
         }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -41,5 +44,10 @@ public class ObstacleBehaviour : MonoBehaviour
             }
             other.GetComponent<RB_PlayerController>().Damaged(scoreLoss, timeLoss);
         }
+    }
+
+    void rotate()
+    {
+        transform.Rotate(0, 0, 1*rotateSpeed * Time.deltaTime, Space.World);
     }
 }
