@@ -48,6 +48,6 @@ public class ObstacleBehaviour : MonoBehaviour
 
     void rotate()
     {
-        transform.Rotate(Vector3.forward, rotateSpeed * Time.deltaTime, Space.World);
+        transform.Rotate(0, 0, 1*rotateSpeed * Time.deltaTime, Space.World);
     }
 }

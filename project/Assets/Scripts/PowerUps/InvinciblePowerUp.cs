@@ -7,6 +7,7 @@ public class InvinciblePowerUp : MonoBehaviour
     public float duration = 10f;
     public int scoreIncrease = 0;
     public float timerIncrease = 0;
+    public float rotateSpeed;
 
     public GameObject pickupEffect;
     private GameController gameController;
@@ -16,6 +17,10 @@ public class InvinciblePowerUp : MonoBehaviour
     {
         displayPicked = GameObject.Find("Canvas").GetComponent<DisplayPickedUpText>();
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+    }
+    void Update()
+    {
+        rotate();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,5 +49,9 @@ public class InvinciblePowerUp : MonoBehaviour
         pc.invulnerable = false;
 
         Destroy(gameObject);
+    }
+    void rotate()
+    {
+        transform.Rotate(0, 1, 0 * rotateSpeed * Time.deltaTime, Space.World);
     }
 }
