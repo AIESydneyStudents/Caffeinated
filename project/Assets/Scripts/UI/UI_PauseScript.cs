@@ -13,6 +13,7 @@ public class UI_PauseScript : MonoBehaviour
     public GameObject pickedUpImages;
     public GameObject GameOverScreen;
     public GameObject GameHUD;
+    public GameObject countdownScreen;
 
     //public AudioSource sound;
 
@@ -108,6 +109,7 @@ public class UI_PauseScript : MonoBehaviour
         TimerIncrease.SetActive(true);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        countdownScreen.SetActive(true);
     }
     public void GameOver()
     {

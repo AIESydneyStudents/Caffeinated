@@ -45,7 +45,7 @@ public class ChangeColour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle"))
+        if (other.CompareTag("Obstacle") && !playerController.invulnerable)
         {
             hitByAnObstacle = true;
         }
