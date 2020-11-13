@@ -9,7 +9,9 @@ public class AnimationController : MonoBehaviour
     [SerializeField]
     RB_PlayerController playerController;
     [SerializeField]
-    Rigidbody player;
+    Rigidbody playerRigidbody;
+    [SerializeField]
+    GameObject player;
     Vector3 startPos;
     
     // Start is called before the first frame update
@@ -22,6 +24,7 @@ public class AnimationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Prevent animations from moving player
         gameObject.transform.localPosition = startPos;
 
         // Play Run animation
@@ -49,7 +52,7 @@ public class AnimationController : MonoBehaviour
         }
 
         // Play Fall animation
-        if (player.velocity.y < 0)
+        if (playerRigidbody.velocity.y < 0)
         {
             anim.enabled = false;
             anim.enabled = true;
@@ -60,5 +63,29 @@ public class AnimationController : MonoBehaviour
             anim.SetBool("Falling", false);
         }
         
+        // Play Wall jump 1 animation
+        if (playerController.curHitObjectW != null && player.transform.localEulerAngles.y == 270)
+        {
+            anim.enabled = false;
+            anim.enabled = true;
+            anim.SetBool("WallSliding1", true);
+        }
+        else
+        {
+            anim.SetBool("WallSliding1", false);
+        }
+
+        // Play Wall jump 2 animation
+        if (playerController.curHitObjectW != null && player.transform.localEulerAngles.y == 90)
+        {
+            anim.enabled = false;
+            anim.enabled = true;
+            anim.SetBool("WallSliding2", true);
+        }
+        else
+        {
+            anim.SetBool("WallSliding2", false);
+        }
+        //Debug.Log(player.transform.localEulerAngles.y);
     }
 }
