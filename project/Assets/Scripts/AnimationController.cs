@@ -6,31 +6,59 @@ using UnityEngine.InputSystem;
 public class AnimationController : MonoBehaviour
 {
     Animator anim;
-    Vector3 startPosition;
+    [SerializeField]
+    RB_PlayerController playerController;
+    [SerializeField]
+    Rigidbody player;
+    Vector3 startPos;
     
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
-        startPosition = transform.localPosition;
+        startPos = gameObject.transform.localPosition;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.aKey.isPressed || Keyboard.current.dKey.isPressed)
+        gameObject.transform.localPosition = startPos;
+
+        // Play Run animation
+        if (Keyboard.current.aKey.isPressed && playerController.grounded || Keyboard.current.dKey.isPressed && playerController.grounded)
         {
-            Debug.Log("Playing running animation");
+            anim.enabled = false;
+            anim.enabled = true;
             anim.SetBool("Running", true);
         }
         else
         {
             anim.SetBool("Running", false);
         }
-    }
 
-    private void LateUpdate()
-    {
-        transform.localPosition += startPosition;
+        // Play Jump animation
+        if (!playerController.grounded)
+        {
+            anim.enabled = false;
+            anim.enabled = true;
+            anim.SetBool("Jumping", true);
+        }
+        else
+        {
+            anim.SetBool("Jumping", false);
+        }
+
+        // Play Fall animation
+        if (player.velocity.y < 0)
+        {
+            anim.enabled = false;
+            anim.enabled = true;
+            anim.SetBool("Falling", true);
+        }
+        else
+        {
+            anim.SetBool("Falling", false);
+        }
+        
     }
 }
