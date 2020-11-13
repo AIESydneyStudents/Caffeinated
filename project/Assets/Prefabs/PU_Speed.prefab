@@ -111,5 +111,5 @@ MonoBehaviour:
   scoreIncrease: 50
   timerIncrease: 0
   rotateSpeed: 10
-  pickupEffect: {fileID: 7644743974663300264, guid: 37d8037b169a1064da2f843f71dd5211,
+  pickupEffect: {fileID: 5469335894540321161, guid: 8e5ab232545370342a60cf368087a8ca,
     type: 3}
