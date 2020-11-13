@@ -27,6 +27,7 @@ public class LR_MovingPlatform : MonoBehaviour
             if (transform.position == points[index].transform.position)
             {
                 index++;
+                gameObject.transform.localEulerAngles += new Vector3(0, 180, 0);
             }
 
             if (index > points.Length - 1)
@@ -34,6 +35,21 @@ public class LR_MovingPlatform : MonoBehaviour
                 index = 0;
             }
         }
+
+        //// Determine which direction to rotate towards
+        //Vector3 targetDirection = points[index].transform.position - transform.position;
+
+        //// The step size is equal to speed times frame time.
+        //float singleStep = speed * Time.deltaTime;
+
+        //// Rotate the forward vector towards the target direction by one step
+        //Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
+
+        //// Draw a ray pointing at our target in
+        //Debug.DrawRay(transform.position, newDirection, Color.red);
+
+        //// Calculate a rotation a step closer to the target and applies rotation to this object
+        //transform.rotation = Quaternion.LookRotation(newDirection);
     }
 
     private void OnTriggerEnter(Collider other)

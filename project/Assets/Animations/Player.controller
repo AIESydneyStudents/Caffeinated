@@ -224,31 +224,31 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Jumping
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Falling
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: WallSliding1
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: WallSliding2
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: New Layer
@@ -434,19 +434,19 @@ AnimatorStateMachine:
     m_Position: {x: 230, y: 270, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8842596065506452809}
-    m_Position: {x: 250, y: 0, z: 0}
+    m_Position: {x: 240, y: -110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5203957326740055967}
-    m_Position: {x: 530, y: -100, z: 0}
+    m_Position: {x: 560, y: 40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8633308862967078210}
-    m_Position: {x: 530, y: 330, z: 0}
+    m_Position: {x: 530, y: 270, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4074488065454450664}
-    m_Position: {x: 920, y: 10, z: 0}
+    m_Position: {x: 880, y: -110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3406774999470054167}
-    m_Position: {x: 940, y: 250, z: 0}
+    m_Position: {x: 1000, y: 70, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

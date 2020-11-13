@@ -192,7 +192,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9841579}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.40728748, y: 0.13097069, z: 0.034721833}
   m_LocalScale: {x: 1.0194896, y: 0.10194899, z: 1.0194896}
   m_Children:
@@ -200,7 +200,7 @@ Transform:
   - {fileID: 1616013274}
   m_Father: {fileID: 897212135}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &12373959 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 3096a5e602845c34da8d68e0cb7b32ce,
@@ -1903,7 +1903,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.31, y: 0.37}
   m_AnchorMax: {x: 0.31, y: 0.37}
-  m_AnchoredPosition: {x: -5.100006, y: -34.300003}
+  m_AnchoredPosition: {x: -5.0999756, y: -34.300003}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &160029204
@@ -5398,7 +5398,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 485985942}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2064568097}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f760f2a12935fa44995a2db4034474c, type: 3}
   m_Name: 
@@ -7588,6 +7588,11 @@ PrefabInstance:
       propertyPath: UI
       value: 
       objectReference: {fileID: 210271332}
+    - target: {fileID: 4280465158584901713, guid: ea7d54d0fe699ce48ba6fffb128ae2e6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4280465158584901714, guid: ea7d54d0fe699ce48ba6fffb128ae2e6,
         type: 3}
       propertyPath: displayTimerIncrease
@@ -13185,7 +13190,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.19, y: 0.16}
   m_AnchorMax: {x: 0.19, y: 0.17}
-  m_AnchoredPosition: {x: -224.00021, y: -138.6335}
+  m_AnchoredPosition: {x: -224.00021, y: -138.63348}
   m_SizeDelta: {x: 112.44, y: 27.91307}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &832668457
@@ -23113,7 +23118,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.31, y: 0.5}
   m_AnchorMax: {x: 0.31, y: 0.5}
-  m_AnchoredPosition: {x: -1.699997, y: -38.1}
+  m_AnchoredPosition: {x: -1.6999512, y: -38.1}
   m_SizeDelta: {x: 227.74, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1537339078
@@ -24116,7 +24121,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1616013273}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -28845,7 +28850,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &2027439000
 AudioSource:
   m_ObjectHideFlags: 0
@@ -29139,6 +29144,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interval: 1
   countdownText: {fileID: 271652459}
+  playerController: {fileID: 333378785}
+  animationController: {fileID: 470364313}
+  gameController: {fileID: 1810754894}
 --- !u!1 &2056510878
 GameObject:
   m_ObjectHideFlags: 0
