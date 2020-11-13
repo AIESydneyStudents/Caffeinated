@@ -37,7 +37,7 @@ public class JumpPowerUp : MonoBehaviour
     }
     IEnumerator Pickup(Collider player)
     {
-        pickupEffect.SetActive(true);
+        GameObject temp = Instantiate(pickupEffect);
 
         RB_PlayerController pc = player.GetComponent<RB_PlayerController>();
         pc.MidAirJumps += MidairJumpsGiven;
@@ -49,6 +49,7 @@ public class JumpPowerUp : MonoBehaviour
 
         pc.MidAirJumps -= MidairJumpsGiven;
 
+        Destroy(temp);
         Destroy(gameObject);
     }
     void rotate()

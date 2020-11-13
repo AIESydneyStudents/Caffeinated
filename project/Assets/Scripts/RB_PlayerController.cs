@@ -57,6 +57,10 @@ public class RB_PlayerController : MonoBehaviour
     
     private bool stuned = false;
     public bool grounded = true;
+    public Vector3 walled;
+
+    public float noDragTime = 0.5f;
+    private DragControl dc;
 
     private float timer;
     private List<GameObject> Colectables; 
@@ -93,6 +97,8 @@ public class RB_PlayerController : MonoBehaviour
 
         boxHalfExtents = new Vector3(0.1f, (distToGround - distToWall) * 2, GetComponent<BoxCollider>().bounds.extents.z);
         boxDistance = distToWall - boxHalfExtents.x + giveDist;
+
+        dc = GetComponent<DragControl>();
     }
     private void OnEnable()
     {
@@ -178,9 +184,9 @@ public class RB_PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (detectWall() != new Vector3(0, 0, 0) && !grounded)
+        if (walled != new Vector3(0, 0, 0) && !grounded)
         {
-            Vector3 Jumpdir = Vector3.up + detectWall();
+            Vector3 Jumpdir = Vector3.up + walled;
             if (AddForceWallJumps)
             {
                 rb.AddForce(Jumpdir * JumpForce, ForceMode.VelocityChange);
@@ -208,7 +214,6 @@ public class RB_PlayerController : MonoBehaviour
             }
             grounded = false;
         }
-
     }
 
     private void Drop()
@@ -239,6 +244,7 @@ public class RB_PlayerController : MonoBehaviour
                 grounded = true;
             }           
         }
+        walled = detectWall();
         if (jumps > MidAirJumps)
         {
             jumps = MidAirJumps;
@@ -326,7 +332,13 @@ public class RB_PlayerController : MonoBehaviour
         Controls.Debug.toggle2D.performed -= _ => Toggle2D_performed();
         Controls.Disable();
     }
-
+    IEnumerable DragStop()
+    {
+        float temp = dc.airFriction;
+        dc.airFriction = 0;
+        yield return new WaitForSeconds(noDragTime);
+        dc.airFriction = temp;
+    }
     bool isGrounded()
     {
         RaycastHit hit;

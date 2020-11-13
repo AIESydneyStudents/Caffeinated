@@ -37,7 +37,7 @@ public class SpeedPowerUp : MonoBehaviour
     }
     IEnumerator Pickup(Collider player)
     {
-        pickupEffect.SetActive(true);
+        GameObject temp = Instantiate(pickupEffect);
 
         RB_PlayerController pc = player.GetComponent<RB_PlayerController>();
         pc.SpeedBoost += SpeedBoost;
@@ -49,6 +49,7 @@ public class SpeedPowerUp : MonoBehaviour
 
         pc.SpeedBoost -= SpeedBoost;
 
+        Destroy(temp);
         Destroy(gameObject);
     }
     void rotate()
