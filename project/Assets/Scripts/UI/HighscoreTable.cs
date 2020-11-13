@@ -62,7 +62,17 @@ public class HighscoreTable : MonoBehaviour
         entryTransform.Find("scoreText").GetComponent<TextMeshProUGUI>().text = score.ToString();
 
         string name = highscoreEntry.name;
-        entryTransform.Find("nameText").GetComponent<TextMeshProUGUI>().text = name;
+        if (name == "")
+        {
+            entryTransform.Find("inputName").gameObject.SetActive(true);
+            entryTransform.Find("nameText").gameObject.SetActive(false);
+            entryTransform.Find("inputName").GetComponent<inputNameManager>().rank = rank-1;
+        }
+        else
+        {
+            entryTransform.Find("nameText").GetComponent<TextMeshProUGUI>().text = name;
+        }
+        
 
         entryTransform.Find("background").gameObject.SetActive(highscoreEntry.newest);
         transformList.Add(entryTransform);
