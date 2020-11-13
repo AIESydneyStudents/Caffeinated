@@ -3771,6 +3771,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 851429693}
     m_Modifications:
+    - target: {fileID: -6057140222963153312, guid: f7de5a31a2039344c81527118562e72c,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 11db22eb2b2fa6843b26d19f9171def8, type: 2}
     - target: {fileID: -4216859302048453862, guid: f7de5a31a2039344c81527118562e72c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6867,6 +6872,8 @@ MonoBehaviour:
   moveDir: {x: 0, y: 0, z: 0}
   UI: {fileID: 0}
   grounded: 1
+  walled: {x: 0, y: 0, z: 0}
+  noDragTime: 0.5
 --- !u!114 &448162258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7768,6 +7775,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 851429693}
     m_Modifications:
+    - target: {fileID: -6057140222963153312, guid: f7de5a31a2039344c81527118562e72c,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 11db22eb2b2fa6843b26d19f9171def8, type: 2}
     - target: {fileID: -4216859302048453862, guid: f7de5a31a2039344c81527118562e72c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13639,8 +13651,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6.5
   points:
-  - {fileID: 1914990722}
   - {fileID: 25329699}
+  - {fileID: 1914990722}
   boxCollider: {fileID: 848462424}
 --- !u!65 &848462423
 BoxCollider:
@@ -25786,6 +25798,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 851429693}
     m_Modifications:
+    - target: {fileID: -6057140222963153312, guid: f7de5a31a2039344c81527118562e72c,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 11db22eb2b2fa6843b26d19f9171def8, type: 2}
     - target: {fileID: -4216859302048453862, guid: f7de5a31a2039344c81527118562e72c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -26529,6 +26546,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 851429693}
     m_Modifications:
+    - target: {fileID: -6057140222963153312, guid: f7de5a31a2039344c81527118562e72c,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 11db22eb2b2fa6843b26d19f9171def8, type: 2}
     - target: {fileID: -4216859302048453862, guid: f7de5a31a2039344c81527118562e72c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -29198,8 +29220,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   points:
-  - {fileID: 589190824}
   - {fileID: 360629495}
+  - {fileID: 589190824}
   boxCollider: {fileID: 2056510882}
 --- !u!65 &2056510881
 BoxCollider:
