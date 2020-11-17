@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 4280465158584901713}
-  playerRigidbody: {fileID: 0}
-  player: {fileID: 4280465158584901715}
+  playerRigidbody: {fileID: 4280465158584901715}
+  player: {fileID: 2927014537069838227}
 --- !u!1 &2927014537069838227
 GameObject:
   m_ObjectHideFlags: 0
@@ -47,7 +47,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2927014537069838227}
   m_LocalRotation: {x: 0, y: 0.7233348, z: 0, w: 0.6904975}
-  m_LocalPosition: {x: 16.746, y: 1.23, z: -10.231}
+  m_LocalPosition: {x: 0, y: 1.23, z: 0}
   m_LocalScale: {x: 7.5908303, y: 7.5908303, z: 7.5908303}
   m_Children:
   - {fileID: 3506706992365688000}
@@ -196,6 +196,8 @@ MonoBehaviour:
   moveDir: {x: 0, y: 0, z: 0}
   UI: {fileID: 0}
   grounded: 1
+  walled: {x: 0, y: 0, z: 0}
+  noDragTime: 0.5
 --- !u!114 &4280465158584901714
 MonoBehaviour:
   m_ObjectHideFlags: 0

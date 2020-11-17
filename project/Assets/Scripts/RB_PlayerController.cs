@@ -4,68 +4,74 @@ using UnityEngine;
 
 public class RB_PlayerController : MonoBehaviour
 {
-    private float giveDist = 0.1f;
+    [Header("Tollerance Settings")]
+    public float giveDist = 0.1f;
+    [Tooltip("Gives extra distance to the ground box cast")]
     public float rotateBuffer = 0.1f;
-    //Is Grounded check
+    [Header("Refferences")]
+    private GameController gameController;
+    public UI_PauseScript pauseScript;
+    [Header("Grounded Settings & Debugging")]
     public GameObject curHitObject;
     private float currentHitDistance;
     public Vector3 boxHalfExtentsG;
     public float boxDistanceG;
+    public float CoyoteTime = 0.2f;
     //public float sphereRadius;
     //private float sphereDistance;
 
-    //Wall Jump check
+    [Header("WallJump Settings & Debugging")]
     public GameObject curHitObjectW;
     private float currentHitDistanceW;
     public Vector3 boxHalfExtents;
     public float boxDistance;
 
+    [Header("Speed Settings")]
     public float GroundSpeed = 1;
     public float AirSpeed = 1;
-    public float GravMultiplyer = 1;
     public float VelocityCap = 50;
-    public float PickupBonusTime = 5f;
-    //private float ForceBoost = 0.8f;
-    //private float MassBoost = 0.1f;
+    [Header("Dash Settings")]
+    public bool AddForceDashs;
     public float DashForce = 10;
-    public float JumpForce = 5;
-    public int MidAirJumps = 1;
     public int MidAirDashs = 1;
-    public float CoyoteTime = 0.2f;
+    [Header("Jump Settings")]
     public bool AddForceJumps;
     public bool AddForceWallJumps;
-    public bool AddForceDashs;
     public string[] JumpTagBlacklist;
+    public float JumpForce = 5;
+    public int MidAirJumps = 1;
+    public float GravMultiplyer = 1;
+    public float noDragTime = 0.5f;
+
+    [Header("Pickup Settings")]
+    public float PickupBonusTime = 5f;
+    [Header("Damage Settings")]
     public float HitStunDuration;
     public float HitGracePeriod;
-    public float SpeedBoost = 1f;
+    //private float ForceBoost = 0.8f;
+    //private float MassBoost = 0.1f;
+    [Header("Debuging")]
     public bool invulnerable;
-
-    private PlayerControls Controls;
-    private float Speed;
-    public Vector3 moveDir;
     private int jumps;
+    private float Speed;
+    public float SpeedBoost = 1f;
+    public Vector3 moveDir;
     private int dashs;
     private float distToGround;
     private float distToWall;
+    private PlayerControls Controls;
+    private bool stuned = false;
+    public bool grounded = true;
+    private bool constraintToggle = false;
+    private float timer;
+    public Vector3 walled;
+    //private parts
     private Rigidbody rb;
     private RigidbodyConstraints rbConstraints;
     private bool pickup = true;
-    private GameController gc;
-    public UI_PauseScript UI;
-    private bool constraintToggle = false;
-    
-    private bool stuned = false;
-    public bool grounded = true;
-    public Vector3 walled;
-
-    public float noDragTime = 0.5f;
     private DragControl dc;
-
-    private float timer;
     private List<GameObject> Colectables; 
 
-    // Start is called before the first frame update
     private void Awake()
     {
         Controls = new PlayerControls();
@@ -83,7 +89,7 @@ public class RB_PlayerController : MonoBehaviour
         distToGround = GetComponent<BoxCollider>().bounds.extents.y;
         distToWall = GetComponent<BoxCollider>().bounds.extents.x;
 
-        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         jumps = MidAirJumps;
         dashs = MidAirDashs;
 
@@ -106,7 +112,7 @@ public class RB_PlayerController : MonoBehaviour
     }
     private void Pause()
     {
-        UI.PauseToggle();
+        pauseScript.PauseToggle();
     }
 
     private void Toggle2D_performed()
@@ -446,8 +452,8 @@ public class RB_PlayerController : MonoBehaviour
     {
         if (!invulnerable && !stuned)
         {
-            gc.AddTime(-time);
-            gc.UpdateScoreBoard(-score);
+            gameController.AddTime(-time);
+            gameController.UpdateScoreBoard(-score);
             StartCoroutine(Hit());
         }    
     }
@@ -488,7 +494,7 @@ public class RB_PlayerController : MonoBehaviour
             }
             //Speed += ForceBoost;
             //rb.mass += MassBoost;
-            gc.AddTime(PickupBonusTime);
+            gameController.AddTime(PickupBonusTime);
             Colectables.Add(collision.gameObject);
         }
     }
