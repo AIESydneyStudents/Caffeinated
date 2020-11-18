@@ -14,6 +14,7 @@ public class ObstacleBehaviour : MonoBehaviour
     public float rotateSpeed;
     public DisplayTimerIncrease displayTimerIncrease;
     public ChangeColour changeColourScript;
+    public GameObject obstacleParticles;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class ObstacleBehaviour : MonoBehaviour
         displayTimerIncrease = GameObject.Find("Canvas").GetComponent<DisplayTimerIncrease>();
         changeColourScript = GameObject.FindGameObjectWithTag("Player").GetComponent<ChangeColour>();
         gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, yVelocity, 0);
+        particles = Instantiate(obstacleParticles, gameObject.transform);
     }
 
     // Update is called once per frame

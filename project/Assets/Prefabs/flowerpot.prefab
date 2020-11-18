@@ -81,6 +81,9 @@ MonoBehaviour:
   yVelocity: 0
   rotateSpeed: 25
   displayTimerIncrease: {fileID: 0}
+  changeColourScript: {fileID: 0}
+  obstacleParticles: {fileID: 6325172777235042876, guid: 9f2bef228f9dec44d96b7e3836dae206,
+    type: 3}
 --- !u!1 &4230601129455464690
 GameObject:
   m_ObjectHideFlags: 0
