@@ -13,12 +13,15 @@ public class AnimationController : MonoBehaviour
     [SerializeField]
     GameObject player;
     Vector3 startPos;
+    [SerializeField]
+    float runningSpeed;
     
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         startPos = gameObject.transform.localPosition;
+        anim.SetFloat("Running Speed", runningSpeed);
     }
 
     // Update is called once per frame
@@ -86,6 +89,5 @@ public class AnimationController : MonoBehaviour
         {
             anim.SetBool("WallSliding2", false);
         }
-        //Debug.Log(player.transform.localEulerAngles.y);
     }
 }

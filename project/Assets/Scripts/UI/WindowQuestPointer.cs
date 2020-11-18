@@ -6,6 +6,7 @@ public class WindowQuestPointer : MonoBehaviour
 {
     public Camera cam;
 
+    public GameObject arrow;
     public GameObject targetObject;
     public Vector3 offset;
     public Vector3 offscreenOffset;
@@ -21,6 +22,19 @@ public class WindowQuestPointer : MonoBehaviour
 
     void Update()
     {
+        if (targetObject == null)
+        {
+            arrow.SetActive(false);
+        }
+        else
+        {
+            arrow.SetActive(true);
+            CalculateTargetPosition();
+        }
+    }
+
+    void CalculateTargetPosition()
+    {
         float borderSize = 50f;
         Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(targetObject.transform.position);
         bool isOffscreen = targetPositionScreenPoint.x <= borderSize || targetPositionScreenPoint.x >= Screen.width - borderSize || targetPositionScreenPoint.y <= borderSize || targetPositionScreenPoint.y >= Screen.height - borderSize;
@@ -28,7 +42,7 @@ public class WindowQuestPointer : MonoBehaviour
         if (isOffscreen)
         {
             RotatePointerTowardsTargetPosition();
-            
+
             Vector3 cappedTargetScreenPosition = targetPositionScreenPoint;
             cappedTargetScreenPosition.x = Mathf.Clamp(cappedTargetScreenPosition.x, borderSize, Screen.width - borderSize);
             cappedTargetScreenPosition.y = Mathf.Clamp(cappedTargetScreenPosition.y, borderSize, Screen.height - borderSize);
