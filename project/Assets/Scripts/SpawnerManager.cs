@@ -158,7 +158,7 @@ public class SpawnerManager : MonoBehaviour
     {
         for (int i = 0; i < spawners.Length; i++)
         {
-            if (GameObject.Find(itemToBeSpawned.name + "(Clone)"))
+            if (GameObject.Find(itemToBeSpawned.name + "(Clone)") || GameObject.FindGameObjectWithTag("Collectable"))
             {
                 break;
             }
