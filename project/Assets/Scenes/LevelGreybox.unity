@@ -8597,6 +8597,7 @@ MonoBehaviour:
   flashes: 5
   playerGameObjectChild: {fileID: 1119322359}
   stunMaterial: {fileID: 0}
+  hitByAnObstacle: 0
 --- !u!114 &448162256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9517,6 +9518,10 @@ PrefabInstance:
       propertyPath: runningSpeed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 470364313, guid: ea7d54d0fe699ce48ba6fffb128ae2e6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2064568104, guid: ea7d54d0fe699ce48ba6fffb128ae2e6, type: 3}
       propertyPath: playerGameObjectChild
       value: 
@@ -9620,6 +9625,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 620535f18f9282949bf2e82e3a384d19, type: 2}
+    - target: {fileID: 6782509753739344314, guid: ea7d54d0fe699ce48ba6fffb128ae2e6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6973316444131757794, guid: ea7d54d0fe699ce48ba6fffb128ae2e6,
         type: 3}
       propertyPath: m_RootOrder
@@ -10014,7 +10024,9 @@ Transform:
   - {fileID: 2142102455}
   - {fileID: 1713794301}
   - {fileID: 1650049022}
+  - {fileID: 753948198}
   - {fileID: 902304948}
+  - {fileID: 1713794301}
   - {fileID: 2034613337}
   - {fileID: 753948198}
   m_Father: {fileID: 0}
@@ -15860,7 +15872,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.19, y: 0.16}
   m_AnchorMax: {x: 0.19, y: 0.17}
-  m_AnchoredPosition: {x: -224.00024, y: -138.6335}
+  m_AnchoredPosition: {x: -224.00021, y: -138.63348}
   m_SizeDelta: {x: 112.44, y: 27.91307}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &832668457
@@ -29660,6 +29672,12 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 0e16c005d68e100468195d40984079c1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7de5a31a2039344c81527118562e72c, type: 3}
+--- !u!95 &1758297724 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6782509753739344314, guid: ea7d54d0fe699ce48ba6fffb128ae2e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 485985942}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1761359327
 GameObject:
   m_ObjectHideFlags: 0
@@ -33368,6 +33386,7 @@ MonoBehaviour:
   interval: 1
   countdownText: {fileID: 271652459}
   playerController: {fileID: 333378785}
+  animator: {fileID: 1758297724}
   animationController: {fileID: 470364313}
   gameController: {fileID: 1810754894}
 --- !u!1 &2049054681
@@ -33677,6 +33696,21 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 485985942}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2064568098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064568097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2433d365301369548a17c91f95743117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpParticleEffect: {fileID: 8850342199879426694, guid: 890694f432b16db44a776146825477fc,
+    type: 3}
+  dustParticleEffect: {fileID: 0}
 --- !u!54 &2064568103 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 4280465158584901715, guid: ea7d54d0fe699ce48ba6fffb128ae2e6,

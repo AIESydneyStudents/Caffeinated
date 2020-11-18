@@ -8,8 +8,10 @@ public class CountdownTimer : MonoBehaviour
     public float interval;
     public TextMeshProUGUI countdownText;
     public RB_PlayerController playerController;
+    public Animator animator;
     public AnimationController animationController;
     public GameController gameController;
+
     private float startingTime;
     
     // Start is called before the first frame update
@@ -31,6 +33,7 @@ public class CountdownTimer : MonoBehaviour
     IEnumerator Countdown()
     {
         playerController.enabled = false;
+        animator.enabled = false;
         animationController.enabled = false;
         countdownText.text = "3";
         
@@ -50,6 +53,7 @@ public class CountdownTimer : MonoBehaviour
 
         gameObject.SetActive(false);
         playerController.enabled = true;
+        animator.enabled = true;
         animationController.enabled = true;
     }
 }
