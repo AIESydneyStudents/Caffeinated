@@ -31,7 +31,7 @@ public class AnimationController : MonoBehaviour
         gameObject.transform.localPosition = startPos;
 
         // Play Run animation
-        if (Keyboard.current.aKey.isPressed && playerController.grounded || Keyboard.current.dKey.isPressed && playerController.grounded)
+        if (playerController.moveDir.x != 0 && playerController.grounded)
         {
             anim.enabled = false;
             anim.enabled = true;

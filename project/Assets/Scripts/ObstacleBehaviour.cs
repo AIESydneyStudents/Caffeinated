@@ -43,6 +43,11 @@ public class ObstacleBehaviour : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        Destroy(particles);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
