@@ -12,11 +12,13 @@ public class ObstacleBehaviour : MonoBehaviour
     public float yVelocity = 1;
     public float rotateSpeed;
     public DisplayTimerIncrease displayTimerIncrease;
+    public ChangeColour changeColourScript;
 
     // Start is called before the first frame update
     void Start()
     {
         displayTimerIncrease = GameObject.Find("Canvas").GetComponent<DisplayTimerIncrease>();
+        changeColourScript = GameObject.FindGameObjectWithTag("Player").GetComponent<ChangeColour>();
         gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, yVelocity, 0);
     }
 
@@ -41,6 +43,7 @@ public class ObstacleBehaviour : MonoBehaviour
             if (!other.GetComponent<RB_PlayerController>().invulnerable)
             {
                 displayTimerIncrease.DisplayTime(-timeLoss, -scoreLoss);
+                changeColourScript.hitByAnObstacle = true;
             }
             other.GetComponent<RB_PlayerController>().Damaged(scoreLoss, timeLoss);
         }

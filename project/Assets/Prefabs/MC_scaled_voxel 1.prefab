@@ -15,6 +15,7 @@ MonoBehaviour:
   playerController: {fileID: 4280465158584901713}
   playerRigidbody: {fileID: 4280465158584901715}
   player: {fileID: 2927014537069838227}
+  runningSpeed: 0
 --- !u!1 &2927014537069838227
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,26 +159,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f760f2a12935fa44995a2db4034474c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  giveDist: 0.1
   rotateBuffer: 0.1
+  pauseScript: {fileID: 0}
   curHitObject: {fileID: 0}
   boxHalfExtentsG: {x: 0, y: 0, z: 0}
   boxDistanceG: 0
+  CoyoteTime: 0.2
   curHitObjectW: {fileID: 0}
   boxHalfExtents: {x: 0, y: 0, z: 0}
   boxDistance: 0
   GroundSpeed: 35
   AirSpeed: 30
-  GravMultiplyer: 4.5
   VelocityCap: 30
-  PickupBonusTime: 7
+  AddForceDashs: 0
   DashForce: 40
-  JumpForce: 20
-  MidAirJumps: 1
   MidAirDashs: 1
-  CoyoteTime: 0.2
   AddForceJumps: 0
   AddForceWallJumps: 0
-  AddForceDashs: 0
   JumpTagBlacklist:
   - Consumable
   - Player
@@ -189,15 +188,18 @@ MonoBehaviour:
   - PU_Speed
   - Path
   - Spawner
+  JumpForce: 20
+  MidAirJumps: 1
+  GravMultiplyer: 4.5
+  noDragTime: 0.5
+  PickupBonusTime: 7
   HitStunDuration: 0.5
   HitGracePeriod: 1
-  SpeedBoost: 1
   invulnerable: 0
+  SpeedBoost: 1
   moveDir: {x: 0, y: 0, z: 0}
-  UI: {fileID: 0}
   grounded: 1
   walled: {x: 0, y: 0, z: 0}
-  noDragTime: 0.5
 --- !u!114 &4280465158584901714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,6 +229,7 @@ MonoBehaviour:
   targetColour: {r: 0, g: 0, b: 0, a: 1}
   flashes: 5
   playerGameObjectChild: {fileID: 9119445379681215034}
+  stunMaterial: {fileID: 0}
 --- !u!1 &9119445379681215034
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +321,7 @@ Animator:
   m_GameObject: {fileID: 9119445379681215034}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 31b3dca0835da284ba0b584dc89c3b02, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -342,6 +345,7 @@ MonoBehaviour:
   playerController: {fileID: 0}
   playerRigidbody: {fileID: 0}
   player: {fileID: 0}
+  runningSpeed: 0
 --- !u!1001 &8489539974705479642
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -353,7 +357,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 31b3dca0835da284ba0b584dc89c3b02, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 1f6835a4a8e8a284f936a0c5eb1370e3,
         type: 3}
       propertyPath: m_LocalPosition.x

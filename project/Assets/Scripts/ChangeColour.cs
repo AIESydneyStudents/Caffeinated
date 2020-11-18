@@ -6,20 +6,22 @@ public class ChangeColour : MonoBehaviour
 {
     public Color targetColour = new Color(1, 0, 0, 1);
     public int flashes;
+    public GameObject playerGameObjectChild;
+    public Material stunMaterial;
 
     private Color startingColour;
-    public GameObject playerGameObjectChild;
     private Material materialToChange;
     private RB_PlayerController playerController;
     private int routines;
 
     private bool CR_running;
-    private bool hitByAnObstacle;
+    [HideInInspector]
+    public bool hitByAnObstacle;
     private bool startCoroutine;
 
     private void Start()
     {
-        materialToChange = playerGameObjectChild.GetComponent<MeshRenderer>().material;
+        materialToChange = playerGameObjectChild.GetComponent<Renderer>().material;
         startingColour = materialToChange.color;
         playerController = gameObject.GetComponent<RB_PlayerController>();
     }
@@ -39,16 +41,21 @@ public class ChangeColour : MonoBehaviour
 
         if (hitByAnObstacle && playerController.invulnerable)
         {
+            Debug.Log("Starting coroutine");
             startCoroutine = true;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle") && !playerController.invulnerable)
-        {
-            hitByAnObstacle = true;
-        }
+        //if (other.CompareTag("Obstacle")/* && !playerController.invulnerable*/)
+        //{
+        //    if (!playerController.invulnerable)
+        //    {
+        //        Debug.Log("Hit Obstacle");
+        //        hitByAnObstacle = true;
+        //    }
+        //}
     }
 
     IEnumerator StunColour()
