@@ -3825,7 +3825,7 @@ ParticleSystem:
       emitter: {fileID: 7856953391993133710}
       type: 0
       properties: 0
-      emitProbability: 0.1
+      emitProbability: 1
   LightsModule:
     enabled: 0
     ratio: 0
@@ -4826,6 +4826,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4477285745308578000}
     m_Modifications:
+    - target: {fileID: 2700715003736319946, guid: 115c397bf86902a40bb118b654093354,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 2700715003736319946, guid: 115c397bf86902a40bb118b654093354,
+        type: 3}
+      propertyPath: m_MaskInteraction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2700715003736319946, guid: 115c397bf86902a40bb118b654093354,
+        type: 3}
+      propertyPath: m_LengthScale
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2700715003736319946, guid: 115c397bf86902a40bb118b654093354,
+        type: 3}
+      propertyPath: m_VelocityScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3869828391057473944, guid: 115c397bf86902a40bb118b654093354,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4926,6 +4946,41 @@ PrefabInstance:
       propertyPath: ColorModule.gradient.maxGradient.atime4
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 7777620206183735492, guid: 115c397bf86902a40bb118b654093354,
+        type: 3}
+      propertyPath: InitialModule.startSize.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7777620206183735492, guid: 115c397bf86902a40bb118b654093354,
+        type: 3}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7777620206183735492, guid: 115c397bf86902a40bb118b654093354,
+        type: 3}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7777620206183735492, guid: 115c397bf86902a40bb118b654093354,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7777620206183735492, guid: 115c397bf86902a40bb118b654093354,
+        type: 3}
+      propertyPath: InitialModule.rotation3D
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7777620206183735492, guid: 115c397bf86902a40bb118b654093354,
+        type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7777620206183735492, guid: 115c397bf86902a40bb118b654093354,
+        type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7778802134812195182, guid: 115c397bf86902a40bb118b654093354,
         type: 3}
       propertyPath: m_Name
@@ -4962,6 +5017,16 @@ PrefabInstance:
       propertyPath: looping
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2030362275760378577, guid: 54b3f77bd6b71fe46bda18823ca5cc14,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4219690398347658545, guid: 54b3f77bd6b71fe46bda18823ca5cc14,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 4544931538569829021, guid: 54b3f77bd6b71fe46bda18823ca5cc14,
         type: 3}
       propertyPath: m_Name

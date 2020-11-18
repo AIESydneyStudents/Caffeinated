@@ -11,6 +11,7 @@ public class CountdownTimer : MonoBehaviour
     public Animator animator;
     public AnimationController animationController;
     public GameController gameController;
+    public PlayerParticleEffectController playerParticleEffectController;
 
     private float startingTime;
     
@@ -35,6 +36,7 @@ public class CountdownTimer : MonoBehaviour
         playerController.enabled = false;
         animator.enabled = false;
         animationController.enabled = false;
+        playerParticleEffectController.enabled = false;
         countdownText.text = "3";
         
         yield return new WaitForSeconds(interval);
@@ -55,5 +57,6 @@ public class CountdownTimer : MonoBehaviour
         playerController.enabled = true;
         animator.enabled = true;
         animationController.enabled = true;
+        playerParticleEffectController.enabled = true;
     }
 }

@@ -1,17 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WindowQuestPointer : MonoBehaviour
 {
     public Camera cam;
-
     public GameObject arrow;
     public GameObject targetObject;
     public Vector3 offset;
     public Vector3 offscreenOffset;
     public float xPosForArrowToSwitch;
     public float yPosForArrowToSwitch;
+    public Color colourForFindingTea;
+    public Color colourForFindingCustomer;
+
     private RectTransform pointerRectTransform;
 
     private void Awake()
@@ -30,6 +33,15 @@ public class WindowQuestPointer : MonoBehaviour
         {
             arrow.SetActive(true);
             CalculateTargetPosition();
+
+            if (targetObject.CompareTag("Collectable"))
+            {
+                arrow.GetComponent<Image>().color = colourForFindingTea;
+            }
+            else if (targetObject.CompareTag("Customer"))
+            {
+                arrow.GetComponent<Image>().color = colourForFindingCustomer;
+            }
         }
     }
 
