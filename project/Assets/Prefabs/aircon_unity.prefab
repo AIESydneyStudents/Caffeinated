@@ -93,4 +93,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BounceForce: 20
-  JumpTagBlacklist: []
+  JumpTagBlacklist:
+  - Obstacle

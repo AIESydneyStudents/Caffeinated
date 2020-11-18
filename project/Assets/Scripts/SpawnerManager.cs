@@ -171,7 +171,7 @@ public class SpawnerManager : MonoBehaviour
         if (emptySpawners == spawners.Length)
         {
             index = Random.Range(0, spawners.Length);
-            Instantiate(itemToBeSpawned, spawners[index].transform.position + offset, Quaternion.identity);
+            Instantiate(itemToBeSpawned, spawners[index].transform.position + offset, Quaternion.Euler(0, 180, 0));
             emptySpawners = 0;
         }
     }
