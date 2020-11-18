@@ -5,6 +5,7 @@ using UnityEngine;
 public class DestroyCollectable : MonoBehaviour
 {
     public int teaBags;
+    public GameObject confetti;
 
     private GameController gameController;
     private RB_PlayerController playerController;
@@ -41,11 +42,13 @@ public class DestroyCollectable : MonoBehaviour
             gameController.AddTime(playerController.PickupBonusTime);
             StartCoroutine(DisappearCustomer(other.gameObject));
             displayPickedUpText.ToggleTeaImage();
+            
         }
     }
 
     IEnumerator DisappearCustomer(GameObject customer)
     {
+        Instantiate(confetti, customer.transform);
         yield return new WaitForSeconds(2.0f);
         Destroy(customer);
     }

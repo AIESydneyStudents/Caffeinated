@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObstacleBehaviour : MonoBehaviour
 {
     private float timer = 0f;
+    private GameObject particles;
 
     public float lifeTime = 3.0f;
     public float timeLoss = 5.0f;

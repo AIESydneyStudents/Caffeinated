@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3007345247696552724}
   - component: {fileID: 271142025303562377}
   - component: {fileID: 970239917349027721}
+  - component: {fileID: 4023766068806661025}
   m_Layer: 0
   m_Name: WallGrind Dust
   m_TagString: Untagged
@@ -46,9 +47,9 @@ ParticleSystem:
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
-  looping: 1
+  looping: 0
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -4754,3 +4755,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &4023766068806661025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2378731654205985276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 242031302c8ead54d90718530118502f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
