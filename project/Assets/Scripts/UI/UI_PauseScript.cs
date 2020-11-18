@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class UI_PauseScript : MonoBehaviour
@@ -15,6 +16,8 @@ public class UI_PauseScript : MonoBehaviour
     public GameObject GameHUD;
     public GameObject countdownScreen;
 
+    public GameObject SelectedPauseButton;
+    public GameObject SelectedGameoverButton;
     //public AudioSource sound;
 
     // Update is called once per frame
@@ -65,6 +68,11 @@ public class UI_PauseScript : MonoBehaviour
         compassCanvas.SetActive(!isPaused);
         Time.timeScale = isPaused ? 0f : 1f;
         TimerIncrease.SetActive(!isPaused);
+        // Set Pause button active
+        if (isPaused)
+        {
+            EventSystem.current.SetSelectedGameObject(SelectedPauseButton);
+        }
         // Cursor controle
         Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = isPaused;
@@ -115,6 +123,8 @@ public class UI_PauseScript : MonoBehaviour
     {
         // Turn on gameover screen
         GameOverScreen.SetActive(true);
+        // Set active button
+        EventSystem.current.SetSelectedGameObject(SelectedGameoverButton);
         // Turn off compass
         compassCanvas.SetActive(false);
         pickedUpImages.SetActive(false);
