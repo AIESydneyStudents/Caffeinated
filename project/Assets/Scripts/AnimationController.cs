@@ -55,7 +55,7 @@ public class AnimationController : MonoBehaviour
         }
 
         // Play Fall animation
-        if (playerRigidbody.velocity.y < 0)
+        if (playerRigidbody.velocity.y < 0 && !playerController.grounded)
         {
             anim.enabled = false;
             anim.enabled = true;
