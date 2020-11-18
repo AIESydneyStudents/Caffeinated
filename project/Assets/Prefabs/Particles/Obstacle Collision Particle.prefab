@@ -4818,7 +4818,7 @@ ParticleSystemRenderer:
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
 --- !u!1001 &497130051418356298
 PrefabInstance:
   m_ObjectHideFlags: 0
