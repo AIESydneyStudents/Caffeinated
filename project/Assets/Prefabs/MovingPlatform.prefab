@@ -157,6 +157,7 @@ MonoBehaviour:
   points:
   - {fileID: 1456323839103310235}
   - {fileID: 1456323839107446677}
+  boxCollider: {fileID: 0}
 --- !u!1 &1456323839040432830
 GameObject:
   m_ObjectHideFlags: 0
