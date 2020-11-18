@@ -327,6 +327,109 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""3761a574-af3a-4900-a43f-7472bc1db6c0"",
+            ""actions"": [
+                {
+                    ""name"": ""Add_Letter"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""545e12ff-d99e-4adb-acfb-c114635fe45d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Remove_Letter"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""b187e62d-dc41-4326-864e-8b88c10e6350"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Letter_Up"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""2b906e26-22a8-4d1f-9962-cc8eaac7b457"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Letter_Down"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""bc0f75cd-46d1-485a-83a4-9b76ec155827"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Deselect"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""3b5b9ea8-7d42-4411-b3ff-2d2365d52986"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""b80ec911-4f5f-435a-ab09-51c2b8d9f389"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Add_Letter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f17fe6b9-f774-44ed-b488-6bec14b32c56"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Remove_Letter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e8a9fa05-4048-4bac-b350-89aa5e88207a"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Letter_Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3efe1108-f027-42df-8034-fe2091136512"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Letter_Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ce88f924-6b7d-4f74-842d-57d47247fda7"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Deselect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -370,6 +473,13 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         // Debug
         m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
         m_Debug_toggle2D = m_Debug.FindAction("toggle2D", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_Add_Letter = m_UI.FindAction("Add_Letter", throwIfNotFound: true);
+        m_UI_Remove_Letter = m_UI.FindAction("Remove_Letter", throwIfNotFound: true);
+        m_UI_Letter_Up = m_UI.FindAction("Letter_Up", throwIfNotFound: true);
+        m_UI_Letter_Down = m_UI.FindAction("Letter_Down", throwIfNotFound: true);
+        m_UI_Deselect = m_UI.FindAction("Deselect", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -521,6 +631,71 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         }
     }
     public DebugActions @Debug => new DebugActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private IUIActions m_UIActionsCallbackInterface;
+    private readonly InputAction m_UI_Add_Letter;
+    private readonly InputAction m_UI_Remove_Letter;
+    private readonly InputAction m_UI_Letter_Up;
+    private readonly InputAction m_UI_Letter_Down;
+    private readonly InputAction m_UI_Deselect;
+    public struct UIActions
+    {
+        private @PlayerControls m_Wrapper;
+        public UIActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Add_Letter => m_Wrapper.m_UI_Add_Letter;
+        public InputAction @Remove_Letter => m_Wrapper.m_UI_Remove_Letter;
+        public InputAction @Letter_Up => m_Wrapper.m_UI_Letter_Up;
+        public InputAction @Letter_Down => m_Wrapper.m_UI_Letter_Down;
+        public InputAction @Deselect => m_Wrapper.m_UI_Deselect;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void SetCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterface != null)
+            {
+                @Add_Letter.started -= m_Wrapper.m_UIActionsCallbackInterface.OnAdd_Letter;
+                @Add_Letter.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnAdd_Letter;
+                @Add_Letter.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnAdd_Letter;
+                @Remove_Letter.started -= m_Wrapper.m_UIActionsCallbackInterface.OnRemove_Letter;
+                @Remove_Letter.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnRemove_Letter;
+                @Remove_Letter.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnRemove_Letter;
+                @Letter_Up.started -= m_Wrapper.m_UIActionsCallbackInterface.OnLetter_Up;
+                @Letter_Up.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnLetter_Up;
+                @Letter_Up.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnLetter_Up;
+                @Letter_Down.started -= m_Wrapper.m_UIActionsCallbackInterface.OnLetter_Down;
+                @Letter_Down.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnLetter_Down;
+                @Letter_Down.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnLetter_Down;
+                @Deselect.started -= m_Wrapper.m_UIActionsCallbackInterface.OnDeselect;
+                @Deselect.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnDeselect;
+                @Deselect.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnDeselect;
+            }
+            m_Wrapper.m_UIActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Add_Letter.started += instance.OnAdd_Letter;
+                @Add_Letter.performed += instance.OnAdd_Letter;
+                @Add_Letter.canceled += instance.OnAdd_Letter;
+                @Remove_Letter.started += instance.OnRemove_Letter;
+                @Remove_Letter.performed += instance.OnRemove_Letter;
+                @Remove_Letter.canceled += instance.OnRemove_Letter;
+                @Letter_Up.started += instance.OnLetter_Up;
+                @Letter_Up.performed += instance.OnLetter_Up;
+                @Letter_Up.canceled += instance.OnLetter_Up;
+                @Letter_Down.started += instance.OnLetter_Down;
+                @Letter_Down.performed += instance.OnLetter_Down;
+                @Letter_Down.canceled += instance.OnLetter_Down;
+                @Deselect.started += instance.OnDeselect;
+                @Deselect.performed += instance.OnDeselect;
+                @Deselect.canceled += instance.OnDeselect;
+            }
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -551,5 +726,13 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     public interface IDebugActions
     {
         void OnToggle2D(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnAdd_Letter(InputAction.CallbackContext context);
+        void OnRemove_Letter(InputAction.CallbackContext context);
+        void OnLetter_Up(InputAction.CallbackContext context);
+        void OnLetter_Down(InputAction.CallbackContext context);
+        void OnDeselect(InputAction.CallbackContext context);
     }
 }
