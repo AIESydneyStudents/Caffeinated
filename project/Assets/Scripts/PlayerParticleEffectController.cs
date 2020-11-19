@@ -25,6 +25,7 @@ public class PlayerParticleEffectController : MonoBehaviour
     {
         playerControles = new PlayerControls();
         playerControles.Player.Jump.performed += _ => JumpEffects();
+        playerControles.Player.Dash.performed += _ => DashEffects();
         playerControles.Enable();
         playerController = GetComponent<RB_PlayerController>();
         playerTranform = GetComponent<Transform>();
@@ -40,6 +41,13 @@ public class PlayerParticleEffectController : MonoBehaviour
         {
             Instantiate(jumpParticleEffect, gameObject.transform.position, Quaternion.Euler(90, 0, 0));
             jumps++;
+        }
+    }
+    private void DashEffects()
+    {
+        if (this.enabled == true)
+        {
+            Instantiate(jumpParticleEffect, gameObject.transform.position, Quaternion.Euler(0, 0, 0));
         }
     }
     // Update is called once per frame
