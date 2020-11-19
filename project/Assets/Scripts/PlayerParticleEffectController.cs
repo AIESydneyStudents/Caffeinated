@@ -20,26 +20,31 @@ public class PlayerParticleEffectController : MonoBehaviour
     RB_PlayerController playerController;
     private int jumps = 0;
     private float timeInAir;
-    
-    // Start is called before the first frame update
-    void Start()
+    private PlayerControls playerControles;
+    private void Awake()
     {
+        playerControles = new PlayerControls();
+        playerControles.Player.Jump.performed += _ => JumpEffects();
+        playerControles.Enable();
         playerController = GetComponent<RB_PlayerController>();
         playerTranform = GetComponent<Transform>();
     }
-
+    private void OnDisable()
+    {
+        playerControles.Player.Jump.performed -= _ => JumpEffects();
+        playerControles.Disable();
+    }
+    private void JumpEffects()
+    {
+        if (playerController.grounded || jumps <= playerController.MidAirJumps)
+        {
+            Instantiate(jumpParticleEffect, gameObject.transform.position, Quaternion.Euler(90, 0, 0));
+            jumps++;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            if (playerController.grounded || jumps <= playerController.MidAirJumps)
-            {
-                Instantiate(jumpParticleEffect, gameObject.transform.position, Quaternion.Euler(90, 0, 0));
-                jumps++;
-            }
-        }
-
         if (playerController.grounded)
         {
             jumps = 0;
