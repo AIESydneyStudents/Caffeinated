@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5433400977216760347}
   - component: {fileID: 1755234032511620834}
   - component: {fileID: 9172689424479169705}
+  - component: {fileID: 2142102456}
   m_Layer: 0
   m_Name: aircon_unity
   m_TagString: Untagged
@@ -26,9 +27,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 29007321000190526}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: -39.6704, y: -32.165867, z: 1.8133755}
-  m_LocalScale: {x: 1.655, y: 1.511, z: 2.056}
+  m_LocalScale: {x: 1.655, y: 2.79, z: 2.056}
   m_Children:
   - {fileID: 6145238129355213555}
   m_Father: {fileID: 0}
@@ -93,9 +94,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f25dfdea387449d418ac47dc1edf4a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BounceForce: 20
+  BounceForce: 25
   JumpTagBlacklist:
   - Obstacle
+--- !u!65 &2142102456
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29007321000190526}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.7610756, y: 0.99766195, z: 1.6175989}
+  m_Center: {x: 0.000000059604645, y: 0.49883097, z: 0}
 --- !u!1001 &2973769355640060979
 PrefabInstance:
   m_ObjectHideFlags: 0

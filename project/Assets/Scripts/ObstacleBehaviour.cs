@@ -29,7 +29,6 @@ public class ObstacleBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rotate();
         timer += 1 * Time.deltaTime;
 
         //particles.transform.position = gameObject.transform.position;
@@ -62,8 +61,4 @@ public class ObstacleBehaviour : MonoBehaviour
         }
     }
 
-    void rotate()
-    {
-        transform.Rotate(0, 0, 1*rotateSpeed * Time.deltaTime, Space.Self);
-    }
 }
