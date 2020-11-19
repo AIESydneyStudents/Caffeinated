@@ -14,6 +14,7 @@ public class inputNameManager : MonoBehaviour
     private bool controllerKeyboard = false;
     private PlayerControls playerControls;
     private GameObject DSB;
+    private bool WantToEdit = false;
     private void Awake()
     {
         //DSB = transform.find("EventSystem").GetComponent<MenuActions>().DefaultSelectedButton;
@@ -41,12 +42,16 @@ public class inputNameManager : MonoBehaviour
     {
         //Set up listeners
         inputField = GetComponent<TMP_InputField>();
-        inputField.onValueChanged.AddListener(delegate { Manage(); });
+        inputField.onValueChanged.AddListener(delegate { InputManagment(); });
         inputField.onEndEdit.AddListener(delegate { SaveName(); });
-        inputField.onSelect.AddListener(delegate { VirtualKeyboard(); });
+        inputField.onSelect.AddListener(delegate { SelectManagment(); });
     }
-    private void VirtualKeyboard()
+    private void SelectManagment()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            WantToEdit = true;
+        }
         if (Input.GetJoystickNames().Length != 0)
         {
             controllerKeyboard = true;
@@ -58,6 +63,7 @@ public class inputNameManager : MonoBehaviour
         {
             controllerKeyboard = false;
             inputField.OnDeselect(new BaseEventData(EventSystem.current));
+            //EventSystem.current.SetSelectedGameObject(null);
             //EventSystem.current.SetSelectedGameObject(DSB);
         }
         //inputField.DeactivateInputField(); 
@@ -121,7 +127,7 @@ public class inputNameManager : MonoBehaviour
             inputField.text = inputField.text.Substring(0, inputField.text.Length - 1);
         }
     }
-    private void Manage()
+    private void InputManagment()
     {
         //Limit characters
         if (inputField.text.Length > characterLimit)
