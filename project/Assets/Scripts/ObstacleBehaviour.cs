@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObstacleBehaviour : MonoBehaviour
 {
     private float timer = 0f;
-    private float yPos;
+    private GameObject particles;
 
     public float lifeTime = 3.0f;
     public float timeLoss = 5.0f;
@@ -15,7 +15,7 @@ public class ObstacleBehaviour : MonoBehaviour
     public DisplayTimerIncrease displayTimerIncrease;
     public ChangeColour changeColourScript;
     public GameObject obstacleParticles;
-    GameObject particles;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +23,8 @@ public class ObstacleBehaviour : MonoBehaviour
         displayTimerIncrease = GameObject.Find("Canvas").GetComponent<DisplayTimerIncrease>();
         changeColourScript = GameObject.FindGameObjectWithTag("Player").GetComponent<ChangeColour>();
         gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, yVelocity, 0);
-        particles = Instantiate(obstacleParticles, gameObject.transform.position, Quaternion.Euler(0, 0, 0));
+        particles = Instantiate(obstacleParticles, gameObject.transform.position, gameObject.transform.rotation);
+        
     }
 
     // Update is called once per frame
@@ -31,15 +32,14 @@ public class ObstacleBehaviour : MonoBehaviour
     {
         timer += 1 * Time.deltaTime;
 
-        //particles.transform.position = gameObject.transform.position;
-        particles.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+        transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
+        particles.transform.position = new Vector3(particles.transform.position.x, gameObject.transform.position.y + 1, particles.transform.position.z);
 
         if (timer > lifeTime)
         {
             Destroy(particles);
             Destroy(gameObject);
         }
-
     }
 
     private void OnDestroy()
