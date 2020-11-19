@@ -75,7 +75,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c16b4770453c14a8f873f9c96019c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xPos: -2
   lifeTime: 20
   timeLoss: 2
   scoreLoss: 0
@@ -85,8 +84,8 @@ MonoBehaviour:
   changeColourScript: {fileID: 0}
   obstacleParticles: {fileID: 6325172777235042876, guid: 9f2bef228f9dec44d96b7e3836dae206,
     type: 3}
-  points:
-  - {fileID: 0}
+  obstacleCollisionParticles: {fileID: 4566232236626498675, guid: f617df61f730dc540a8b45fde5fc6159,
+    type: 3}
 --- !u!1 &4230601129455464690
 GameObject:
   m_ObjectHideFlags: 0

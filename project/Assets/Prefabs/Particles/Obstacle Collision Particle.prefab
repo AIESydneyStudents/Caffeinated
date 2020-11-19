@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4477285745308578000}
   - component: {fileID: 3223564150090236843}
   - component: {fileID: 5099739797096779115}
+  - component: {fileID: 8896185207416151797}
   m_Layer: 0
   m_Name: Obstacle Collision Particle
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4566232236626498675}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4041004375486977521}
   - {fileID: 3698103244770622418}
@@ -4796,7 +4797,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 4
+  m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
@@ -4819,6 +4820,18 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 2
+--- !u!114 &8896185207416151797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4566232236626498675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 242031302c8ead54d90718530118502f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &497130051418356298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4900,6 +4913,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3869828391057473944, guid: 115c397bf86902a40bb118b654093354,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3869828391057473944, guid: 115c397bf86902a40bb118b654093354,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3869828391057473944, guid: 115c397bf86902a40bb118b654093354,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7777620206183735492, guid: 115c397bf86902a40bb118b654093354,
         type: 3}
@@ -5086,6 +5114,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043193237482441174, guid: 54b3f77bd6b71fe46bda18823ca5cc14,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043193237482441174, guid: 54b3f77bd6b71fe46bda18823ca5cc14,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043193237482441174, guid: 54b3f77bd6b71fe46bda18823ca5cc14,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54b3f77bd6b71fe46bda18823ca5cc14, type: 3}

@@ -9,6 +9,7 @@ public class LR_MovingPlatform : MonoBehaviour
     public GameObject[] points;
     private int index = 0;
     public BoxCollider boxCollider;
+    private GameObject player;
     
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,11 @@ public class LR_MovingPlatform : MonoBehaviour
             {
                 index++;
                 gameObject.transform.localEulerAngles += new Vector3(0, 180, 0);
+                if (player != null)
+                {
+                    player.transform.localEulerAngles += new Vector3(0, 180, 0);
+                    player.transform.localPosition = new Vector3(-player.transform.localPosition.x, player.transform.localPosition.y);
+                }
             }
 
             if (index > points.Length - 1)
@@ -62,6 +68,7 @@ public class LR_MovingPlatform : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             boxCollider.enabled = true;
+            player = other.gameObject;
         }
     }
 
@@ -70,6 +77,7 @@ public class LR_MovingPlatform : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             boxCollider.enabled = false;
+            player = null;
         }
     }
 

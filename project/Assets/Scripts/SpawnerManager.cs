@@ -62,10 +62,7 @@ public class SpawnerManager : MonoBehaviour
             }
             else if (GameObject.Find("Customer(Clone)"))
             {
-                if (GameObject.Find("Customer(Clone)").GetComponent<Renderer>().material.color != Color.green)
-                {
-                    windowQuestPointer.Show(GameObject.FindGameObjectWithTag("Customer"));
-                }
+                windowQuestPointer.Show(GameObject.FindGameObjectWithTag("Customer"));
             }
         }
     }

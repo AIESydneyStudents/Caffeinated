@@ -7,14 +7,14 @@ public class AnimationController : MonoBehaviour
 {
     Animator anim;
     [SerializeField]
-    RB_PlayerController playerController;
+    RB_PlayerController playerController = null;
     [SerializeField]
-    Rigidbody playerRigidbody;
+    Rigidbody playerRigidbody = null;
     [SerializeField]
-    GameObject player;
+    GameObject player = null;
     Vector3 startPos;
     [SerializeField]
-    float runningSpeed;
+    float runningSpeed = 0;
     
     // Start is called before the first frame update
     void Start()

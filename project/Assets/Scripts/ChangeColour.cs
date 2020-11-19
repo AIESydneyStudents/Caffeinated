@@ -41,7 +41,6 @@ public class ChangeColour : MonoBehaviour
 
         if (hitByAnObstacle && playerController.invulnerable)
         {
-            Debug.Log("Starting coroutine");
             startCoroutine = true;
         }
     }
