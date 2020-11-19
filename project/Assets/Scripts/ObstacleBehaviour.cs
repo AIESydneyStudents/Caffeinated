@@ -5,8 +5,6 @@ using UnityEngine;
 public class ObstacleBehaviour : MonoBehaviour
 {
     private float timer = 0f;
-    [SerializeField]
-    private float xPos;
     private GameObject particles;
 
     public float lifeTime = 3.0f;
@@ -25,8 +23,8 @@ public class ObstacleBehaviour : MonoBehaviour
         displayTimerIncrease = GameObject.Find("Canvas").GetComponent<DisplayTimerIncrease>();
         changeColourScript = GameObject.FindGameObjectWithTag("Player").GetComponent<ChangeColour>();
         gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, yVelocity, 0);
-        particles = Instantiate(obstacleParticles, gameObject.transform);
-        particles.transform.position = new Vector3(particles.transform.position.x + 1f, particles.transform.position.y + 3f, particles.transform.position.z);
+        particles = Instantiate(obstacleParticles, gameObject.transform.position, gameObject.transform.rotation);
+        
     }
 
     // Update is called once per frame
@@ -34,15 +32,14 @@ public class ObstacleBehaviour : MonoBehaviour
     {
         timer += 1 * Time.deltaTime;
 
-        //particles.transform.position = gameObject.transform.position;
-        //particles.transform.position = new Vector3(particles.transform.position.x, gameObject.transform.position.y, particles.transform.position.z);
+        transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
+        particles.transform.position = new Vector3(particles.transform.position.x, gameObject.transform.position.y + 1, particles.transform.position.z);
 
         if (timer > lifeTime)
         {
             Destroy(particles);
             Destroy(gameObject);
         }
-
     }
 
     private void OnDestroy()

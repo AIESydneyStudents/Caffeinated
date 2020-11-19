@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1916727092021481833}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.477, y: 2.0639, z: -12.918}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3.3030584, y: 3.3030584, z: 3.3030584}
   m_Children:
   - {fileID: 881286553147314325}
@@ -61,8 +61,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.50792694, y: 0.5901896, z: 0.38604096}
-  m_Center: {x: 0.2591286, y: 0.65380204, z: 0.30697972}
+  m_Size: {x: 0.54947835, y: 0.59291375, z: 0.38863835}
+  m_Center: {x: 0.019475758, y: -0.020377625, z: -0.0016107766}
 --- !u!114 &7617970937265128326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,6 +85,8 @@ MonoBehaviour:
   changeColourScript: {fileID: 0}
   obstacleParticles: {fileID: 6325172777235042876, guid: 9f2bef228f9dec44d96b7e3836dae206,
     type: 3}
+  points:
+  - {fileID: 0}
 --- !u!1 &4230601129455464690
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,7 +113,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4230601129455464690}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2551159, y: 0.62492263, z: 0.27979538}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3.28157, y: 3.28157, z: 3.28157}
   m_Children: []
   m_Father: {fileID: 3225365658956473210}
