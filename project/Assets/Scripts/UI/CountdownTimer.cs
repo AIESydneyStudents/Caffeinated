@@ -58,5 +58,7 @@ public class CountdownTimer : MonoBehaviour
         animator.enabled = true;
         animationController.enabled = true;
         playerParticleEffectController.enabled = true;
+        playerController.enabled = false;
+        playerController.enabled = true;
     }
 }
