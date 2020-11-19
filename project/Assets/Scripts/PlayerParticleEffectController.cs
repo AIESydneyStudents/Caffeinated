@@ -6,15 +6,15 @@ using UnityEngine.InputSystem;
 public class PlayerParticleEffectController : MonoBehaviour
 {
     [SerializeField]
-    GameObject jumpParticleEffect;
+    GameObject jumpParticleEffect = null;
     [SerializeField]
-    GameObject dustParticleEffect;
+    GameObject dustParticleEffect = null;
     [SerializeField]
-    GameObject wallParticleEffect;
+    GameObject wallParticleEffect = null;
     [SerializeField]
-    Vector3 dustParticlesOffset;
+    Vector3 dustParticlesOffset = Vector3.zero;
     [SerializeField]
-    Vector3 wallParticlesOffset;
+    Vector3 wallParticlesOffset = Vector3.zero;
     Transform playerTranform;
 
     RB_PlayerController playerController;

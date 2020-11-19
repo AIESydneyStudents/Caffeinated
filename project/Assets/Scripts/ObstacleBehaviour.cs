@@ -15,6 +15,7 @@ public class ObstacleBehaviour : MonoBehaviour
     public DisplayTimerIncrease displayTimerIncrease;
     public ChangeColour changeColourScript;
     public GameObject obstacleParticles;
+    public GameObject obstacleCollisionParticles;
     
 
     // Start is called before the first frame update
@@ -45,6 +46,7 @@ public class ObstacleBehaviour : MonoBehaviour
     private void OnDestroy()
     {
         Destroy(particles);
+        Instantiate(obstacleCollisionParticles, gameObject.transform.position, gameObject.transform.rotation); 
     }
 
     private void OnTriggerEnter(Collider other)
