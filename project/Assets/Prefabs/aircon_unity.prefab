@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1755234032511620834}
   - component: {fileID: 9172689424479169705}
   - component: {fileID: 2142102456}
+  - component: {fileID: 3864904683801371234}
   m_Layer: 0
   m_Name: aircon_unity
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 29007321000190526}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: -39.6704, y: -32.165867, z: 1.8133755}
-  m_LocalScale: {x: 1.655, y: 2.79, z: 2.056}
+  m_LocalScale: {x: 1.655, y: 2.05, z: 2.056}
   m_Children:
   - {fileID: 6145238129355213555}
   m_Father: {fileID: 0}
@@ -110,6 +111,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.7610756, y: 0.99766195, z: 1.6175989}
   m_Center: {x: 0.000000059604645, y: 0.49883097, z: 0}
+--- !u!95 &3864904683801371234
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29007321000190526}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ebf18d4a5d602914fa5e2934fbcac5a1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &2973769355640060979
 PrefabInstance:
   m_ObjectHideFlags: 0

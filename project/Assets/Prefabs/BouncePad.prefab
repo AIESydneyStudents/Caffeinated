@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6913611299475558769}
   - component: {fileID: 6913611299475558768}
   - component: {fileID: 6913611299475558775}
+  - component: {fileID: 3450738810366746551}
   m_Layer: 0
   m_Name: BouncePad
   m_TagString: Untagged
@@ -109,3 +110,18 @@ MonoBehaviour:
   BounceForce: 20
   JumpTagBlacklist:
   - Obstacle
+--- !u!111 &3450738810366746551
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6913611299475558774}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
