@@ -36,7 +36,7 @@ public class PlayerParticleEffectController : MonoBehaviour
     }
     private void JumpEffects()
     {
-        if (playerController.grounded || jumps <= playerController.MidAirJumps)
+        if (jumps <= playerController.MidAirJumps && this.enabled == true)
         {
             Instantiate(jumpParticleEffect, gameObject.transform.position, Quaternion.Euler(90, 0, 0));
             jumps++;
