@@ -1541,6 +1541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29058f3ce0697f443ab843c35b63330a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuSoundEffect: {fileID: 8300000, guid: 4f521bdc0234e2d46a7fa9614c4e1509, type: 3}
 --- !u!114 &2079693295
 MonoBehaviour:
   m_ObjectHideFlags: 0

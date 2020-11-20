@@ -113,3 +113,4 @@ MonoBehaviour:
   rotateSpeed: 0
   pickupEffect: {fileID: 5469335894540321161, guid: 8e5ab232545370342a60cf368087a8ca,
     type: 3}
+  powerUpSoundEffect: {fileID: 8300000, guid: da745ed8c412c4140b6420aace147731, type: 3}

@@ -16,7 +16,7 @@ public class ObstacleBehaviour : MonoBehaviour
     public ChangeColour changeColourScript;
     public GameObject obstacleParticles;
     public GameObject obstacleCollisionParticles;
-    
+    public AudioClip obstacleSoundEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +25,6 @@ public class ObstacleBehaviour : MonoBehaviour
         changeColourScript = GameObject.FindGameObjectWithTag("Player").GetComponent<ChangeColour>();
         gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, yVelocity, 0);
         particles = Instantiate(obstacleParticles, gameObject.transform.position, gameObject.transform.rotation);
-        
     }
 
     // Update is called once per frame
@@ -46,7 +45,8 @@ public class ObstacleBehaviour : MonoBehaviour
     private void OnDestroy()
     {
         Destroy(particles);
-        Instantiate(obstacleCollisionParticles, gameObject.transform.position, gameObject.transform.rotation); 
+        Instantiate(obstacleCollisionParticles, gameObject.transform.position, gameObject.transform.rotation);
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -60,6 +60,7 @@ public class ObstacleBehaviour : MonoBehaviour
                 changeColourScript.hitByAnObstacle = true;
             }
             other.GetComponent<RB_PlayerController>().Damaged(scoreLoss, timeLoss);
+            AudioSource.PlayClipAtPoint(obstacleSoundEffect, Camera.main.transform.position, 1);
         }
     }
 

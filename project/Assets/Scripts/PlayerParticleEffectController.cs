@@ -33,6 +33,7 @@ public class PlayerParticleEffectController : MonoBehaviour
     private void OnDisable()
     {
         playerControles.Player.Jump.performed -= _ => JumpEffects();
+        playerControles.Player.Dash.performed -= _ => DashEffects();
         playerControles.Disable();
     }
     private void JumpEffects()

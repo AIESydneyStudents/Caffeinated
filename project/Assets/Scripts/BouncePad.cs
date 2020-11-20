@@ -6,6 +6,7 @@ public class BouncePad : MonoBehaviour
 {
     public float BounceForce;
     public string[] JumpTagBlacklist;
+    public AudioClip bouncePadSoundEffect;
     private Animator anim;
     private void Awake()
     {
@@ -17,6 +18,7 @@ public class BouncePad : MonoBehaviour
         {
             anim.SetTrigger("playerColided");
             //other.GetComponent<Rigidbody>().velocity = transform.up * BounceForce;
+            AudioSource.PlayClipAtPoint(bouncePadSoundEffect, Camera.main.transform.position, 1);
         }
     }
     private void OnTriggerStay(Collider other)

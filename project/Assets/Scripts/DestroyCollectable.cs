@@ -6,6 +6,7 @@ public class DestroyCollectable : MonoBehaviour
 {
     public int teaBags;
     public GameObject confetti;
+    public AudioClip teaSoundEffect;
 
     private GameController gameController;
     private RB_PlayerController playerController;
@@ -31,6 +32,7 @@ public class DestroyCollectable : MonoBehaviour
             displayTimerIncrease.DisplayTime(5f);
             displayPickedUpText.ToggleTeaImage();
             collectablefix = other.GetComponent<Collectablefix>();
+            AudioSource.PlayClipAtPoint(teaSoundEffect, Camera.main.transform.position, 1);
         }
 
         if (other.CompareTag("Customer") && teaBags > 0)
@@ -42,7 +44,7 @@ public class DestroyCollectable : MonoBehaviour
             gameController.AddTime(playerController.PickupBonusTime);
             StartCoroutine(DisappearCustomer(other.gameObject));
             displayPickedUpText.ToggleTeaImage();
-            
+            AudioSource.PlayClipAtPoint(teaSoundEffect, Camera.main.transform.position, 1);
         }
     }
 

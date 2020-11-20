@@ -12,6 +12,7 @@ public class InvinciblePowerUp : MonoBehaviour
     public GameObject pickupEffect;
     private GameController gameController;
     private DisplayPickedUpText displayPicked;
+    public AudioClip powerUpSoundEffect;
 
     private void Start()
     {
@@ -32,6 +33,7 @@ public class InvinciblePowerUp : MonoBehaviour
             displayPicked.invincibilityPickedUp.fillAmount = 1;
             gameController.UpdateScoreBoard(scoreIncrease);
             gameController.AddTime(timerIncrease);
+            AudioSource.PlayClipAtPoint(powerUpSoundEffect, Camera.main.transform.position, 1);
         }
     }
     IEnumerator Pickup(Collider player)

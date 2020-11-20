@@ -129,3 +129,7 @@ MonoBehaviour:
   yVelocity: 0
   rotateSpeed: 25
   displayTimerIncrease: {fileID: 0}
+  changeColourScript: {fileID: 0}
+  obstacleParticles: {fileID: 0}
+  obstacleCollisionParticles: {fileID: 0}
+  obstacleSoundEffect: {fileID: 8300000, guid: a4d3ec0cdb7ab0d42996de83f90baaeb, type: 3}

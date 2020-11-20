@@ -18,6 +18,7 @@ public class UI_PauseScript : MonoBehaviour
 
     public GameObject SelectedPauseButton;
     public GameObject SelectedGameoverButton;
+    public AudioClip menuSoundEffect;
     //public AudioSource sound;
 
     // Update is called once per frame
@@ -46,6 +47,7 @@ public class UI_PauseScript : MonoBehaviour
         // Cursor controle
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        AudioSource.PlayClipAtPoint(menuSoundEffect, Camera.main.transform.position, 1);
     }
     public void Pause()
     {
@@ -82,11 +84,13 @@ public class UI_PauseScript : MonoBehaviour
     {
         isPaused = false;
         Time.timeScale = 1f;
+        AudioSource.PlayClipAtPoint(menuSoundEffect, Camera.main.transform.position, 1);
         SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame()
     {
+        AudioSource.PlayClipAtPoint(menuSoundEffect, Camera.main.transform.position, 1);
         Debug.Log("Quitting");
         Application.Quit();
     }
@@ -94,10 +98,12 @@ public class UI_PauseScript : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        AudioSource.PlayClipAtPoint(menuSoundEffect, Camera.main.transform.position, 1);
     }
     public void HighScores()
     {
         SceneManager.LoadScene("HighScoreMenu");
+        AudioSource.PlayClipAtPoint(menuSoundEffect, Camera.main.transform.position, 1);
     }
     public void TutorialOn()
     {

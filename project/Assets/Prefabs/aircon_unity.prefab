@@ -98,6 +98,8 @@ MonoBehaviour:
   BounceForce: 25
   JumpTagBlacklist:
   - Obstacle
+  bouncePadSoundEffect: {fileID: 8300000, guid: 3aee018eeb6258447a67790ceb471deb,
+    type: 3}
 --- !u!65 &2142102456
 BoxCollider:
   m_ObjectHideFlags: 0
