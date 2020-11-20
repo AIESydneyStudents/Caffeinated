@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnerManager : MonoBehaviour
 {
     public GameObject[] spawners;
-    public GameObject itemToBeSpawned;
+    public GameObject[] itemToBeSpawned;
     public Vector3 offset = new Vector3(0.4f, 0.1f, 0.3f);
     public WindowQuestPointer windowQuestPointer;
     public int numberOfItemsToBeSpawned;
@@ -24,15 +24,15 @@ public class SpawnerManager : MonoBehaviour
     {
         destroyCollectable = GameObject.Find("Player").GetComponent<DestroyCollectable>();
 
-        if (itemToBeSpawned.CompareTag("Collectable"))
+        if (itemToBeSpawned[0].CompareTag("Collectable"))
         {
             teaSpawner = true;
         }
-        else if (itemToBeSpawned.CompareTag("PowerUp"))
+        else if (itemToBeSpawned[0].CompareTag("PowerUp"))
         {
             powerUpSpawner = true;
         }
-        else if (itemToBeSpawned.CompareTag("Customer"))
+        else if (itemToBeSpawned[0].CompareTag("Customer"))
         {
             customerSpawner = true;
         }
@@ -71,7 +71,7 @@ public class SpawnerManager : MonoBehaviour
     {
         for (int i = 0; i < spawners.Length; i++)
         {
-            if (GameObject.Find(itemToBeSpawned.name + "(Clone)") || destroyCollectable.teaBags > 0)
+            if (GameObject.Find(itemToBeSpawned[0].name + "(Clone)") || destroyCollectable.teaBags > 0)
             {
                 break;
             }
@@ -84,7 +84,7 @@ public class SpawnerManager : MonoBehaviour
         if (emptySpawners == spawners.Length)
         {
             index = Random.Range(0, spawners.Length);
-            Instantiate(itemToBeSpawned, spawners[index].transform.position + offset, Quaternion.identity);
+            Instantiate(itemToBeSpawned[0], spawners[index].transform.position + offset, Quaternion.identity);
             emptySpawners = 0;
         }
     }
@@ -98,7 +98,7 @@ public class SpawnerManager : MonoBehaviour
         // Check if the number of items has been spawned
         for (int i = 0; i < spawners.Length; i++)
         {
-            if (GameObject.Find(itemToBeSpawned.name + i))
+            if (GameObject.Find(itemToBeSpawned[0].name + i))
             {
                 itemsInScene++;
             }
@@ -114,7 +114,7 @@ public class SpawnerManager : MonoBehaviour
 
             for (int l = 0; l < usedSpawners.Count; l++)
             {
-                GameObject powerUp = GameObject.Find(itemToBeSpawned.name + l);
+                GameObject powerUp = GameObject.Find(itemToBeSpawned[0].name + l);
 
                 if (powerUp == null)
                 {
@@ -141,9 +141,9 @@ public class SpawnerManager : MonoBehaviour
             {
                 int availableSpawnersIndex = Random.Range(0, availableSpawners.Count);
                 index = availableSpawners[availableSpawnersIndex];
-                GameObject powerUp = Instantiate(itemToBeSpawned, spawners[index].transform.position + offset, Quaternion.identity);
+                GameObject powerUp = Instantiate(itemToBeSpawned[0], spawners[index].transform.position + offset, Quaternion.identity);
                 // Naming convention: PU_Speed0
-                powerUp.name = itemToBeSpawned.name + index;
+                powerUp.name = itemToBeSpawned[0].name + index;
                 availableSpawners.RemoveAt(availableSpawnersIndex);
                 itemsInScene++;
                 usedSpawners.Add(index);
@@ -153,23 +153,71 @@ public class SpawnerManager : MonoBehaviour
 
     private void SpawnCustomer()
     {
+        // Spawn the items based on how many items that need to be spawned
+        List<int> availableSpawners = new List<int>();
+        itemsInScene = 0;
+
         for (int i = 0; i < spawners.Length; i++)
         {
-            if (GameObject.Find(itemToBeSpawned.name + "(Clone)") || GameObject.FindGameObjectWithTag("Collectable"))
+            for (int m = 0; m < itemToBeSpawned.Length; m++)
             {
-                break;
-            }
-            else
-            {
-                emptySpawners++;
+                if (GameObject.Find(itemToBeSpawned[m].name + i))
+                {
+                    itemsInScene++;
+                }
             }
         }
 
-        if (emptySpawners == spawners.Length)
+        if (itemsInScene != numberOfItemsToBeSpawned)
         {
-            index = Random.Range(0, spawners.Length);
-            Instantiate(itemToBeSpawned, spawners[index].transform.position + offset, Quaternion.Euler(0, 180, 0));
-            emptySpawners = 0;
+            // Add the spawners that are available
+            for (int i = 0; i < spawners.Length; i++)
+            {
+                availableSpawners.Add(i);
+            }
+
+            for (int l = 0; l < usedSpawners.Count; l++)
+            {
+                for (int n = 0; n < itemToBeSpawned.Length; n++)
+                {
+                    GameObject powerUp = GameObject.Find(itemToBeSpawned[n].name + l);
+
+                    if (powerUp == null)
+                    {
+                        // Check if the spawner already exists in the available spawner list
+                        availableSpawners.Add(l);
+                        usedSpawners.Remove(l);
+                    }
+                }
+            }
+
+            // Remove the spawners that are being used
+            for (int j = 0; j < availableSpawners.Count; j++)
+            {
+                for (int k = 0; k < usedSpawners.Count; k++)
+                {
+                    if (availableSpawners[j] == usedSpawners[k])
+                    {
+                        availableSpawners.RemoveAt(j);
+                    }
+                }
+            }
+
+            // If not, then choose a random available spawner
+            while (itemsInScene < numberOfItemsToBeSpawned)
+            {
+                for (int o = 0; o < itemToBeSpawned.Length; o++)
+                {
+                    int availableSpawnersIndex = Random.Range(0, availableSpawners.Count);
+                    index = availableSpawners[availableSpawnersIndex];
+                    GameObject powerUp = Instantiate(itemToBeSpawned[o], spawners[index].transform.position + offset, Quaternion.identity);
+                    // Naming convention: PU_Speed0
+                    powerUp.name = itemToBeSpawned[0].name + index;
+                    availableSpawners.RemoveAt(availableSpawnersIndex);
+                    itemsInScene++;
+                    usedSpawners.Add(index);
+                }
+            }
         }
     }
 }
