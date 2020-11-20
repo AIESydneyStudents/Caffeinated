@@ -38,7 +38,7 @@ public class InvinciblePowerUp : MonoBehaviour
     }
     IEnumerator Pickup(Collider player)
     {
-        GameObject temp = Instantiate(pickupEffect);
+        GameObject temp = Instantiate(pickupEffect, gameObject.transform);
 
         RB_PlayerController pc = player.GetComponent<RB_PlayerController>();
         pc.invulnerable = true;

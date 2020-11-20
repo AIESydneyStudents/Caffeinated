@@ -12,6 +12,8 @@ public class PlayerParticleEffectController : MonoBehaviour
     [SerializeField]
     GameObject wallParticleEffect = null;
     [SerializeField]
+    GameObject invincibilityParticleEffect = null;
+    [SerializeField]
     Vector3 dustParticlesOffset = Vector3.zero;
     [SerializeField]
     Vector3 wallParticlesOffset = Vector3.zero;
@@ -21,6 +23,7 @@ public class PlayerParticleEffectController : MonoBehaviour
     private int jumps = 0;
     private float timeInAir;
     private PlayerControls playerControles;
+    private GameObject invincibility;
     private void Awake()
     {
         playerControles = new PlayerControls();
@@ -88,6 +91,15 @@ public class PlayerParticleEffectController : MonoBehaviour
         else if (playerTranform.eulerAngles.y == 270 && wallParticlesOffset.x > 0)
         {
             wallParticlesOffset.x = -wallParticlesOffset.x;
+        }
+
+        if (playerController.invulnerable && invincibility == null)
+        {
+            invincibility = Instantiate(invincibilityParticleEffect, gameObject.transform);
+        }
+        else if (invincibility != null && !playerController.invulnerable)
+        {
+            Destroy(invincibility);
         }
     }
 }
