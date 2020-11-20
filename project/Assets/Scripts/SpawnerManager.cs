@@ -60,7 +60,7 @@ public class SpawnerManager : MonoBehaviour
             {
                 windowQuestPointer.Show(GameObject.FindGameObjectWithTag("Collectable"));
             }
-            else if (GameObject.Find("Customer(Clone)"))
+            else if (GameObject.FindGameObjectWithTag("Customer"))
             {
                 windowQuestPointer.Show(GameObject.FindGameObjectWithTag("Customer"));
             }
@@ -169,7 +169,7 @@ public class SpawnerManager : MonoBehaviour
         {
             index = Random.Range(0, spawners.Length);
             int customerIndex = Random.Range(0, itemToBeSpawned.Length);
-            Instantiate(itemToBeSpawned[customerIndex], spawners[index].transform.position + offset, Quaternion.identity);
+            Instantiate(itemToBeSpawned[customerIndex], spawners[index].transform.position + offset, Quaternion.Euler(0, 180, 0));
             emptySpawners = 0;
         }
     }

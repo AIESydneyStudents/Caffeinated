@@ -12,6 +12,7 @@ public class CountdownTimer : MonoBehaviour
     public AnimationController animationController;
     public GameController gameController;
     public PlayerParticleEffectController playerParticleEffectController;
+    public GameObject compassCanvas;
 
     private float startingTime;
     
@@ -37,6 +38,7 @@ public class CountdownTimer : MonoBehaviour
         animator.enabled = false;
         animationController.enabled = false;
         playerParticleEffectController.enabled = false;
+        compassCanvas.SetActive(false);
         countdownText.text = "3";
         
         yield return new WaitForSeconds(interval);
@@ -60,5 +62,6 @@ public class CountdownTimer : MonoBehaviour
         playerParticleEffectController.enabled = true;
         playerController.enabled = false;
         playerController.enabled = true;
+        compassCanvas.SetActive(true);
     }
 }
