@@ -61,8 +61,6 @@ public class PlayerSoundEffectController : MonoBehaviour
         {
             jumps = 1;
         }
-
-        Debug.Log(jumps);
     }
 
     private void PlayJump()

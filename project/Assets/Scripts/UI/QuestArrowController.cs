@@ -5,32 +5,21 @@ using UnityEngine;
 public class QuestArrowController : MonoBehaviour
 {
     public WindowQuestPointer windowQuestPointer;
+    public DestroyCollectable destroyCollectable;
+
+    public SpawnerManager customerManager;
+    public SpawnerManager teaManager;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        //windowQuestPointer.Hide();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Customer"))
-        {
-            //windowQuestPointer.Hide();
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.CompareTag("Collectable"))
-        {
-           // windowQuestPointer.Show();
-        }
     }
 }

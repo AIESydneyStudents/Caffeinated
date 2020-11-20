@@ -153,71 +153,24 @@ public class SpawnerManager : MonoBehaviour
 
     private void SpawnCustomer()
     {
-        // Spawn the items based on how many items that need to be spawned
-        List<int> availableSpawners = new List<int>();
-        itemsInScene = 0;
-
         for (int i = 0; i < spawners.Length; i++)
         {
-            for (int m = 0; m < itemToBeSpawned.Length; m++)
+            if (GameObject.Find(itemToBeSpawned[0].name + "(Clone)"))
             {
-                if (GameObject.Find(itemToBeSpawned[m].name + i))
-                {
-                    itemsInScene++;
-                }
+                break;
+            }
+            else
+            {
+                emptySpawners++;
             }
         }
 
-        if (itemsInScene != numberOfItemsToBeSpawned)
+        if (emptySpawners == spawners.Length)
         {
-            // Add the spawners that are available
-            for (int i = 0; i < spawners.Length; i++)
-            {
-                availableSpawners.Add(i);
-            }
-
-            for (int l = 0; l < usedSpawners.Count; l++)
-            {
-                for (int n = 0; n < itemToBeSpawned.Length; n++)
-                {
-                    GameObject powerUp = GameObject.Find(itemToBeSpawned[n].name + l);
-
-                    if (powerUp == null)
-                    {
-                        // Check if the spawner already exists in the available spawner list
-                        availableSpawners.Add(l);
-                        usedSpawners.Remove(l);
-                    }
-                }
-            }
-
-            // Remove the spawners that are being used
-            for (int j = 0; j < availableSpawners.Count; j++)
-            {
-                for (int k = 0; k < usedSpawners.Count; k++)
-                {
-                    if (availableSpawners[j] == usedSpawners[k])
-                    {
-                        availableSpawners.RemoveAt(j);
-                    }
-                }
-            }
-
-            // If not, then choose a random available spawner
-            while (itemsInScene < numberOfItemsToBeSpawned)
-            {
-                for (int o = 0; o < itemToBeSpawned.Length; o++)
-                {
-                    int availableSpawnersIndex = Random.Range(0, availableSpawners.Count);
-                    index = availableSpawners[availableSpawnersIndex];
-                    GameObject powerUp = Instantiate(itemToBeSpawned[o], spawners[index].transform.position + offset, Quaternion.identity);
-                    // Naming convention: PU_Speed0
-                    powerUp.name = itemToBeSpawned[0].name + index;
-                    availableSpawners.RemoveAt(availableSpawnersIndex);
-                    itemsInScene++;
-                    usedSpawners.Add(index);
-                }
-            }
+            index = Random.Range(0, spawners.Length);
+            int customerIndex = Random.Range(0, itemToBeSpawned.Length);
+            Instantiate(itemToBeSpawned[customerIndex], spawners[index].transform.position + offset, Quaternion.identity);
+            emptySpawners = 0;
         }
     }
 }
