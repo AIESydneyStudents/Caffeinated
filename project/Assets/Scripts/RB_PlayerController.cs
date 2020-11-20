@@ -8,23 +8,29 @@ public class RB_PlayerController : MonoBehaviour
     public float giveDist = 0.1f;
     [Tooltip("Gives extra distance to the ground box cast")]
     public float rotateBuffer = 0.1f;
+    [Tooltip("Speed required to rotate character")]
     [Header("Refferences")]
-    private GameController gameController;
     public UI_PauseScript pauseScript;
+    private GameController gameController;
+    private Rigidbody rb;
+    private DragControl dc;
+    private PlayerControls Controls;
     [Header("Grounded Settings & Debugging")]
-    public GameObject curHitObject;
-    private float currentHitDistance;
-    public Vector3 boxHalfExtentsG;
-    public float boxDistanceG;
+    public GameObject hitGroundObjects;
+    private float groundHitDistance;
     public float CoyoteTime = 0.2f;
+    // ------Box cast implementaion------
+    public Vector3 groundBoxHalfExtents;
+    public float groundBoxDistance;
+    // ------Sphere cast implementaion------
     //public float sphereRadius;
     //private float sphereDistance;
 
     [Header("WallJump Settings & Debugging")]
-    public GameObject curHitObjectW;
-    private float currentHitDistanceW;
-    public Vector3 boxHalfExtents;
-    public float boxDistance;
+    public GameObject hitWallObjects;
+    private float wallHitDistance;
+    public Vector3 wallBoxHalfExtents;
+    public float wallBoxDistance;
 
     [Header("Speed Settings")]
     public float GroundSpeed = 1;
@@ -44,14 +50,16 @@ public class RB_PlayerController : MonoBehaviour
     public float noDragTime = 0.5f;
 
     [Header("Pickup Settings")]
+    //private float ForceBoost = 0.8f;
+    //private float MassBoost = 0.1f;
     public float PickupBonusTime = 5f;
     [Header("Damage Settings")]
     public float HitStunDuration;
     public float HitGracePeriod;
-    //private float ForceBoost = 0.8f;
-    //private float MassBoost = 0.1f;
+
     [Header("Debuging")]
     public bool invulnerable;
+    [SerializeField]
     private int jumps;
     private float Speed;
     public float SpeedBoost = 1f;
@@ -59,21 +67,19 @@ public class RB_PlayerController : MonoBehaviour
     private int dashs;
     private float distToGround;
     private float distToWall;
-    private PlayerControls Controls;
     private bool stuned = false;
     public bool grounded = true;
     private bool constraintToggle = false;
     private float timer;
     public Vector3 walled;
     //private parts
-    private Rigidbody rb;
     private RigidbodyConstraints rbConstraints;
     private bool pickup = true;
-    private DragControl dc;
     private List<GameObject> Colectables; 
 
     private void Awake()
     {
+        // Activating Controles
         Controls = new PlayerControls();
         Controls.Player.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
         Controls.Player.Dash.performed += _ => Dash();
@@ -82,29 +88,31 @@ public class RB_PlayerController : MonoBehaviour
         Controls.Player.Slam.performed += _ => Slam();
         Controls.Player.Pause.performed += _ => Pause();
         Controls.Debug.toggle2D.performed += _ => Toggle2D_performed();
-
+        // Loading private refferences
         Colectables = new List<GameObject>();
         rb = GetComponent<Rigidbody>();
-        rbConstraints = rb.constraints;
+        dc = GetComponent<DragControl>();
         distToGround = GetComponent<BoxCollider>().bounds.extents.y;
         distToWall = GetComponent<BoxCollider>().bounds.extents.x;
-
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        // Leading variables
+        rbConstraints = rb.constraints;
         jumps = MidAirJumps;
         dashs = MidAirDashs;
-
+        // Checking exisiting restraints
         if ((int)(rb.constraints & RigidbodyConstraints.FreezePositionZ) == 8)
         {
+            // constrain z axis toggle
             constraintToggle = true;
         }
+        // Calculate extents and distance for ground detection
+        groundBoxHalfExtents = new Vector3(GetComponent<BoxCollider>().bounds.extents.x*2, 0.1f, GetComponent<BoxCollider>().bounds.extents.z*2);
+        groundBoxDistance = distToGround - groundBoxHalfExtents.y + giveDist;
+        // Calculate extents and distance for wall detection
+        wallBoxHalfExtents = new Vector3(0.1f, (distToGround - distToWall) * 2, GetComponent<BoxCollider>().bounds.extents.z);
+        wallBoxDistance = distToWall - wallBoxHalfExtents.x + giveDist;
 
-        boxHalfExtentsG = new Vector3(GetComponent<BoxCollider>().bounds.extents.x*2, 0.1f, GetComponent<BoxCollider>().bounds.extents.z*2);
-        boxDistanceG = distToGround - boxHalfExtentsG.y + giveDist;
 
-        boxHalfExtents = new Vector3(0.1f, (distToGround - distToWall) * 2, GetComponent<BoxCollider>().bounds.extents.z);
-        boxDistance = distToWall - boxHalfExtents.x + giveDist;
-
-        dc = GetComponent<DragControl>();
     }
     private void OnEnable()
     {
@@ -130,13 +138,16 @@ public class RB_PlayerController : MonoBehaviour
     }
     private void Move(Vector2 direction)
     {
+        // save direction to move
         moveDir.x = direction.x;
         moveDir.z = direction.y;
     }
     private void Dash()
     {
+        // Check if the player has a dash
         if (dashs > 0)
         {
+            // Get direction to dash
             Vector3 DashDir;
             if (moveDir != new Vector3(0, 0, 0))
             {
@@ -149,6 +160,7 @@ public class RB_PlayerController : MonoBehaviour
             DashDir = Vector3.Normalize(DashDir);
             if (AddForceDashs)
             {
+                // Use AddForce to dash
                 if (rb.velocity.x * DashDir.x < 0)
                 {
                     rb.velocity = new Vector3(0, rb.velocity.y, rb.velocity.z);
@@ -161,19 +173,25 @@ public class RB_PlayerController : MonoBehaviour
             }
             else
             {
+                // Set velocity to dash
                 rb.velocity = DashDir * DashForce;
             }
+            // Remove a dash
             dashs--;
         }
     }
 
     private void Slam()
     {
+        // Check if the player has a dash
         if (dashs > 0)
         {
+            // Set dash direction to Down
             Vector3 DashDir = new Vector3(0,-1,0);
+
             if (AddForceDashs)
             {
+                // Use AddForce to dash
                 if (rb.velocity.y * DashDir.y < 0)
                 {
                     rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
@@ -182,48 +200,62 @@ public class RB_PlayerController : MonoBehaviour
             }
             else
             {
+                // Set velocity to dash
                 rb.velocity = DashDir * DashForce;
             }
+            // Remove a dash
             dashs--;
         }
     }
 
     private void Jump()
     {
+        // Check for wall jump criteria
         if (walled != new Vector3(0, 0, 0) && !grounded)
         {
+            // Set Jump direction
             Vector3 Jumpdir = Vector3.up + walled;
             if (AddForceWallJumps)
             {
+                // Use AddForce to wall jump
                 rb.AddForce(Jumpdir * JumpForce, ForceMode.VelocityChange);
             }
             else
             {
+                // Set velocity to wall jump
                 rb.velocity = VelocityOverride(Jumpdir * JumpForce, rb.velocity);
             }
+            // Bypass Coyotetime
             grounded = false;
         }
+        // Check for jump criteria
         else if (jumps > 0 || grounded)
         {
+            // Set Jump direction
             Vector3 Jumpdir = Vector3.up;
             if (AddForceJumps)
             {
+                // Use AddForce to jump
                 rb.AddForce(Jumpdir * JumpForce, ForceMode.VelocityChange);
             }
             else
             {
+                // Set velocity to jump
                 rb.velocity = VelocityOverride(Jumpdir * JumpForce, rb.velocity);
             }
+            // remove a jump if mid-air
             if (!grounded)
             {
                 jumps--;
             }
+            // Bypass Coyotetime
             grounded = false;
         }
     }
-
+    // Depreciated
     private void Drop()
     {
+        // Used to remove colectables from inventory
         foreach (GameObject colectable in Colectables)
         {
             colectable.transform.parent = null;
@@ -234,6 +266,7 @@ public class RB_PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        // Coyote time implementation
         if (!isGrounded())
         {
             timer += Time.deltaTime;
@@ -244,17 +277,21 @@ public class RB_PlayerController : MonoBehaviour
         }
         else
         {
+            // reset time and set player grounded when player touches the ground
             if (Controls.Player.Jump.phase != UnityEngine.InputSystem.InputActionPhase.Performed)
             {
                 timer = 0;
                 grounded = true;
             }           
         }
+        // Detect wall
         walled = detectWall();
+        // Ensure that extra jumps are lost when jump powerup finishes
         if (jumps > MidAirJumps)
         {
             jumps = MidAirJumps;
         }
+        // Reset jumps and dashes when touching the ground
         if (grounded && (jumps < MidAirJumps || dashs < MidAirDashs))
         {
             jumps = MidAirJumps;
@@ -263,6 +300,7 @@ public class RB_PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        // Setting current speed
         if (isGrounded())
         {
             Speed = GroundSpeed;
@@ -289,7 +327,7 @@ public class RB_PlayerController : MonoBehaviour
                 transform.eulerAngles.z
             );
         }
-        // Velocity Cap
+        // Velocity Cap: checking every axis speed and reducing speed if current speed exceeds velocity cap
         if (rb.velocity.x > VelocityCap)
         {
             Vector3 newVelocity = new Vector3(VelocityCap, 0, 0);
@@ -320,16 +358,20 @@ public class RB_PlayerController : MonoBehaviour
             Vector3 newVelocity = new Vector3(0, 0, -VelocityCap);
             rb.velocity = VelocityOverride(newVelocity, rb.velocity);
         }
-        //if (Vector3.Distance(rb.velocity, new Vector3(0, 0, 0)) > VelocityCap)
-        //{
-        //    rb.velocity = Vector3.Normalize(rb.velocity) * VelocityCap;
-        //}
+        /*
+         * Depreciated velocity cap implementaion
+        if (Vector3.Distance(rb.velocity, new Vector3(0, 0, 0)) > VelocityCap)
+        {
+            rb.velocity = Vector3.Normalize(rb.velocity) * VelocityCap;
+        }
+        */
+        // Set speed
         rb.AddForce(moveDir * Speed * SpeedBoost);
-
     }
 
     private void OnDisable()
     {
+        // Disable Controles
         Controls.Player.Move.performed -= ctx => Move(ctx.ReadValue<Vector2>());
         Controls.Player.Dash.performed -= _ => Dash();
         Controls.Player.Drop.performed -= _ => Drop();
@@ -338,6 +380,7 @@ public class RB_PlayerController : MonoBehaviour
         Controls.Debug.toggle2D.performed -= _ => Toggle2D_performed();
         Controls.Disable();
     }
+    // Disable Drag temperarily
     IEnumerable DragStop()
     {
         float temp = dc.airFriction;
@@ -347,39 +390,61 @@ public class RB_PlayerController : MonoBehaviour
     }
     bool isGrounded()
     {
+        // Setup Hit
         RaycastHit hit;
+        // ------ Sphere cast implementaion ------
         //if (Physics.SphereCast(transform.position, sphereRadius, -Vector3.up, out hit, sphereDistance) && !BlackListCheck(hit))
         //{
+        // Get details
         //    curHitObject = hit.transform.gameObject;
         //    currentHitDistance = hit.distance;
+        // return
         //    return true;
         //}
-        if (Physics.BoxCast(transform.position, boxHalfExtentsG, -Vector3.up, out hit, Quaternion.identity, boxDistanceG) && !BlackListCheck(hit))
+        // Get details
+        //groundHitDistance = sphereDistance;
+        //hitGroundObjects = null;
+        // return
+        //return false;
+        // ------ Box cast implementaion ---------
+        // Check if box colides and if object is ground
+        if (Physics.BoxCast(transform.position, groundBoxHalfExtents, -Vector3.up, out hit, Quaternion.identity, groundBoxDistance) && !BlackListCheck(hit))
         {
-            curHitObject = hit.transform.gameObject;
-            currentHitDistance = hit.distance;
+            // Get details
+            hitGroundObjects = hit.transform.gameObject;
+            groundHitDistance = hit.distance;
+            // return
             return true;
         }
+        // Get details
         //currentHitDistance = sphereDistance;
-        currentHitDistance = boxDistanceG;
-        curHitObject = null;
+        groundHitDistance = groundBoxDistance;
+        hitGroundObjects = null;
+        // return
         return false;
+        // ------- Ray cast implementaion ------
         //return Physics.Raycast(transform.position, -Vector3.up, out hit, distToGround) && !BlackListCheck(hit);
     }
     Vector3 detectWall()
     {
+        // Setup Hit
         RaycastHit hit;
-        if (Physics.BoxCast(transform.position, boxHalfExtents, transform.forward, out hit, Quaternion.identity, boxDistance) && !BlackListCheck(hit))
+        // Check if box colides and if object is wall
+        if (Physics.BoxCast(transform.position, wallBoxHalfExtents, transform.forward, out hit, Quaternion.identity, wallBoxDistance) && !BlackListCheck(hit))
         {
-            curHitObjectW = hit.transform.gameObject;
-            currentHitDistanceW= hit.distance;
+            // Get details
+            hitWallObjects = hit.transform.gameObject;
+            wallHitDistance= hit.distance;
+            // return
             return -transform.forward;
         }
-        currentHitDistanceW = boxDistance;
-        curHitObjectW = null;
+        // Get details
+        wallHitDistance = wallBoxDistance;
+        hitWallObjects = null;
+        // return
         return new Vector3(0, 0, 0);
     }
-
+    //----- Depreciated-----
     //Vector3 detectWall()
     //{
     //    RaycastHit hit;
@@ -501,10 +566,10 @@ public class RB_PlayerController : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Debug.DrawLine(transform.position, transform.position + Vector3.down * currentHitDistance);
-        Gizmos.DrawWireCube(transform.position + Vector3.down * currentHitDistance, boxHalfExtentsG);
-        Debug.DrawLine(transform.position, transform.position + transform.forward * currentHitDistanceW);
-        Gizmos.DrawWireCube(transform.position + transform.forward * currentHitDistanceW, boxHalfExtents);
+        Debug.DrawLine(transform.position, transform.position + Vector3.down * groundHitDistance);
+        Gizmos.DrawWireCube(transform.position + Vector3.down * groundHitDistance, groundBoxHalfExtents);
+        Debug.DrawLine(transform.position, transform.position + transform.forward * wallHitDistance);
+        Gizmos.DrawWireCube(transform.position + transform.forward * wallHitDistance, wallBoxHalfExtents);
     }
     IEnumerator Hit()
     {

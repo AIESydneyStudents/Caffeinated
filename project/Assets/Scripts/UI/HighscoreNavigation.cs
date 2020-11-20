@@ -2,24 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using TMPro;
 
-public class inputNameManager : MonoBehaviour
+public class HighscoreNavigation : MonoBehaviour
 {
-    //private TextMeshProUGUI text;
-    private TMP_InputField inputField;
-    [SerializeField]private int characterLimit = 3;
-    public int rank = 0;
-
-    private bool controllerKeyboard = false;
     private PlayerControls playerControls;
-    private GameObject DSB;
-    private bool WantToEdit = false;
+    private bool Editing;
+    private TMP_InputField inputField;
+    // Start is called before the first frame update
     private void Awake()
     {
-        //DSB = transform.find("EventSystem").GetComponent<MenuActions>().DefaultSelectedButton;
-        DSB = GameObject.Find("EventSystem").GetComponent<MenuActions>().DefaultSelectedButton;
         //Set Controls
         playerControls = new PlayerControls();
         //Turn on controls
@@ -27,7 +19,9 @@ public class inputNameManager : MonoBehaviour
         playerControls.UI.Letter_Down.performed += _ => LetterDown();
         playerControls.UI.Add_Letter.performed += _ => AddLetter();
         playerControls.UI.Remove_Letter.performed += _ => RemoveLetter();
-        playerControls.UI.Deselect.performed += _ => Deactivate();
+        playerControls.UI.Move_Up.performed += _ => MoveUp();
+        playerControls.UI.Move_Down.performed += _ => MoveDown();
+        playerControls.UI.Move_Right.performed += _ => MoveRight();
         playerControls.Enable();
     }
     private void OnDisable()
@@ -36,38 +30,29 @@ public class inputNameManager : MonoBehaviour
         playerControls.UI.Letter_Down.performed -= _ => LetterDown();
         playerControls.UI.Add_Letter.performed -= _ => AddLetter();
         playerControls.UI.Remove_Letter.performed -= _ => RemoveLetter();
-        playerControls.UI.Deselect.performed -= _ => Deactivate();
+        playerControls.UI.Move_Up.performed -= _ => MoveUp();
+        playerControls.UI.Move_Down.performed -= _ => MoveDown();
+        playerControls.UI.Move_Right.performed -= _ => MoveRight();
         playerControls.Disable();
     }
-    void Start()
+    private void Update()
     {
-        //Set up listeners
-        inputField = GetComponent<TMP_InputField>();
-        inputField.onValueChanged.AddListener(delegate { InputManagment(); });
-        inputField.onEndEdit.AddListener(delegate { SaveName(); });
-        inputField.onSelect.AddListener(delegate { SelectManagment(); });
-    }
-    private void SelectManagment()
-    {
-        if (Input.GetJoystickNames().Length != 0)
+        if (EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>() != inputField && EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>() != null)
         {
-            controllerKeyboard = true;
+            inputField = EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>();
         }
-    }
-    public void Deactivate()
-    {
-        if (controllerKeyboard == true)
+        if (Editing == false && EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>() != null)
         {
-            controllerKeyboard = false;
-            inputField.OnDeselect(new BaseEventData(EventSystem.current));
-            //EventSystem.current.SetSelectedGameObject(null);
-            //EventSystem.current.SetSelectedGameObject(DSB);
+            Editing = true;
         }
-        inputField.DeactivateInputField(); 
+        else if (Editing = true && EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>() == null)
+        {
+            Editing = false;
+        }
     }
     private void LetterUp()
     {
-        if (controllerKeyboard == true)
+        if (Editing == true)
         {
             char temp;
             temp = inputField.text[inputField.text.Length - 1];
@@ -90,7 +75,7 @@ public class inputNameManager : MonoBehaviour
     }
     private void LetterDown()
     {
-        if (controllerKeyboard == true)
+        if (Editing == true)
         {
             char temp;
             temp = inputField.text[inputField.text.Length - 1];
@@ -112,34 +97,37 @@ public class inputNameManager : MonoBehaviour
     }
     private void AddLetter()
     {
-        if (controllerKeyboard == true)
+        if (Editing == true)
         {
             inputField.text = inputField.text + "A";
         }
     }
     private void RemoveLetter()
     {
-        if (controllerKeyboard == true)
+        if (Editing == true)
         {
             inputField.text = inputField.text.Substring(0, inputField.text.Length - 1);
         }
     }
-    private void InputManagment()
+    private void MoveUp()
     {
-        //Limit characters
-        if (inputField.text.Length > characterLimit)
-        {
-            inputField.text = inputField.text.Substring(0, inputField.text.Length - 1);
-        }
-        //Capitalise
-        inputField.text = inputField.text.ToUpper();
-        Debug.Log("Test");
+        TMP_InputField inputField = EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>();
+        GameObject so = inputField.navigation.selectOnUp.gameObject;
+        //inputField.GetComponent<inputNameManager>().Deactivate();
+        EventSystem.current.SetSelectedGameObject(so);
     }
-    private void SaveName()
+    private void MoveDown()
     {
-        //int rank = transform.Find("posText")
-        Highscores highscores = SaveSystem.LoadScores();
-        highscores.highscoreEntryList[rank].name = inputField.text;
-        SaveSystem.SaveScores(highscores);
+        TMP_InputField inputField = EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>();
+        GameObject so = inputField.navigation.selectOnDown.gameObject;
+        //inputField.GetComponent<inputNameManager>().Deactivate();
+        EventSystem.current.SetSelectedGameObject(so);
+    }
+    private void MoveRight()
+    {
+        TMP_InputField inputField = EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>();
+        GameObject so = inputField.navigation.selectOnRight.gameObject;
+        //inputField.GetComponent<inputNameManager>().Deactivate();
+        EventSystem.current.SetSelectedGameObject(so);
     }
 }

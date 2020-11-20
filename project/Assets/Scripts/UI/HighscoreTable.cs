@@ -45,6 +45,67 @@ public class HighscoreTable : MonoBehaviour
             }
         }
         SaveSystem.SaveScores(highscores);
+        //Setting navigation
+        for (int i = 1; i < entryContainer.childCount; i++)
+        {
+            TMP_InputField IF = entryContainer.GetChild(i).GetChild(4).GetComponent<TMP_InputField>();
+            if (IF != null || IF.gameObject.activeSelf)
+            {
+                Navigation navigation = IF.navigation;
+                navigation.mode = Navigation.Mode.Explicit;
+                int b = i;
+                int counter = 0;
+                TMP_InputField UF = null;
+                while (UF == null || !UF.gameObject.activeSelf )
+                {
+                    counter++;
+                    if (counter >= 10)
+                    {
+                        break;
+                    }
+                    if (b <= 1)
+                    {
+                        b = 10;
+                    }
+                    else
+                    {
+                        b--;
+                    }
+                    UF = entryContainer.GetChild(b).GetChild(4).GetComponent<TMP_InputField>();
+                }
+                if (UF != null)
+                {
+                    navigation.selectOnUp = UF;
+                }
+                b = i;
+                counter = 0;
+                TMP_InputField LF = null;
+                while (LF == null || !LF.gameObject.activeSelf)
+                {
+                    counter++;
+                    if (counter >= 10)
+                    {
+                        break;
+                    }
+                    if (b >= 10)
+                    {
+                        b = 1;
+                    }
+                    else
+                    {
+                        b++;
+                    }
+                    LF = entryContainer.GetChild(b).GetChild(4).GetComponent<TMP_InputField>();
+                }
+                if (LF != null)
+                {
+                    navigation.selectOnDown = LF;
+                }
+                navigation.selectOnRight = GetComponentInChildren<Button>();
+                IF.navigation = navigation;
+            }
+
+        }
     }
     private void CreateHighscoreEntryTransform(HighscoreEntry highscoreEntry, Transform container, List<Transform> transformList)
     {
@@ -66,14 +127,13 @@ public class HighscoreTable : MonoBehaviour
         {
             entryTransform.Find("inputName").gameObject.SetActive(true);
             entryTransform.Find("nameText").gameObject.SetActive(false);
-            entryTransform.Find("inputName").GetComponent<inputNameManager>().rank = rank-1;
+            //entryTransform.Find("inputName").GetComponent<inputNameManager>().rank = rank-1;
+            entryTransform.Find("inputName").GetComponent<InputAddon>().rank = rank - 1;
         }
         else
         {
             entryTransform.Find("nameText").GetComponent<TextMeshProUGUI>().text = name;
         }
-        
-
         entryTransform.Find("background").gameObject.SetActive(highscoreEntry.newest);
         transformList.Add(entryTransform);
     }

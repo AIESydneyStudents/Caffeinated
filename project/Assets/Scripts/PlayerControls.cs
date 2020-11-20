@@ -371,6 +371,30 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Move_Up"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""41e92742-96bf-4a3a-b150-a8bd3a92c4e3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Move_Down"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""f7a39fc3-090c-42f0-b0e3-9c8235228578"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Move_Right"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""059267d8-a974-430b-8ca1-c186a2913c50"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -428,6 +452,72 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Deselect"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a91262a3-29b0-4832-a5b4-2b0ed310d4ee"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move_Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3affcff4-45c9-4609-84b6-eaecae229eb6"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move_Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fd0dc2ff-330c-47d4-95e9-2f2efaa372ec"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move_Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d0296f54-0c3e-435c-9dcc-aca0d70cfe20"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move_Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e2dfb145-05f1-486b-ab27-52326a0b8f23"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move_Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""74df09e1-593d-4e11-9cfa-f1feeaf6446e"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move_Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -480,6 +570,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_UI_Letter_Up = m_UI.FindAction("Letter_Up", throwIfNotFound: true);
         m_UI_Letter_Down = m_UI.FindAction("Letter_Down", throwIfNotFound: true);
         m_UI_Deselect = m_UI.FindAction("Deselect", throwIfNotFound: true);
+        m_UI_Move_Up = m_UI.FindAction("Move_Up", throwIfNotFound: true);
+        m_UI_Move_Down = m_UI.FindAction("Move_Down", throwIfNotFound: true);
+        m_UI_Move_Right = m_UI.FindAction("Move_Right", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -640,6 +733,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_UI_Letter_Up;
     private readonly InputAction m_UI_Letter_Down;
     private readonly InputAction m_UI_Deselect;
+    private readonly InputAction m_UI_Move_Up;
+    private readonly InputAction m_UI_Move_Down;
+    private readonly InputAction m_UI_Move_Right;
     public struct UIActions
     {
         private @PlayerControls m_Wrapper;
@@ -649,6 +745,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Letter_Up => m_Wrapper.m_UI_Letter_Up;
         public InputAction @Letter_Down => m_Wrapper.m_UI_Letter_Down;
         public InputAction @Deselect => m_Wrapper.m_UI_Deselect;
+        public InputAction @Move_Up => m_Wrapper.m_UI_Move_Up;
+        public InputAction @Move_Down => m_Wrapper.m_UI_Move_Down;
+        public InputAction @Move_Right => m_Wrapper.m_UI_Move_Right;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -673,6 +772,15 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Deselect.started -= m_Wrapper.m_UIActionsCallbackInterface.OnDeselect;
                 @Deselect.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnDeselect;
                 @Deselect.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnDeselect;
+                @Move_Up.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMove_Up;
+                @Move_Up.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMove_Up;
+                @Move_Up.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMove_Up;
+                @Move_Down.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMove_Down;
+                @Move_Down.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMove_Down;
+                @Move_Down.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMove_Down;
+                @Move_Right.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMove_Right;
+                @Move_Right.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMove_Right;
+                @Move_Right.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMove_Right;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -692,6 +800,15 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Deselect.started += instance.OnDeselect;
                 @Deselect.performed += instance.OnDeselect;
                 @Deselect.canceled += instance.OnDeselect;
+                @Move_Up.started += instance.OnMove_Up;
+                @Move_Up.performed += instance.OnMove_Up;
+                @Move_Up.canceled += instance.OnMove_Up;
+                @Move_Down.started += instance.OnMove_Down;
+                @Move_Down.performed += instance.OnMove_Down;
+                @Move_Down.canceled += instance.OnMove_Down;
+                @Move_Right.started += instance.OnMove_Right;
+                @Move_Right.performed += instance.OnMove_Right;
+                @Move_Right.canceled += instance.OnMove_Right;
             }
         }
     }
@@ -734,5 +851,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnLetter_Up(InputAction.CallbackContext context);
         void OnLetter_Down(InputAction.CallbackContext context);
         void OnDeselect(InputAction.CallbackContext context);
+        void OnMove_Up(InputAction.CallbackContext context);
+        void OnMove_Down(InputAction.CallbackContext context);
+        void OnMove_Right(InputAction.CallbackContext context);
     }
 }

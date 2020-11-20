@@ -79,7 +79,7 @@ public class PlayerParticleEffectController : MonoBehaviour
         }
 
         // Wall grind dust plays when player is on the wall
-        if (playerController.curHitObjectW != null && !playerController.grounded)
+        if (playerController.hitWallObjects != null && !playerController.grounded)
         {
             Instantiate(wallParticleEffect, gameObject.transform.position + wallParticlesOffset, Quaternion.Euler(90, 0, 0));
         }

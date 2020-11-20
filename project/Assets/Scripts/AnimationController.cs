@@ -67,7 +67,7 @@ public class AnimationController : MonoBehaviour
         }
         
         // Play Wall jump 1 animation
-        if (playerController.curHitObjectW != null && player.transform.localEulerAngles.y == 270)
+        if (playerController.hitWallObjects != null && player.transform.localEulerAngles.y == 270)
         {
             anim.enabled = false;
             anim.enabled = true;
@@ -79,7 +79,7 @@ public class AnimationController : MonoBehaviour
         }
 
         // Play Wall jump 2 animation
-        if (playerController.curHitObjectW != null && player.transform.localEulerAngles.y == 90)
+        if (playerController.hitWallObjects != null && player.transform.localEulerAngles.y == 90)
         {
             anim.enabled = false;
             anim.enabled = true;
