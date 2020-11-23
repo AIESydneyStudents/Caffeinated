@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*----------------------------------
+    File Name: HighscoreTable.cs
+    Purpose: Display highscore table
+    Author: Ruben Anato
+    Modified: 23 November 2020
+------------------------------------
+    Copyright 2020 Caffeinated.
+----------------------------------*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,16 +17,25 @@ public class HighscoreTable : MonoBehaviour
     private Transform entryContainer;
     private Transform entryTemplate;
     private List<Transform> highscoreEntryTransformList;
+
+    /// <summary>
+    /// Awake is called when the script instance is being loaded
+    /// </summary>
     private void Awake()
     {
+        // Get the highscore entry container and template
         entryContainer = transform.Find("HighscoreEntryContainer");
         entryTemplate = entryContainer.Find("HighscoreEntryTemplate");
 
+        // Hide entry template
         entryTemplate.gameObject.SetActive(false);
         //PlayerPrefs.SetString("highscoreTable", "");
         //string jsonString = PlayerPrefs.GetString("highscoreTable");
+
+        // Load the highscores
         Highscores highscores = SaveSystem.LoadScores();
 
+        // Sort highscores in order of score
         for (int i = 0; i < highscores.highscoreEntryList.Count; i++)
         {
             for (int j = i + 1; j < highscores.highscoreEntryList.Count; j++)
@@ -32,20 +49,30 @@ public class HighscoreTable : MonoBehaviour
                 }
             }
         }
+
+        // Create a list of transforms
         highscoreEntryTransformList = new List<Transform>();
+
         int x = 0;
         foreach (HighscoreEntry highscoreEntry in highscores.highscoreEntryList)
         {
             x++;
             CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);
+
+            // This is not a new highscore entry anymore
             highscoreEntry.newest = false;
+
+            // If this has gone through 10 or more times then stop the loop
             if (x >= 10)
             {
                 break;
             }
         }
+
+        // Save the new highscores
         SaveSystem.SaveScores(highscores);
-        //Setting navigation
+
+        // Setting navigation
         for (int i = 1; i < entryContainer.childCount; i++)
         {
             TMP_InputField IF = entryContainer.GetChild(i).GetChild(4).GetComponent<TMP_InputField>();
@@ -107,6 +134,13 @@ public class HighscoreTable : MonoBehaviour
 
         }
     }
+
+    /// <summary>
+    /// Create a highscore entry for the transform list
+    /// </summary>
+    /// <param name="highscoreEntry">A highscore entry</param>
+    /// <param name="container">The highscore entry container</param>
+    /// <param name="transformList">The highscore transform list</param>
     private void CreateHighscoreEntryTransform(HighscoreEntry highscoreEntry, Transform container, List<Transform> transformList)
     {
         float templateHeight = 28f;
@@ -115,14 +149,23 @@ public class HighscoreTable : MonoBehaviour
         entryRectTransform.anchoredPosition = new Vector2(0, -templateHeight * transformList.Count);
         entryTransform.gameObject.SetActive(true);
 
+        // Get the count of the transform list + 1
         int rank = transformList.Count + 1;
         //string rankString = rank.ToString();
+
+        // Find the text that displays the position of the highscores then set it to the rank from the highscore entry
         entryTransform.Find("posText").GetComponent<TextMeshProUGUI>().text = rank.ToString();
 
+        // Get the score from the highscore entry
         int score = highscoreEntry.score;
+
+        // Find the text that displays the score of the highscores then set it to the score from the highscore entry
         entryTransform.Find("scoreText").GetComponent<TextMeshProUGUI>().text = score.ToString();
 
+        // Get the name from the highscore entry
         string name = highscoreEntry.name;
+
+        // If the name is empty, then Set it to be an empty name and move the rank down by 1
         if (name == "")
         {
             entryTransform.Find("inputName").gameObject.SetActive(true);
@@ -132,9 +175,14 @@ public class HighscoreTable : MonoBehaviour
         }
         else
         {
+            // If there is a name then set the name of the entry to be the inputed name
             entryTransform.Find("nameText").GetComponent<TextMeshProUGUI>().text = name;
         }
+
+        // If the highscore entry is new then make it flash
         entryTransform.Find("background").gameObject.SetActive(highscoreEntry.newest);
+
+        // Add entry to the transform list
         transformList.Add(entryTransform);
     }
     //public void AddHighscoreEntry(int score, string name)

@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*-----------------------------------
+    File Name: MenuActions.cs
+    Purpose: Control the menu actions
+    Author: Ruben Anato
+    Modified: 23 November 2020
+-------------------------------------
+    Copyright 2020 Caffeinated.
+-----------------------------------*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
@@ -13,11 +21,18 @@ public class MenuActions : MonoBehaviour
 
     private GameObject activeMenu;
     private PlayerControls Controles;
+
+    /// <summary>
+    /// Awake is called when the script instance is being loaded
+    /// </summary>
     private void Awake()
     {
         Controles = new PlayerControls();
     }
 
+    /// <summary>
+    /// This function is called when the object becomes enabled and active
+    /// </summary>
     private void OnEnable()
     {
         Controles.Player.Pause.performed += Pause_performed;
@@ -25,6 +40,10 @@ public class MenuActions : MonoBehaviour
         //Controles.Enable();
     }
 
+    /// <summary>
+    /// Perform pause
+    /// </summary>
+    /// <param name="obj"></param>
     private void Pause_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         if (pause_menu)
@@ -40,13 +59,19 @@ public class MenuActions : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This function is called when the object becomes disabled or inactive
+    /// </summary>
     private void OnDisable()
     {
         Controles.Player.Pause.performed -= Pause_performed;
         Controles.Player.Pause.Disable();
         //Controles.Disable();
     }
-    // Start is called before the first frame update
+
+    /// <summary>
+    /// Start is called just before any of the Update methods is called the first time
+    /// </summary>
     void Start()
     {
         activeMenu = startMenu;
@@ -65,6 +90,10 @@ public class MenuActions : MonoBehaviour
         //    }
         //}
     }
+
+    /// <summary>
+    /// Toggle menu
+    /// </summary>
     public void Toggle()
     {
         if (!startMenu.activeInHierarchy)
@@ -84,12 +113,22 @@ public class MenuActions : MonoBehaviour
         }
         
     }
+
+    /// <summary>
+    /// Load chosen scene
+    /// </summary>
+    /// <param name="Level">The chosen scene</param>
     public void SetScene(int Level)
     {
         Debug.Log("Load Scene");
         SceneManager.LoadScene(Level);
         Time.timeScale = 1;
     }
+
+    /// <summary>
+    /// Set up menu
+    /// </summary>
+    /// <param name="menu">The chosen menu</param>
     public void SetMenu(GameObject menu)
     {
         // Disable current menu
@@ -99,6 +138,11 @@ public class MenuActions : MonoBehaviour
         // display new menu
         activeMenu.SetActive(true);
     }
+
+    /// <summary>
+    /// Set up button
+    /// </summary>
+    /// <param name="button">The chosen button</param>
     public void SetButton(GameObject button)
     {
         /* really want some input validation
@@ -110,6 +154,10 @@ public class MenuActions : MonoBehaviour
         DefaultSelectedButton = button;
         EventSystem.current.SetSelectedGameObject(DefaultSelectedButton);
     }
+
+    /// <summary>
+    /// Close the app
+    /// </summary>
     public void CloseApp()
     {
         Application.Quit();

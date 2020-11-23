@@ -16,6 +16,10 @@ public class flash : MonoBehaviour
     public float timeToFlash;
     private float timer;
     private Image thing;
+
+    /// <summary>
+    /// Awake is called when the script instance is being loaded
+    /// </summary>
     private void Awake()
     {
         // Get image of component
