@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*------------------------------
+    File Name: UI_PauseScript.cs
+    Purpose: Control Pause menu
+    Author: Ruben Anato
+    Modified: 23 November 2020
+--------------------------------
+    Copyright 2020 Caffeinated.
+------------------------------*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -36,32 +44,53 @@ public class UI_PauseScript : MonoBehaviour
         //}
     }
 
+    /// <summary>
+    /// Resume game
+    /// </summary>
     public void Resume()
     {
+        // Deactivate pause menu
         pauseMenuUI.SetActive(false);
+
+        // Reactivate game hud and compass canvas
         GameHUD.SetActive(true);
         compassCanvas.SetActive(true);
         Time.timeScale = 1f;
         isPaused = false;
         TimerIncrease.SetActive(true);
+
         // Cursor controle
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         AudioSource.PlayClipAtPoint(menuSoundEffect, Camera.main.transform.position, 1);
     }
+
+    /// <summary>
+    /// Pause game
+    /// </summary>
     public void Pause()
     {
         //sound.Play();
+        // Unlock cursor
         Cursor.lockState = CursorLockMode.None;
+
+        // Deactivate game hud and compass canvas
         GameHUD.SetActive(false);
         compassCanvas.SetActive(false);
 
+        // Show cursor and pause menu
         Cursor.visible = true;
         pauseMenuUI.SetActive(true);
+
+        // Stop time
         Time.timeScale = 0f;
         TimerIncrease.SetActive(false);
         isPaused = true;
     }
+
+    /// <summary>
+    /// Pause game
+    /// </summary>
     public void PauseToggle()
     {
         isPaused = !isPaused;
@@ -80,6 +109,9 @@ public class UI_PauseScript : MonoBehaviour
         Cursor.visible = isPaused;
     }
 
+    /// <summary>
+    /// Load main menu
+    /// </summary>
     public void LoadMenu()
     {
         isPaused = false;
@@ -88,6 +120,9 @@ public class UI_PauseScript : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    /// <summary>
+    /// Load Quit game
+    /// </summary>
     public void QuitGame()
     {
         AudioSource.PlayClipAtPoint(menuSoundEffect, Camera.main.transform.position, 1);
@@ -95,16 +130,27 @@ public class UI_PauseScript : MonoBehaviour
         Application.Quit();
     }
 
+    /// <summary>
+    /// Restart game
+    /// </summary>
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         AudioSource.PlayClipAtPoint(menuSoundEffect, Camera.main.transform.position, 1);
     }
+
+    /// <summary>
+    /// Load highscore menu
+    /// </summary>
     public void HighScores()
     {
         SceneManager.LoadScene("HighScoreMenu");
         AudioSource.PlayClipAtPoint(menuSoundEffect, Camera.main.transform.position, 1);
     }
+
+    /// <summary>
+    /// Load tutorial screen
+    /// </summary>
     public void TutorialOn()
     {
         //sound.Play();
@@ -115,6 +161,10 @@ public class UI_PauseScript : MonoBehaviour
         Time.timeScale = 0f;
         isPaused = true;
     }
+
+    /// <summary>
+    /// Deactivate tutorial screen
+    /// </summary>
     public void TutorialOff()
     {
         TutorialScreen.SetActive(false);
@@ -125,6 +175,10 @@ public class UI_PauseScript : MonoBehaviour
         Cursor.visible = false;
         countdownScreen.SetActive(true);
     }
+
+    /// <summary>
+    /// Load game over menu
+    /// </summary>
     public void GameOver()
     {
         // Turn on gameover screen
