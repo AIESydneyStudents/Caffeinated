@@ -4,7 +4,7 @@
     Author: Logan Ryan
     Modified: 23 November 2020
 -----------------------------------------------------------
-    Copyright 2020 Logan Ryan.
+    Copyright 2020 Caffeinated.
 ---------------------------------------------------------*/
 using System.Collections;
 using System.Collections.Generic;

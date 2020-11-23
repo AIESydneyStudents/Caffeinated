@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*-----------------------------------------
+    File Name: InvinciblePowerUp.cs
+    Purpose: Control Invincibility power up
+    Author: Ruben Anato
+    Modified: 23 November 2020
+-------------------------------------------
+    Copyright 2020 Caffeinated.
+-----------------------------------------*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
