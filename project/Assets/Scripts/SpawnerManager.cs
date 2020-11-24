@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*----------------------------------------------
+    File Name: SpawnerManager.cs
+    Purpose: Spawn items in the game
+    Author: Logan Ryan
+    Modified: 24 November 2020
+------------------------------------------------
+    Copyright 2020 Caffeinated.
+----------------------------------------------*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,10 +28,14 @@ public class SpawnerManager : MonoBehaviour
     private bool powerUpSpawner;
     private bool customerSpawner;
 
+    /// <summary>
+    /// Start is called just before any of the Update methods is called the first time
+    /// </summary>
     private void Start()
     {
         destroyCollectable = GameObject.Find("Player").GetComponent<DestroyCollectable>();
 
+        // Tag the spawner based on what item they are spawning
         if (itemToBeSpawned[0].CompareTag("Collectable"))
         {
             teaSpawner = true;
@@ -38,7 +50,9 @@ public class SpawnerManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled
+    /// </summary>
     void Update()
     {
         if (teaSpawner)
@@ -54,6 +68,7 @@ public class SpawnerManager : MonoBehaviour
             SpawnCustomer();
         }
 
+        // Set the target object for the window quest pointer
         if (windowQuestPointer != null)
         {
             if (GameObject.Find("TeaBag(Clone)"))
@@ -67,6 +82,9 @@ public class SpawnerManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Spawn tea bags
+    /// </summary>
     private void SpawnTea()
     {
         for (int i = 0; i < spawners.Length; i++)
@@ -89,6 +107,9 @@ public class SpawnerManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Spawn power ups
+    /// </summary>
     private void SpawnPowerUp()
     {
         // Spawn the items based on how many items that need to be spawned
@@ -151,6 +172,9 @@ public class SpawnerManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Spawn Customers
+    /// </summary>
     private void SpawnCustomer()
     {
         for (int i = 0; i < spawners.Length; i++)

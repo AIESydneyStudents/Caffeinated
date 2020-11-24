@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*-----------------------------------
+    File Name: RB_PlayerController.cs
+    Purpose: Control the character
+    Author: Ruben Antao
+    Modified: 24 November 2020
+-------------------------------------
+    Copyright 2020 Caffeinated.
+-----------------------------------*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -75,8 +83,11 @@ public class RB_PlayerController : MonoBehaviour
     //private parts
     private RigidbodyConstraints rbConstraints;
     private bool pickup = true;
-    private List<GameObject> Colectables; 
+    private List<GameObject> Colectables;
 
+    /// <summary>
+    /// Awake is called when the script instance is being loaded
+    /// </summary>
     private void Awake()
     {
         // Activating Controles
@@ -114,15 +125,26 @@ public class RB_PlayerController : MonoBehaviour
 
 
     }
+
+    /// <summary>
+    /// This function is called when the object becomes enabled and active
+    /// </summary>
     private void OnEnable()
     {
         Controls.Enable();
     }
+
+    /// <summary>
+    /// Pause the game
+    /// </summary>
     private void Pause()
     {
         pauseScript.PauseToggle();
     }
 
+    /// <summary>
+    /// Toggle 2D mode
+    /// </summary>
     private void Toggle2D_performed()
     {
         //2D input controles
@@ -136,12 +158,21 @@ public class RB_PlayerController : MonoBehaviour
             rb.constraints = rbConstraints;
         }
     }
+
+    /// <summary>
+    /// Move character
+    /// </summary>
+    /// <param name="direction"></param>
     private void Move(Vector2 direction)
     {
         // save direction to move
         moveDir.x = direction.x;
         moveDir.z = direction.y;
     }
+
+    /// <summary>
+    /// Allow the player to dash
+    /// </summary>
     private void Dash()
     {
         // Check if the player has a dash
@@ -181,6 +212,9 @@ public class RB_PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Allow the player to ground slam
+    /// </summary>
     private void Slam()
     {
         // Check if the player has a dash
@@ -208,6 +242,9 @@ public class RB_PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Allow player to jump
+    /// </summary>
     private void Jump()
     {
         // Check for wall jump criteria
@@ -252,7 +289,11 @@ public class RB_PlayerController : MonoBehaviour
             grounded = false;
         }
     }
+
     // Depreciated
+    /// <summary>
+    /// Remove collectables from inventory
+    /// </summary>
     private void Drop()
     {
         // Used to remove colectables from inventory
@@ -264,6 +305,10 @@ public class RB_PlayerController : MonoBehaviour
         }
         pickup = !pickup;
     }
+
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled
+    /// </summary>
     private void Update()
     {
         // Coyote time implementation
@@ -298,6 +343,10 @@ public class RB_PlayerController : MonoBehaviour
             dashs = MidAirDashs;
         }
     }
+
+    /// <summary>
+    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled
+    /// </summary>
     private void FixedUpdate()
     {
         // Setting current speed
@@ -369,6 +418,9 @@ public class RB_PlayerController : MonoBehaviour
         rb.AddForce(moveDir * Speed * SpeedBoost);
     }
 
+    /// <summary>
+    /// This function is called when the behaviour becomes disabled or inactive
+    /// </summary>
     private void OnDisable()
     {
         // Disable Controles
@@ -381,6 +433,10 @@ public class RB_PlayerController : MonoBehaviour
         Controls.Disable();
     }
     // Disable Drag temperarily
+    /// <summary>
+    /// Disable drag temporarily
+    /// </summary>
+    /// <returns></returns>
     IEnumerable DragStop()
     {
         float temp = dc.airFriction;
@@ -388,6 +444,11 @@ public class RB_PlayerController : MonoBehaviour
         yield return new WaitForSeconds(noDragTime);
         dc.airFriction = temp;
     }
+
+    /// <summary>
+    /// Check if the player is grounded
+    /// </summary>
+    /// <returns>True if player is on the ground</returns>
     bool isGrounded()
     {
         // Setup Hit
@@ -425,6 +486,11 @@ public class RB_PlayerController : MonoBehaviour
         // ------- Ray cast implementaion ------
         //return Physics.Raycast(transform.position, -Vector3.up, out hit, distToGround) && !BlackListCheck(hit);
     }
+
+    /// <summary>
+    /// Detect a wall
+    /// </summary>
+    /// <returns></returns>
     Vector3 detectWall()
     {
         // Setup Hit
@@ -470,6 +536,11 @@ public class RB_PlayerController : MonoBehaviour
     //    }
     //}
 
+    /// <summary>
+    /// Check if the player can jump on this object
+    /// </summary>
+    /// <param name="hit">The object the player is touching</param>
+    /// <returns>True if the player can't jump on it</returns>
     private bool BlackListCheck(RaycastHit hit)
     {
         foreach (string tags in JumpTagBlacklist)
@@ -481,6 +552,13 @@ public class RB_PlayerController : MonoBehaviour
         }
         return false;
     }
+
+    /// <summary>
+    /// Override the player's current velocity
+    /// </summary>
+    /// <param name="dir">New direction for the player</param>
+    /// <param name="rbv">Current direction of the player</param>
+    /// <returns></returns>
     public Vector3 VelocityOverride(Vector3 dir, Vector3 rbv)
     {
         Vector3 result = new Vector3(0, 0, 0);
@@ -513,6 +591,12 @@ public class RB_PlayerController : MonoBehaviour
         }
         return result;
     }
+
+    /// <summary>
+    /// Lose score and time if the player gets hit by an obstacle 
+    /// </summary>
+    /// <param name="score">Score to remove</param>
+    /// <param name="time">Time to remove</param>
     public void Damaged(int score, float time)
     {
         if (!invulnerable && !stuned)
@@ -523,6 +607,10 @@ public class RB_PlayerController : MonoBehaviour
         }    
     }
 
+    /// <summary>
+    /// OnTriggerEnter is called when the Collider other enters the trigger
+    /// </summary>
+    /// <param name="other">The other Collider involved in this collision.</param>
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Customer" && transform.childCount > 0)
@@ -539,6 +627,11 @@ public class RB_PlayerController : MonoBehaviour
         }
 
     }
+
+    /// <summary>
+    /// OnTriggerExit is called when the Collider other has stopped touching the trigger
+    /// </summary>
+    /// <param name="other">The other Collider involved in this collision.</param>
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "MovingPlatform")
@@ -547,6 +640,10 @@ public class RB_PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// OnCollisionEnter is called when this collider/rigidbody has begun touching another rigidbody/collider
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.tag == "Collectable" && pickup == true)
@@ -563,6 +660,10 @@ public class RB_PlayerController : MonoBehaviour
             Colectables.Add(collision.gameObject);
         }
     }
+
+    /// <summary>
+    /// Implement this OnDrawGizmosSelected if you want to draw gizmos only if the object is selected
+    /// </summary>
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -571,6 +672,11 @@ public class RB_PlayerController : MonoBehaviour
         Debug.DrawLine(transform.position, transform.position + transform.forward * wallHitDistance);
         Gizmos.DrawWireCube(transform.position + transform.forward * wallHitDistance, wallBoxHalfExtents);
     }
+
+    /// <summary>
+    /// Disable controls for the player while they are stunned
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Hit()
     {
         //Instantiate(pickupEffect, transform.position, transform.rotation);

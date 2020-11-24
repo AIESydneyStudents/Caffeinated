@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*---------------------------------
+    File Name: ObstacleBehaviour.cs
+    Purpose: Control the obstacles
+    Author: Logan Ryan
+    Modified: 24 November 2020
+-----------------------------------
+    Copyright 2020 Caffeinated.
+---------------------------------*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +26,9 @@ public class ObstacleBehaviour : MonoBehaviour
     public GameObject obstacleCollisionParticles;
     public AudioClip obstacleSoundEffect;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Start is called just before any of the Update methods is called the first time
+    /// </summary>
     void Start()
     {
         displayTimerIncrease = GameObject.Find("Canvas").GetComponent<DisplayTimerIncrease>();
@@ -27,14 +37,18 @@ public class ObstacleBehaviour : MonoBehaviour
         particles = Instantiate(obstacleParticles, gameObject.transform.position, gameObject.transform.rotation);
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled
+    /// </summary>
     void Update()
     {
         timer += 1 * Time.deltaTime;
 
+        // Rotate the obstacle and move it down
         transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
         particles.transform.position = new Vector3(particles.transform.position.x, gameObject.transform.position.y + 1, particles.transform.position.z);
 
+        // If the obstacle has reach its maximum life time, then destroy it
         if (timer > lifeTime)
         {
             Destroy(particles);
@@ -42,6 +56,9 @@ public class ObstacleBehaviour : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This function is called when the MonoBehaviour will be destroyed
+    /// </summary>
     private void OnDestroy()
     {
         Destroy(particles);
@@ -49,13 +66,22 @@ public class ObstacleBehaviour : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// OnTriggerEnter is called when the Collider other enters the trigger
+    /// </summary>
+    /// <param name="other">The other Collider involved in this collision.</param>
     private void OnTriggerEnter(Collider other)
     {
+        // If the obstacle hits the player,
         if (other.gameObject.CompareTag("Player"))
         {
+            // Destroy the obstacle
             Destroy(gameObject);
+
+            // If the player is not invulnerable
             if (!other.GetComponent<RB_PlayerController>().invulnerable)
             {
+                // Player loses score and time
                 displayTimerIncrease.DisplayTime(-timeLoss, -scoreLoss);
                 changeColourScript.hitByAnObstacle = true;
             }

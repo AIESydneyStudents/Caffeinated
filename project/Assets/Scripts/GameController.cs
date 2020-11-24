@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*-----------------------------------------
+    File Name: GameController.cs
+    Purpose: Control the events in the game
+    Author: Ruben Antao
+    Modified: 24 November 2020
+-------------------------------------------
+    Copyright 2020 Caffeinated.
+-----------------------------------------*/
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -18,7 +26,10 @@ public class GameController : MonoBehaviour
     public UI_PauseScript UI;
 
     public float curTime;
-    // Start is called before the first frame update
+
+    /// <summary>
+    /// Start is called just before any of the Update methods is called the first time
+    /// </summary>
     void Start()
     {
         playerdata = new PlayerData(false);
@@ -31,6 +42,10 @@ public class GameController : MonoBehaviour
         curTime = LevelTime;
 
     }
+
+    /// <summary>
+    /// Check if the player has seen the tutorial
+    /// </summary>
     void Tutorial()
     {
         UI.TutorialOn();
@@ -38,17 +53,28 @@ public class GameController : MonoBehaviour
         SaveSystem.SavePlayer(playerdata);
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled
+    /// </summary>
     void Update()
     {
         curTime -= Time.deltaTime;
         UpdateTimer();
     }
+
+    /// <summary>
+    /// Update the score
+    /// </summary>
+    /// <param name="points">Amount of points to add or remove</param>
     public void UpdateScoreBoard(int points)
     {
         playerScore += points;
         ScoreBoard.text = "SCORE: " + playerScore;
     }
+
+    /// <summary>
+    /// Update the timer every second
+    /// </summary>
     private void UpdateTimer()
     {
         if (curTime >= 3600)
@@ -70,11 +96,20 @@ public class GameController : MonoBehaviour
             GameOver();
         }
     }
+
+    /// <summary>
+    /// Add bonus time to the timer
+    /// </summary>
+    /// <param name="bonusTime">Time to add or remove</param>
     public void AddTime (float bonusTime)
     {
         curTime += bonusTime;
         UpdateTimer();
     }
+
+    /// <summary>
+    /// Display game over screen and disable player
+    /// </summary>
     private void GameOver()
     {
         // GameOver screen apears here

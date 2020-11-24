@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*-----------------------------------------
+    File Name: LR_MovingPlatform.cs
+    Purpose: Control the events in the game
+    Author: Logan Ryan
+    Modified: 24 November 2020
+-------------------------------------------
+    Copyright 2020 Caffeinated.
+-----------------------------------------*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,25 +18,36 @@ public class LR_MovingPlatform : MonoBehaviour
     private int index = 0;
     public BoxCollider boxCollider;
     private GameObject player;
-    
-    // Start is called before the first frame update
+
+    /// <summary>
+    /// Start is called just before any of the Update methods is called the first time
+    /// </summary>
     void Start()
     {
 
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled
+    /// </summary>
     void FixedUpdate()
     {
-        // Go to first point
+        // If the platform does have a path
         if (points.Length != 0)
         {
+            // Move towards the point
             transform.position = Vector3.MoveTowards(transform.position, points[index].transform.position, speed * Time.deltaTime);
 
+            // When the platform arrives at the point
             if (transform.position == points[index].transform.position)
             {
+                // Move the index up by 1
                 index++;
+
+                // Rotate the platform
                 gameObject.transform.localEulerAngles += new Vector3(0, 180, 0);
+
+                // Leave the player as it is
                 if (player != null)
                 {
                     player.transform.localEulerAngles += new Vector3(0, 180, 0);
@@ -36,6 +55,7 @@ public class LR_MovingPlatform : MonoBehaviour
                 }
             }
 
+            // If the index reaches the max, reset
             if (index > points.Length - 1)
             {
                 index = 0;
@@ -58,6 +78,10 @@ public class LR_MovingPlatform : MonoBehaviour
         //transform.rotation = Quaternion.LookRotation(newDirection);
     }
 
+    /// <summary>
+    /// OnTriggerEnter is called when the Collider other enters the trigger
+    /// </summary>
+    /// <param name="other">The other Collider involved in this collision.</param>
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == points[index])
@@ -65,22 +89,33 @@ public class LR_MovingPlatform : MonoBehaviour
             index++;
         }
 
+        // If the player is touching the moving platform
         if (other.CompareTag("Player"))
         {
+            // Make it a child
             boxCollider.enabled = true;
             player = other.gameObject;
         }
     }
 
+    /// <summary>
+    /// OnTriggerExit is called when the Collider other has stopped touching the trigger
+    /// </summary>
+    /// <param name="other">The other Collider involved in this collision.</param>
     private void OnTriggerExit(Collider other)
     {
+        // If the player is no longer touching the moving platform
         if (other.CompareTag("Player"))
         {
+            // Make the player its own object
             boxCollider.enabled = false;
             player = null;
         }
     }
 
+    /// <summary>
+    /// Implement this OnDrawGizmos if you want to draw gizmos that are also pickable and always drawn
+    /// </summary>
     private void OnDrawGizmos()
     {
         //Transform[] xyz = new Transform[path.transform.childCount];

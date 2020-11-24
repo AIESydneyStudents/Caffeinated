@@ -1,8 +1,20 @@
-﻿using UnityEngine;
+﻿/*----------------------------------------------
+    File Name: SaveSystem.cs
+    Purpose: Save the player's information
+    Author: Ruben Antao
+    Modified: 24 November 2020
+------------------------------------------------
+    Copyright 2020 Caffeinated.
+----------------------------------------------*/
+using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 public static class SaveSystem
 {
+    /// <summary>
+    /// Save player information
+    /// </summary>
+    /// <param name="pp">The players data</param>
     public static void SavePlayer(PlayerData pp)
     {
         // Save Player data
@@ -20,6 +32,10 @@ public static class SaveSystem
         //stream.Close();
     }
 
+    /// <summary>
+    /// Load player information
+    /// </summary>
+    /// <returns>The players data</returns>
     public static PlayerData LoadPlayer ()
     {
         // Load saved Highscores
@@ -49,17 +65,33 @@ public static class SaveSystem
         //    return null;
         //}
     }
+
+    /// <summary>
+    /// Save highscore table
+    /// </summary>
+    /// <param name="highscores"></param>
     public static void SaveScores(Highscores highscores)
     {
         string json = JsonUtility.ToJson(highscores);
         PlayerPrefs.SetString("highscoreTable", json);
         PlayerPrefs.Save();
     }
+
+    /// <summary>
+    /// Load highscore table
+    /// </summary>
+    /// <returns>Highscore table</returns>
     public static Highscores LoadScores()
     {
         string jsonString = PlayerPrefs.GetString("highscoreTable");
         return JsonUtility.FromJson<Highscores>(jsonString);
     }
+
+    /// <summary>
+    /// Create a highscore entry for player
+    /// </summary>
+    /// <param name="score">Player's score</param>
+    /// <param name="name">Player's name</param>
     public static void AddHighScoreEntry(int score, string name)
     {
         // Create HighscoreEntry

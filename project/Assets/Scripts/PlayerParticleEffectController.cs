@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*----------------------------------------------
+    File Name: PlayerParticleEffectController.cs
+    Purpose: Control particle effects for player
+    Author: Logan Ryan
+    Modified: 24 November 2020
+------------------------------------------------
+    Copyright 2020 Caffeinated.
+----------------------------------------------*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -24,8 +32,13 @@ public class PlayerParticleEffectController : MonoBehaviour
     private float timeInAir;
     private PlayerControls playerControles;
     private GameObject invincibility;
+
+    /// <summary>
+    /// Awake is called when the script instance is being loaded
+    /// </summary>
     private void Awake()
     {
+        // Activate player controls
         playerControles = new PlayerControls();
         playerControles.Player.Jump.performed += _ => JumpEffects();
         playerControles.Player.Dash.performed += _ => DashEffects();
@@ -33,12 +46,21 @@ public class PlayerParticleEffectController : MonoBehaviour
         playerController = GetComponent<RB_PlayerController>();
         playerTranform = GetComponent<Transform>();
     }
+
+    /// <summary>
+    /// This function is called when the behaviour becomes disabled or inactive
+    /// </summary>
     private void OnDisable()
     {
+        // Deactivate player controls
         playerControles.Player.Jump.performed -= _ => JumpEffects();
         playerControles.Player.Dash.performed -= _ => DashEffects();
         playerControles.Disable();
     }
+
+    /// <summary>
+    /// Play jump particle effect
+    /// </summary>
     private void JumpEffects()
     {
         if (jumps <= playerController.MidAirJumps && this.enabled == true)
@@ -47,6 +69,10 @@ public class PlayerParticleEffectController : MonoBehaviour
             jumps++;
         }
     }
+
+    /// <summary>
+    /// Play dash particle effect
+    /// </summary>
     private void DashEffects()
     {
         if (this.enabled == true)
@@ -54,7 +80,10 @@ public class PlayerParticleEffectController : MonoBehaviour
             Instantiate(jumpParticleEffect, gameObject.transform.position, Quaternion.Euler(0, 0, 0));
         }
     }
-    // Update is called once per frame
+
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled
+    /// </summary>
     void Update()
     {
         if (playerController.grounded)
@@ -84,6 +113,7 @@ public class PlayerParticleEffectController : MonoBehaviour
             Instantiate(wallParticleEffect, gameObject.transform.position + wallParticlesOffset, Quaternion.Euler(90, 0, 0));
         }
 
+        // Change the x offset of the wall particles everytime the player turns
         if (playerTranform.eulerAngles.y == 90 && wallParticlesOffset.x < 0)
         {
             wallParticlesOffset.x = -wallParticlesOffset.x;
@@ -93,6 +123,7 @@ public class PlayerParticleEffectController : MonoBehaviour
             wallParticlesOffset.x = -wallParticlesOffset.x;
         }
 
+        // Play invincibility particles effects when the player is invulnerable
         if (playerController.invulnerable && invincibility == null)
         {
             invincibility = Instantiate(invincibilityParticleEffect, gameObject.transform);

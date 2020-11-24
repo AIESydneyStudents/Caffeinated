@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*-----------------------------------------
+    File Name: DragControl.cs
+    Purpose: Control the drag of the player
+    Author: Ruben Antao
+    Modified: 24 November 2020
+-------------------------------------------
+    Copyright 2020 Caffeinated.
+-----------------------------------------*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,15 +18,21 @@ public class DragControl : MonoBehaviour
     public float airFriction;
 
     private float curfriction;
-    // Start is called before the first frame update
+
+    /// <summary>
+    /// Start is called just before any of the Update methods is called the first time
+    /// </summary>
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled
+    /// </summary>
     void FixedUpdate()
     {
+        // Switch between ground friction and air friction
         if (rbC.grounded)
         {
             curfriction = groundFriction;
