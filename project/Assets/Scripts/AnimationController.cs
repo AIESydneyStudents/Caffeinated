@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*----------------------------------------
+    File Name: AnimationController.cs
+    Purpose: Control animations for player
+    Author: Logan Ryan
+    Modified: 24 November 2020
+------------------------------------------
+    Copyright 2020 Caffeinated.
+----------------------------------------*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,16 +23,23 @@ public class AnimationController : MonoBehaviour
     Vector3 startPos;
     [SerializeField]
     float runningSpeed = 0;
-    
-    // Start is called before the first frame update
+
+    /// <summary>
+    /// Start is called just before any of the Update methods is called the first time
+    /// </summary>
     void Start()
     {
         anim = GetComponent<Animator>();
+
+        // Get the starting position of the player
         startPos = gameObject.transform.localPosition;
+
         anim.SetFloat("Running Speed", runningSpeed);
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled
+    /// </summary>
     void Update()
     {
         // Prevent animations from moving player
@@ -33,8 +48,10 @@ public class AnimationController : MonoBehaviour
         // Play Run animation
         if (playerController.moveDir.x != 0 && playerController.grounded)
         {
+            // Stop current animation
             anim.enabled = false;
             anim.enabled = true;
+
             anim.SetBool("Running", true);
         }
         else

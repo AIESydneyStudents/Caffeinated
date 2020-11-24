@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*---------------------------------------------------------------------
+    File Name: DisplayPickedUpText.cs
+    Purpose: Display images of tea and powerups when they are picked up
+    Author: Logan Ryan
+    Modified: 24 November 2020
+-----------------------------------------------------------------------
+    Copyright 2020 Caffeinated.
+---------------------------------------------------------------------*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,7 +38,9 @@ public class DisplayPickedUpText : MonoBehaviour
     private int speedCoroutinesPlaying;
     private int invCoroutinesPlaying;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Start is called just before any of the Update methods is called the first time
+    /// </summary>
     void Start()
     {
         speedPickedUp.enabled = false;
@@ -39,9 +49,12 @@ public class DisplayPickedUpText : MonoBehaviour
         teaPickedUp.enabled = false;
     }
 
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled
+    /// </summary>
     private void Update()
     {
-        // Speed Power-up
+        // Display speed power-up image
         if (speedCoroutineStarting && !speedStartFlashing)
         {
             speedPickedUp.enabled = true;
@@ -56,7 +69,7 @@ public class DisplayPickedUpText : MonoBehaviour
             speedPickedUp.fillAmount -= 1.0f / speedPowerUp.duration * Time.deltaTime;
         }
 
-        // Invincibility Power-up
+        // Display invincibility power-up image
         if (invCoroutineStarting && !invStartFlashing)
         {
             invincibilityPickedUp.enabled = true;
@@ -71,7 +84,7 @@ public class DisplayPickedUpText : MonoBehaviour
             invincibilityPickedUp.fillAmount -= 1.0f / invinciblePowerUp.duration * Time.deltaTime;
         }
 
-        // Jump Power-up
+        // Display jump power-up image
         if (jumpCoroutineStarting && !jumpStartFlashing)
         {
             jumpPickedUp.enabled = true;
@@ -87,6 +100,10 @@ public class DisplayPickedUpText : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Make speed image flash
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ToggleSpeedState()
     {
         while (speedCoroutineStarting && speedStartFlashing)
@@ -101,6 +118,10 @@ public class DisplayPickedUpText : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Make invincibility image flash
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ToggleInvincibilityState()
     {
         while (invCoroutineStarting && invStartFlashing)
@@ -115,6 +136,10 @@ public class DisplayPickedUpText : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Make jump image flash
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ToggleJumpState()
     {
         while (jumpCoroutineStarting && jumpStartFlashing)
@@ -129,11 +154,18 @@ public class DisplayPickedUpText : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Tunr tea image on and off
+    /// </summary>
     public void ToggleTeaImage()
     {
         teaPickedUp.enabled = !teaPickedUp.enabled;
     }
 
+    /// <summary>
+    /// Display jump image
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator DisplayJumpPickedUp()
     {
         float pause = jumpPowerup.duration / 2.0f;
@@ -168,6 +200,10 @@ public class DisplayPickedUpText : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Display invincibility image
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator DisplayInvincibilityPickedUp()
     {
         float pause = invinciblePowerUp.duration / 2.0f;
@@ -202,6 +238,10 @@ public class DisplayPickedUpText : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Display speed image
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator DisplaySpeedPickedUp()
     {
         float pause = speedPowerUp.duration / 2.0f;

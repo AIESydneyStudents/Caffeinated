@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*---------------------------------------------------------------------
+    File Name: DisplayPickedUpText.cs
+    Purpose: Display images of tea and powerups when they are picked up
+    Author: Logan Ryan
+    Modified: 24 November 2020
+-----------------------------------------------------------------------
+    Copyright 2020 Caffeinated.
+---------------------------------------------------------------------*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -9,7 +17,9 @@ public class DisplayTimerIncrease : MonoBehaviour
     public TextMeshProUGUI scoreIncreaseText;
     public float timeToDisplayText;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Start is called just before any of the Update methods is called the first time
+    /// </summary>
     void Start()
     {
         timerIncreaseText.enabled = false;
@@ -22,11 +32,22 @@ public class DisplayTimerIncrease : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Get the added time
+    /// </summary>
+    /// <param name="time">Added time</param>
+    /// <param name="score">Added score</param>
     public void DisplayTime(float time, float score = 0)
     {
         StartCoroutine(TimeIncrease(time, score));
     }
 
+    /// <summary>
+    /// Display the added time
+    /// </summary>
+    /// <param name="time">Added time</param>
+    /// <param name="score">Added score</param>
+    /// <returns></returns>
     IEnumerator TimeIncrease(float time, float score)
     {
         float tempTime = time;
