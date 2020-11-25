@@ -21,6 +21,7 @@ public class SpeedPowerUp : MonoBehaviour
     public GameObject pickupEffect;
     private GameController gameController;
     private DisplayPickedUpText displayPicked;
+    private PlayerParticleEffectController playerParticleEffectController;
     public AudioClip powerUpSoundEffect;
 
     /// <summary>
@@ -33,6 +34,9 @@ public class SpeedPowerUp : MonoBehaviour
 
         // Get GameController script
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+
+        // Get Player Particle Effect Controller
+        playerParticleEffectController = GameObject.Find("Player").GetComponent<PlayerParticleEffectController>();
     }
 
     /// <summary>
@@ -40,7 +44,7 @@ public class SpeedPowerUp : MonoBehaviour
     /// </summary>
     void Update()
     {
-        rotate();
+        Rotate();
     }
 
     /// <summary>
@@ -54,6 +58,9 @@ public class SpeedPowerUp : MonoBehaviour
         {
             // Start Pickup coroutine
             StartCoroutine(Pickup(other));
+
+            // Start PlaySpeed corotine
+            playerParticleEffectController.StartCoroutine(playerParticleEffectController.PlaySpeed());
 
             // Start DisplaySpeedPickedUp coroutine
             displayPicked.StartCoroutine(displayPicked.DisplaySpeedPickedUp());
@@ -106,7 +113,7 @@ public class SpeedPowerUp : MonoBehaviour
     /// <summary>
     /// Rotate the power up on the y axis
     /// </summary>
-    void rotate()
+    void Rotate()
     {
         transform.Rotate(0, 1, 0 *rotateSpeed * Time.deltaTime, Space.World);
     }
