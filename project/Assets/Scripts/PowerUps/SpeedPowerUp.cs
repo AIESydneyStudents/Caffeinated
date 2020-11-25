@@ -2,7 +2,7 @@
     File Name: InvinciblePowerUp.cs
     Purpose: Control Speed power up
     Author: Ruben Anato
-    Modified: 23 November 2020
+    Modified: 26 November 2020
 -----------------------------------
     Copyright 2020 Caffeinated.
 ---------------------------------*/

@@ -2,7 +2,7 @@
     File Name: WindowQuestPointer.cs
     Purpose: Enable image to flash
     Author: Logan Ryan
-    Modified: 23 November 2020
+    Modified: 26 November 2020
 ------------------------------------
     Copyright 2020 Caffeinated.
 ----------------------------------*/
@@ -59,6 +59,24 @@ public class WindowQuestPointer : MonoBehaviour
             {
                 arrow.GetComponent<Image>().color = colourForFindingCustomer;
             }
+
+            // Change alpha if arrow collides with time
+            if (arrow.transform.position.y >= 124 && arrow.transform.position.x >= -77 && arrow.transform.position.x <= 49 ||
+                arrow.transform.position.y <= -31)
+            {
+                //Debug.Log("Changing Transparent");
+                colourForFindingTea = new Color(colourForFindingTea.r, colourForFindingTea.g, colourForFindingTea.b, 0.4f);
+                colourForFindingCustomer = new Color(colourForFindingCustomer.r, colourForFindingCustomer.g, colourForFindingCustomer.b, 0.4f);
+            }
+            else
+            {
+                //Image point = arrow.GetComponent<Image>();
+                //arrow.GetComponent<Image>().color = new Color(point.color.r, point.color.g, point.color.b, 215);
+                colourForFindingTea = new Color(colourForFindingTea.r, colourForFindingTea.g, colourForFindingTea.b, 0.8f);
+                colourForFindingCustomer = new Color(colourForFindingCustomer.r, colourForFindingCustomer.g, colourForFindingCustomer.b, 0.8f);
+            }
+
+            Debug.Log(arrow.transform.position.y);
         }
     }
 

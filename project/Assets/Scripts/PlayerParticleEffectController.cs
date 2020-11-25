@@ -2,7 +2,7 @@
     File Name: PlayerParticleEffectController.cs
     Purpose: Control particle effects for player
     Author: Logan Ryan
-    Modified: 24 November 2020
+    Modified: 26 November 2020
 ------------------------------------------------
     Copyright 2020 Caffeinated.
 ----------------------------------------------*/
@@ -177,7 +177,7 @@ public class PlayerParticleEffectController : MonoBehaviour
             Destroy(jump);
         }
         
-        jump = Instantiate(jumpParticleEffect, gameObject.transform);
+        jump = Instantiate(jumpsParticleEffect, gameObject.transform);
 
         yield return new WaitForSeconds(15f);
 
