@@ -99,6 +99,7 @@ public class RB_PlayerController : MonoBehaviour
         Controls.Player.Slam.performed += _ => Slam();
         Controls.Player.Pause.performed += _ => Pause();
         Controls.Debug.toggle2D.performed += _ => Toggle2D_performed();
+
         // Loading private refferences
         Colectables = new List<GameObject>();
         rb = GetComponent<Rigidbody>();
@@ -106,24 +107,26 @@ public class RB_PlayerController : MonoBehaviour
         distToGround = GetComponent<BoxCollider>().bounds.extents.y;
         distToWall = GetComponent<BoxCollider>().bounds.extents.x;
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+
         // Leading variables
         rbConstraints = rb.constraints;
         jumps = MidAirJumps;
         dashs = MidAirDashs;
+
         // Checking exisiting restraints
         if ((int)(rb.constraints & RigidbodyConstraints.FreezePositionZ) == 8)
         {
             // constrain z axis toggle
             constraintToggle = true;
         }
+
         // Calculate extents and distance for ground detection
         groundBoxHalfExtents = new Vector3(GetComponent<BoxCollider>().bounds.extents.x*2, 0.1f, GetComponent<BoxCollider>().bounds.extents.z*2);
         groundBoxDistance = distToGround - groundBoxHalfExtents.y + giveDist;
+
         // Calculate extents and distance for wall detection
         wallBoxHalfExtents = new Vector3(0.1f, (distToGround - distToWall) * 2, GetComponent<BoxCollider>().bounds.extents.z);
         wallBoxDistance = distToWall - wallBoxHalfExtents.x + giveDist;
-
-
     }
 
     /// <summary>
@@ -149,6 +152,7 @@ public class RB_PlayerController : MonoBehaviour
     {
         //2D input controles
         constraintToggle = !constraintToggle;
+
         if (constraintToggle)
         {
             rb.constraints = rb.constraints | RigidbodyConstraints.FreezePositionZ;
@@ -180,6 +184,7 @@ public class RB_PlayerController : MonoBehaviour
         {
             // Get direction to dash
             Vector3 DashDir;
+
             if (moveDir != new Vector3(0, 0, 0))
             {
                 DashDir = new Vector3(moveDir.x, 0, moveDir.z);
@@ -188,7 +193,9 @@ public class RB_PlayerController : MonoBehaviour
             {
                 DashDir = transform.forward;
             }
+
             DashDir = Vector3.Normalize(DashDir);
+
             if (AddForceDashs)
             {
                 // Use AddForce to dash
@@ -196,10 +203,12 @@ public class RB_PlayerController : MonoBehaviour
                 {
                     rb.velocity = new Vector3(0, rb.velocity.y, rb.velocity.z);
                 }
+
                 if (rb.velocity.y * DashDir.y < 0)
                 {
                     rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                 }
+
                 rb.AddForce(DashDir * DashForce, ForceMode.VelocityChange);
             }
             else
@@ -207,6 +216,7 @@ public class RB_PlayerController : MonoBehaviour
                 // Set velocity to dash
                 rb.velocity = DashDir * DashForce;
             }
+
             // Remove a dash
             dashs--;
         }
@@ -230,6 +240,7 @@ public class RB_PlayerController : MonoBehaviour
                 {
                     rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                 }
+
                 rb.AddForce(DashDir * DashForce, ForceMode.VelocityChange);
             }
             else
@@ -237,6 +248,7 @@ public class RB_PlayerController : MonoBehaviour
                 // Set velocity to dash
                 rb.velocity = DashDir * DashForce;
             }
+
             // Remove a dash
             dashs--;
         }
@@ -252,6 +264,7 @@ public class RB_PlayerController : MonoBehaviour
         {
             // Set Jump direction
             Vector3 Jumpdir = Vector3.up + walled;
+
             if (AddForceWallJumps)
             {
                 // Use AddForce to wall jump
@@ -262,6 +275,7 @@ public class RB_PlayerController : MonoBehaviour
                 // Set velocity to wall jump
                 rb.velocity = VelocityOverride(Jumpdir * JumpForce, rb.velocity);
             }
+
             // Bypass Coyotetime
             grounded = false;
         }
@@ -270,6 +284,7 @@ public class RB_PlayerController : MonoBehaviour
         {
             // Set Jump direction
             Vector3 Jumpdir = Vector3.up;
+
             if (AddForceJumps)
             {
                 // Use AddForce to jump
@@ -280,11 +295,13 @@ public class RB_PlayerController : MonoBehaviour
                 // Set velocity to jump
                 rb.velocity = VelocityOverride(Jumpdir * JumpForce, rb.velocity);
             }
+
             // remove a jump if mid-air
             if (!grounded)
             {
                 jumps--;
             }
+
             // Bypass Coyotetime
             grounded = false;
         }
@@ -322,20 +339,23 @@ public class RB_PlayerController : MonoBehaviour
         }
         else
         {
-            // reset time and set player grounded when player touches the ground
+            // Reset time and set player grounded when player touches the ground
             if (Controls.Player.Jump.phase != UnityEngine.InputSystem.InputActionPhase.Performed)
             {
                 timer = 0;
                 grounded = true;
             }           
         }
+
         // Detect wall
         walled = detectWall();
+
         // Ensure that extra jumps are lost when jump powerup finishes
         if (jumps > MidAirJumps)
         {
             jumps = MidAirJumps;
         }
+
         // Reset jumps and dashes when touching the ground
         if (grounded && (jumps < MidAirJumps || dashs < MidAirDashs))
         {
@@ -359,6 +379,7 @@ public class RB_PlayerController : MonoBehaviour
             rb.AddForce(Vector3.down * (9.81f * (GravMultiplyer - 1)));
             Speed = AirSpeed;
         }
+
         // Rotate based on velocity
         if (rb.velocity.x > rotateBuffer)
         {
@@ -368,6 +389,7 @@ public class RB_PlayerController : MonoBehaviour
                 transform.eulerAngles.z
             );
         }
+
         if (rb.velocity.x < -rotateBuffer)
         {
             transform.eulerAngles = new Vector3(
@@ -376,32 +398,38 @@ public class RB_PlayerController : MonoBehaviour
                 transform.eulerAngles.z
             );
         }
+
         // Velocity Cap: checking every axis speed and reducing speed if current speed exceeds velocity cap
         if (rb.velocity.x > VelocityCap)
         {
             Vector3 newVelocity = new Vector3(VelocityCap, 0, 0);
             rb.velocity = VelocityOverride(newVelocity, rb.velocity);
         }
+
         if (rb.velocity.x < -VelocityCap)
         {
             Vector3 newVelocity = new Vector3(-VelocityCap, 0, 0);
             rb.velocity = VelocityOverride(newVelocity, rb.velocity);
         }
+
         if (rb.velocity.y > VelocityCap)
         {
             Vector3 newVelocity = new Vector3(0, VelocityCap, 0);
             rb.velocity = VelocityOverride(newVelocity, rb.velocity);
         }
+
         if (rb.velocity.y < -VelocityCap)
         {
             Vector3 newVelocity = new Vector3(0, -VelocityCap, 0);
             rb.velocity = VelocityOverride(newVelocity, rb.velocity);
         }
+
         if (rb.velocity.z > VelocityCap)
         {
             Vector3 newVelocity = new Vector3(0, 0, VelocityCap);
             rb.velocity = VelocityOverride(newVelocity, rb.velocity);
         }
+
         if (rb.velocity.z < -VelocityCap)
         {
             Vector3 newVelocity = new Vector3(0, 0, -VelocityCap);
@@ -432,6 +460,7 @@ public class RB_PlayerController : MonoBehaviour
         Controls.Debug.toggle2D.performed -= _ => Toggle2D_performed();
         Controls.Disable();
     }
+
     // Disable Drag temperarily
     /// <summary>
     /// Disable drag temporarily
@@ -467,6 +496,7 @@ public class RB_PlayerController : MonoBehaviour
         //hitGroundObjects = null;
         // return
         //return false;
+
         // ------ Box cast implementaion ---------
         // Check if box colides and if object is ground
         if (Physics.BoxCast(transform.position, groundBoxHalfExtents, -Vector3.up, out hit, Quaternion.identity, groundBoxDistance) && !BlackListCheck(hit))
@@ -562,6 +592,7 @@ public class RB_PlayerController : MonoBehaviour
     public Vector3 VelocityOverride(Vector3 dir, Vector3 rbv)
     {
         Vector3 result = new Vector3(0, 0, 0);
+
         // Set x
         if (dir.x == 0)
         {
@@ -571,6 +602,7 @@ public class RB_PlayerController : MonoBehaviour
         {
             result.x = dir.x;
         }
+
         // Set y
         if (dir.y == 0)
         {
@@ -580,6 +612,7 @@ public class RB_PlayerController : MonoBehaviour
         {
             result.y = dir.y;
         }
+
         // Set z
         if (dir.z == 0)
         {
@@ -589,6 +622,7 @@ public class RB_PlayerController : MonoBehaviour
         {
             result.z = dir.z;
         }
+
         return result;
     }
 
@@ -621,11 +655,11 @@ public class RB_PlayerController : MonoBehaviour
             }
             Colectables.Clear();
         }
+
         if (other.tag == "MovingPlatform")
         {
             transform.parent = other.transform;
         }
-
     }
 
     /// <summary>
@@ -679,7 +713,6 @@ public class RB_PlayerController : MonoBehaviour
     /// <returns></returns>
     IEnumerator Hit()
     {
-        //Instantiate(pickupEffect, transform.position, transform.rotation);
         rb.velocity = new Vector3(0, 0, 0);
 
         invulnerable = true;

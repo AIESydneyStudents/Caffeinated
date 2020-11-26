@@ -65,18 +65,6 @@ public class ChangeColour : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        //if (other.CompareTag("Obstacle")/* && !playerController.invulnerable*/)
-        //{
-        //    if (!playerController.invulnerable)
-        //    {
-        //        Debug.Log("Hit Obstacle");
-        //        hitByAnObstacle = true;
-        //    }
-        //}
-    }
-
     /// <summary>
     /// Change the colour of the character to colour to let the player know that they are stunned
     /// </summary>

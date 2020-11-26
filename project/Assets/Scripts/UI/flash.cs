@@ -1,5 +1,5 @@
 ﻿/*--------------------------------
-    File Name: flash.cs
+    File Name: Flash.cs
     Purpose: Enable image to flash
     Author: Ruben Anato
     Modified: 23 November 2020
@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class flash : MonoBehaviour
+public class Flash : MonoBehaviour
 {
     public float timeToFlash;
     private float timer;

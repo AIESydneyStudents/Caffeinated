@@ -27,22 +27,6 @@ public class UI_PauseScript : MonoBehaviour
     public GameObject SelectedPauseButton;
     public GameObject SelectedGameoverButton;
     public AudioClip menuSoundEffect;
-    //public AudioSource sound;
-
-    // Update is called once per frame
-    void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    if (isPaused)
-        //    {
-        //        Resume();
-        //    } else
-        //    {
-        //        Pause();
-        //    }
-        //}
-    }
 
     /// <summary>
     /// Resume game

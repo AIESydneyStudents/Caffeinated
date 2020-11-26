@@ -2,7 +2,7 @@
     File Name: GameController.cs
     Purpose: Control the events in the game
     Author: Ruben Antao
-    Modified: 24 November 2020
+    Modified: 26 November 2020
 -------------------------------------------
     Copyright 2020 Caffeinated.
 -----------------------------------------*/
@@ -26,6 +26,10 @@ public class GameController : MonoBehaviour
     public UI_PauseScript UI;
 
     public float curTime;
+    public float startFlashingTime;
+    private bool CR_running;
+    [Range(0, 1)]
+    public float flashingInterval;
 
     /// <summary>
     /// Start is called just before any of the Update methods is called the first time
@@ -40,7 +44,6 @@ public class GameController : MonoBehaviour
         }
         UpdateScoreBoard(0);
         curTime = LevelTime;
-
     }
 
     /// <summary>
@@ -60,6 +63,20 @@ public class GameController : MonoBehaviour
     {
         curTime -= Time.deltaTime;
         UpdateTimer();
+
+        if (curTime >= startFlashingTime && !Timer.enabled)
+        {
+            Timer.enabled = true;
+        }
+
+        if (!CR_running && curTime <= startFlashingTime)
+        {
+            StartCoroutine(StartFlashing());
+        }
+        else if (curTime >= startFlashingTime)
+        {
+            Timer.enabled = true;
+        }
     }
 
     /// <summary>
@@ -81,16 +98,19 @@ public class GameController : MonoBehaviour
         {
             curTime = 3599f;
         }
+
         if (curTime < 0)
         {
             curTime = 0f;
         }
+
         int seconds = (int)curTime % 60;
         int minutes = (int)(curTime / 60) % 60;
 
         string timerString = string.Format("{0:00}:{1:00}", minutes, seconds);
 
         Timer.text = timerString;
+
         if (curTime == 0)
         {
             GameOver();
@@ -120,5 +140,18 @@ public class GameController : MonoBehaviour
         // SaveScores
         SaveSystem.AddHighScoreEntry(playerScore, playerName);
         Destroy(gameObject);
+    }
+
+    IEnumerator StartFlashing()
+    {
+        CR_running = true;
+
+        Timer.enabled = false;
+
+        yield return new WaitForSeconds(0.1f);
+
+        Timer.enabled = true;
+
+        CR_running = false;
     }
 }

@@ -41,13 +41,14 @@ public class DragControl : MonoBehaviour
         {
             curfriction = airFriction;
         }
-        //Debug.Log("rb velocity: " + rb.velocity.x + "move dir: " + rbC.moveDir.x);
+        
         if (rb.velocity.x * rbC.moveDir.x <= 0)
         {
             float slowdown = rb.velocity.x / ((curfriction * 0.01f)+1);
             Vector3 newVecolicty = new Vector3(slowdown, 0, 0);
             rb.velocity = rbC.VelocityOverride(newVecolicty, rb.velocity);
         }
+
         if (rb.velocity.z * rbC.moveDir.z <= 0)
         {
             float slowdown = rb.velocity.z / ((curfriction * 0.01f) + 1);

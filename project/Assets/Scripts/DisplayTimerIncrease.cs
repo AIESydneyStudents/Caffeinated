@@ -2,7 +2,7 @@
     File Name: DisplayPickedUpText.cs
     Purpose: Display images of tea and powerups when they are picked up
     Author: Logan Ryan
-    Modified: 24 November 2020
+    Modified: 26 November 2020
 -----------------------------------------------------------------------
     Copyright 2020 Caffeinated.
 ---------------------------------------------------------------------*/
@@ -26,12 +26,6 @@ public class DisplayTimerIncrease : MonoBehaviour
         scoreIncreaseText.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     /// <summary>
     /// Get the added time
     /// </summary>
@@ -53,21 +47,26 @@ public class DisplayTimerIncrease : MonoBehaviour
         float tempTime = time;
         timerIncreaseText.enabled = true;
 
+        // If score needs to be displayed, then enable display score
         if (score > 0 || score < 0)
         {
             scoreIncreaseText.enabled = true;
         }
 
+        // If time is less than 0
         if (tempTime < 0)
         {
+            // Make it a positive
             tempTime = -tempTime;
         }
 
+        // Convert time to minutes and seconds
         int seconds = (int)tempTime % 60;
         int minutes = (int)(tempTime / 60) % 60;
 
         string timerString = string.Format("{0:00}:{1:00}", minutes, seconds);
 
+        // If player is losing time, then change the plus sign to a minus sign
         if (time < 0)
         {
             timerIncreaseText.SetText("-" + timerString);
@@ -76,8 +75,12 @@ public class DisplayTimerIncrease : MonoBehaviour
         {
             timerIncreaseText.SetText("+" + timerString);
         }
+
         scoreIncreaseText.SetText("+" + score);
+
         yield return new WaitForSeconds(timeToDisplayText);
+
+        // Disable text
         timerIncreaseText.enabled = false;
         scoreIncreaseText.enabled = false;
     }

@@ -15,12 +15,6 @@ public class UI_GameOver : MonoBehaviour
     public GameController gameController;
     public GameObject gameOverScreen;
     public GameObject[] deactivationList;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled
