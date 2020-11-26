@@ -63,6 +63,9 @@ public class InvinciblePowerUp : MonoBehaviour
             // Start Pickup coroutine
             StartCoroutine(Pickup(other));
 
+            // Start DisplayPowerupText coroutine
+            StartCoroutine(DisplayPowerupText());
+
             // Start PlayInvincibility coroutine
             playerParticleEffectController.StartCoroutine(playerParticleEffectController.PlayInvincibility());
 
@@ -81,6 +84,22 @@ public class InvinciblePowerUp : MonoBehaviour
             // Play audio clip
             AudioSource.PlayClipAtPoint(powerUpSoundEffect, Camera.main.transform.position, 1);
         }
+    }
+
+    /// <summary>
+    /// Display text saying that they have been powered up
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator DisplayPowerupText()
+    {
+        // Display powerup text
+        powerUpText.enabled = true;
+        powerUpText.text = "Power Up";
+
+        // Wait for certain amount of seconds
+        yield return new WaitForSeconds(2.0f);
+
+        powerUpText.enabled = false;
     }
 
     /// <summary>
@@ -103,14 +122,8 @@ public class InvinciblePowerUp : MonoBehaviour
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<BoxCollider>().enabled = false;
 
-        // Display powerup text
-        powerUpText.enabled = true;
-        powerUpText.text = "Power Up";
-
         // Wait for certain amount of seconds
         yield return new WaitForSeconds(duration);
-
-        powerUpText.enabled = false;
 
         // Deactivate invulnerability for player
         pc.invulnerable = false;

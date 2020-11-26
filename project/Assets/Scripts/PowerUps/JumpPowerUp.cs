@@ -63,6 +63,9 @@ public class JumpPowerUp : MonoBehaviour
             // Start DisplayJumpPickedUp coroutine
             displayPicked.StartCoroutine(displayPicked.DisplayJumpPickedUp());
 
+            // Start DisplayPowerupText coroutine
+            StartCoroutine(DisplayPowerupText());
+
             // Display the jump image
             displayPicked.jumpPickedUp.fillAmount = 1;
 
@@ -75,6 +78,22 @@ public class JumpPowerUp : MonoBehaviour
             // Play audio clip
             AudioSource.PlayClipAtPoint(powerUpSoundEffect, Camera.main.transform.position, 1);
         }
+    }
+
+    /// <summary>
+    /// Display text saying that they have been powered up
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator DisplayPowerupText()
+    {
+        // Display powerup text
+        powerUpText.enabled = true;
+        powerUpText.text = "Power Up";
+
+        // Wait for certain amount of seconds
+        yield return new WaitForSeconds(2.0f);
+
+        powerUpText.enabled = false;
     }
 
     /// <summary>
@@ -97,14 +116,8 @@ public class JumpPowerUp : MonoBehaviour
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<BoxCollider>().enabled = false;
 
-        // Display powerup text
-        powerUpText.enabled = true;
-        powerUpText.text = "Power Up";
-
         // Wait for certain amount of seconds
         yield return new WaitForSeconds(duration);
-
-        powerUpText.enabled = false;
 
         // Remove extra jumps
         pc.MidAirJumps -= MidairJumpsGiven;
