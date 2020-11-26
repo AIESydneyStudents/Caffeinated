@@ -2,7 +2,7 @@
     File Name: ChangeColour.cs
     Purpose: Change player's colour when player collides with object
     Author: Logan Ryan
-    Modified: 24 November 2020
+    Modified: 26 November 2020
 --------------------------------------------------------------------
     Copyright 2020 Caffeinated.
 ------------------------------------------------------------------*/
@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class ChangeColour : MonoBehaviour
 {
-    public Color targetColour = new Color(1, 0, 0, 1);
+    public Color targetColour = new Color(0, 0, 0, 1);
     public int flashes;
     public GameObject playerGameObjectChild;
     public Material stunMaterial;
@@ -25,6 +25,10 @@ public class ChangeColour : MonoBehaviour
     private bool CR_running;
     [HideInInspector]
     public bool hitByAnObstacle;
+    [HideInInspector]
+    public bool pickedPowerUp;
+    [HideInInspector]
+    public float invinciblePowerUp;
     private bool startCoroutine;
 
     /// <summary>
@@ -56,10 +60,21 @@ public class ChangeColour : MonoBehaviour
             routines = 0;
             startCoroutine = false;
             hitByAnObstacle = false;
+            pickedPowerUp = false;
+            targetColour = Color.black;
+            flashes = 5;
+        }
+        else if (startCoroutine && pickedPowerUp && !playerController.invulnerable)
+        {
+            routines = 0;
+            startCoroutine = false;
+            targetColour = Color.black;
+            flashes = 5;
+            pickedPowerUp = false;
         }
 
         // If player gets hit by and obstacle while they are not invulnerable
-        if (hitByAnObstacle && playerController.invulnerable)
+        if (hitByAnObstacle && playerController.invulnerable || pickedPowerUp)
         {
             startCoroutine = true;
         }
@@ -75,12 +90,27 @@ public class ChangeColour : MonoBehaviour
         materialToChange.color = targetColour;
         CR_running = true;
 
-        yield return new WaitForSeconds(playerController.HitStunDuration / flashes);
+        if (targetColour == Color.black)
+        {
+            yield return new WaitForSeconds(playerController.HitStunDuration / flashes);
+        }
+        else if (targetColour == Color.red)
+        {
+            Debug.Log("Colour is red");
+            yield return new WaitForSeconds(invinciblePowerUp / flashes);
+        }
 
         // Change colour back
         materialToChange.color = startingColour;
 
-        yield return new WaitForSeconds(playerController.HitStunDuration / flashes);
+        if (targetColour == Color.black)
+        {
+            yield return new WaitForSeconds(playerController.HitStunDuration / flashes);
+        }
+        else if (targetColour == Color.red)
+        {
+            yield return new WaitForSeconds(invinciblePowerUp / flashes);
+        }
 
         routines++;
         CR_running = false;

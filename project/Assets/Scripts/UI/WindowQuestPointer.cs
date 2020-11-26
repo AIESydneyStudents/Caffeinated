@@ -75,8 +75,6 @@ public class WindowQuestPointer : MonoBehaviour
                 colourForFindingTea = new Color(colourForFindingTea.r, colourForFindingTea.g, colourForFindingTea.b, 0.8f);
                 colourForFindingCustomer = new Color(colourForFindingCustomer.r, colourForFindingCustomer.g, colourForFindingCustomer.b, 0.8f);
             }
-
-            Debug.Log(arrow.transform.position.y);
         }
     }
 

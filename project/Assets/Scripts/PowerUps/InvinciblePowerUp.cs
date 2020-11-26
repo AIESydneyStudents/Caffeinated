@@ -20,7 +20,7 @@ public class InvinciblePowerUp : MonoBehaviour
     public GameObject pickupEffect;
     private GameController gameController;
     private DisplayPickedUpText displayPicked;
-    private PlayerParticleEffectController playerParticleEffectController;
+    private ChangeColour changeColour;
     public AudioClip powerUpSoundEffect;
 
     /// <summary>
@@ -35,7 +35,8 @@ public class InvinciblePowerUp : MonoBehaviour
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 
         // Get Player Particle Effect Controller
-        playerParticleEffectController = GameObject.Find("Player").GetComponent<PlayerParticleEffectController>();
+        changeColour = GameObject.Find("Player").GetComponent<ChangeColour>();
+        changeColour.invinciblePowerUp = duration;
     }
 
     /// <summary>
@@ -59,7 +60,9 @@ public class InvinciblePowerUp : MonoBehaviour
             StartCoroutine(Pickup(other));
 
             // Start PlayInvincibility coroutine
-            playerParticleEffectController.StartCoroutine(playerParticleEffectController.PlayInvincibility());
+            changeColour.targetColour = Color.red;
+            changeColour.pickedPowerUp = true;
+            changeColour.flashes = (int)duration * 3;
 
             // Start DisplayInvincibilityPickedUp coroutine
             displayPicked.StartCoroutine(displayPicked.DisplayInvincibilityPickedUp());
