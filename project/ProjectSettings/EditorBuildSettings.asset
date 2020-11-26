@@ -9,14 +9,17 @@ EditorBuildSettings:
     path: Assets/Scenes/RA_Sample.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
+    path: Assets/OpeningLogo.unity
+    guid: 0913653aac38d1744ab4c34dafa8b149
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 2fcca471dbe70a34cae55b5d33565e3b
   - enabled: 1
     path: Assets/Scenes/LevelGreybox.unity
     guid: 7063acc1054f14e4bbfa0b114f8e2a53
-  - enabled: 1
-    path: Assets/Scenes/HighScoreMenu.unity
-    guid: 307d3dd1730ece84cb5eb8b996ad38dd
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 4f2af29770c12f6438a991fa91d8cdd3,
       type: 2}
