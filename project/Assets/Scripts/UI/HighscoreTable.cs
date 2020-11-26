@@ -76,7 +76,7 @@ public class HighscoreTable : MonoBehaviour
         for (int i = 1; i < entryContainer.childCount; i++)
         {
             TMP_InputField IF = entryContainer.GetChild(i).GetChild(4).GetComponent<TMP_InputField>();
-            if (IF != null || IF.gameObject.activeSelf)
+            if (IF.gameObject.activeSelf)
             {
                 Navigation navigation = IF.navigation;
                 navigation.mode = Navigation.Mode.Explicit;
@@ -86,13 +86,13 @@ public class HighscoreTable : MonoBehaviour
                 while (UF == null || !UF.gameObject.activeSelf )
                 {
                     counter++;
-                    if (counter >= 10)
+                    if (counter >= entryContainer.childCount - 1)
                     {
                         break;
                     }
                     if (b <= 1)
                     {
-                        b = 10;
+                        b = entryContainer.childCount - 1;
                     }
                     else
                     {
@@ -110,11 +110,11 @@ public class HighscoreTable : MonoBehaviour
                 while (LF == null || !LF.gameObject.activeSelf)
                 {
                     counter++;
-                    if (counter >= 10)
+                    if (counter >= entryContainer.childCount - 1)
                     {
                         break;
                     }
-                    if (b >= 10)
+                    if (b >= entryContainer.childCount - 1)
                     {
                         b = 1;
                     }

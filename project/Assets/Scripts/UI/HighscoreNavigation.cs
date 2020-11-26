@@ -72,7 +72,7 @@ public class HighscoreNavigation : MonoBehaviour
             Editing = true;
         }
         // If editing is enabled and the current selected game object input field is empty
-        else if (Editing = true && EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>() == null)
+        else if (Editing == true && EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>() == null)
         {
             // Then disable editing
             Editing = false;
