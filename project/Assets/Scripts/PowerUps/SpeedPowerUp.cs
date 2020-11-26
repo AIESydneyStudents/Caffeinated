@@ -97,7 +97,6 @@ public class SpeedPowerUp : MonoBehaviour
     {
         // Display powerup text
         powerUpText.enabled = true;
-        powerUpText.text = "Power Up";
 
         // Wait for certain amount of seconds
         yield return new WaitForSeconds(2.0f);

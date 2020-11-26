@@ -20,6 +20,7 @@ public class SpawnerManager : MonoBehaviour
 
     private int index = 0;
     private int emptySpawners = 0;
+    private int customerOnSpawner;
     private DestroyCollectable destroyCollectable;
     private int itemsInScene;
     private List<int> usedSpawners = new List<int>();
@@ -179,7 +180,7 @@ public class SpawnerManager : MonoBehaviour
     {
         for (int i = 0; i < spawners.Length; i++)
         {
-            if (GameObject.Find(itemToBeSpawned[0].name + "(Clone)"))
+            if (GameObject.FindGameObjectWithTag("Customer"))
             {
                 break;
             }
