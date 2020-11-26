@@ -96,7 +96,6 @@ public class ChangeColour : MonoBehaviour
         }
         else if (targetColour == Color.red)
         {
-            Debug.Log("Colour is red");
             yield return new WaitForSeconds(invinciblePowerUp / flashes);
         }
 

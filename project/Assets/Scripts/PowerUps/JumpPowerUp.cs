@@ -2,12 +2,13 @@
     File Name: JumpPowerUp.cs
     Purpose: Control Jump power up
     Author: Ruben Anato
-    Modified: 26 November 2020
+    Modified: 27 November 2020
 ----------------------------------
     Copyright 2020 Caffeinated.
 --------------------------------*/
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class JumpPowerUp : MonoBehaviour
@@ -21,6 +22,7 @@ public class JumpPowerUp : MonoBehaviour
     public GameObject pickupEffect;
     private GameController gameController;
     private DisplayPickedUpText displayPicked;
+    private TextMeshProUGUI powerUpText;
     public AudioClip powerUpSoundEffect;
 
     /// <summary>
@@ -33,6 +35,9 @@ public class JumpPowerUp : MonoBehaviour
 
         // Get GameController script
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+
+        // Get PowerUpText
+        powerUpText = GameObject.Find("Canvas/GameHUD/PowerupText").GetComponent<TextMeshProUGUI>();
     }
 
     /// <summary>
@@ -40,7 +45,7 @@ public class JumpPowerUp : MonoBehaviour
     /// </summary>
     void Update()
     {
-        rotate();
+        Rotate();
     }
 
     /// <summary>
@@ -92,8 +97,14 @@ public class JumpPowerUp : MonoBehaviour
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<BoxCollider>().enabled = false;
 
+        // Display powerup text
+        powerUpText.enabled = true;
+        powerUpText.text = "Power Up";
+
         // Wait for certain amount of seconds
         yield return new WaitForSeconds(duration);
+
+        powerUpText.enabled = false;
 
         // Remove extra jumps
         pc.MidAirJumps -= MidairJumpsGiven;
@@ -106,7 +117,7 @@ public class JumpPowerUp : MonoBehaviour
     /// <summary>
     /// Rotate the power up on the y axis
     /// </summary>
-    void rotate()
+    void Rotate()
     {
         transform.Rotate(0, 1, 0 * rotateSpeed * Time.deltaTime, Space.World);
     }

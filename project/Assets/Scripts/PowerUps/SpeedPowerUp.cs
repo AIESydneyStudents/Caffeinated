@@ -2,12 +2,13 @@
     File Name: InvinciblePowerUp.cs
     Purpose: Control Speed power up
     Author: Ruben Anato
-    Modified: 26 November 2020
+    Modified: 27 November 2020
 -----------------------------------
     Copyright 2020 Caffeinated.
 ---------------------------------*/
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class SpeedPowerUp : MonoBehaviour
@@ -22,6 +23,7 @@ public class SpeedPowerUp : MonoBehaviour
     private GameController gameController;
     private DisplayPickedUpText displayPicked;
     private PlayerParticleEffectController playerParticleEffectController;
+    private TextMeshProUGUI powerUpText;
     public AudioClip powerUpSoundEffect;
 
     /// <summary>
@@ -37,6 +39,10 @@ public class SpeedPowerUp : MonoBehaviour
 
         // Get Player Particle Effect Controller
         playerParticleEffectController = GameObject.Find("Player").GetComponent<PlayerParticleEffectController>();
+
+        // Get PowerUpText
+        powerUpText = GameObject.Find("Canvas/GameHUD/PowerupText").GetComponent<TextMeshProUGUI>();
+        powerUpText.enabled = false;
     }
 
     /// <summary>
@@ -64,6 +70,8 @@ public class SpeedPowerUp : MonoBehaviour
 
             // Start DisplaySpeedPickedUp coroutine
             displayPicked.StartCoroutine(displayPicked.DisplaySpeedPickedUp());
+
+            powerUpText.enabled = true;
 
             // Display the speed image
             displayPicked.speedPickedUp.fillAmount = 1;
@@ -99,8 +107,13 @@ public class SpeedPowerUp : MonoBehaviour
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<BoxCollider>().enabled = false;
 
+        // Display powerup text
+        powerUpText.text = "Power Up";
+
         // Wait for certain amount of seconds
         yield return new WaitForSeconds(duration);
+
+        powerUpText.enabled = false;
 
         // Remove extra speed
         pc.SpeedBoost -= SpeedBoost;

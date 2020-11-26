@@ -2,12 +2,13 @@
     File Name: InvinciblePowerUp.cs
     Purpose: Control Invincibility power up
     Author: Ruben Anato
-    Modified: 26 November 2020
+    Modified: 27 November 2020
 -------------------------------------------
     Copyright 2020 Caffeinated.
 -----------------------------------------*/
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class InvinciblePowerUp : MonoBehaviour
@@ -20,7 +21,8 @@ public class InvinciblePowerUp : MonoBehaviour
     public GameObject pickupEffect;
     private GameController gameController;
     private DisplayPickedUpText displayPicked;
-    private ChangeColour changeColour;
+    private PlayerParticleEffectController playerParticleEffectController;
+    private TextMeshProUGUI powerUpText;
     public AudioClip powerUpSoundEffect;
 
     /// <summary>
@@ -35,8 +37,10 @@ public class InvinciblePowerUp : MonoBehaviour
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 
         // Get Player Particle Effect Controller
-        changeColour = GameObject.Find("Player").GetComponent<ChangeColour>();
-        changeColour.invinciblePowerUp = duration;
+        playerParticleEffectController = GameObject.Find("Player").GetComponent<PlayerParticleEffectController>();
+
+        // Get PowerUpText
+        powerUpText = GameObject.Find("Canvas/GameHUD/PowerupText").GetComponent<TextMeshProUGUI>();
     }
 
     /// <summary>
@@ -60,9 +64,7 @@ public class InvinciblePowerUp : MonoBehaviour
             StartCoroutine(Pickup(other));
 
             // Start PlayInvincibility coroutine
-            changeColour.targetColour = Color.red;
-            changeColour.pickedPowerUp = true;
-            changeColour.flashes = (int)duration * 3;
+            playerParticleEffectController.StartCoroutine(playerParticleEffectController.PlayInvincibility());
 
             // Start DisplayInvincibilityPickedUp coroutine
             displayPicked.StartCoroutine(displayPicked.DisplayInvincibilityPickedUp());
@@ -101,8 +103,14 @@ public class InvinciblePowerUp : MonoBehaviour
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<BoxCollider>().enabled = false;
 
+        // Display powerup text
+        powerUpText.enabled = true;
+        powerUpText.text = "Power Up";
+
         // Wait for certain amount of seconds
         yield return new WaitForSeconds(duration);
+
+        powerUpText.enabled = false;
 
         // Deactivate invulnerability for player
         pc.invulnerable = false;
