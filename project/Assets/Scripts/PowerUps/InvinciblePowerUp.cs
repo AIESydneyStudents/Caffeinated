@@ -2,7 +2,7 @@
     File Name: InvinciblePowerUp.cs
     Purpose: Control Invincibility power up
     Author: Ruben Anato
-    Modified: 23 November 2020
+    Modified: 26 November 2020
 -------------------------------------------
     Copyright 2020 Caffeinated.
 -----------------------------------------*/
@@ -20,6 +20,7 @@ public class InvinciblePowerUp : MonoBehaviour
     public GameObject pickupEffect;
     private GameController gameController;
     private DisplayPickedUpText displayPicked;
+    private PlayerParticleEffectController playerParticleEffectController;
     public AudioClip powerUpSoundEffect;
 
     /// <summary>
@@ -32,6 +33,9 @@ public class InvinciblePowerUp : MonoBehaviour
 
         // Get GameController script
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+
+        // Get Player Particle Effect Controller
+        playerParticleEffectController = GameObject.Find("Player").GetComponent<PlayerParticleEffectController>();
     }
 
     /// <summary>
@@ -39,7 +43,7 @@ public class InvinciblePowerUp : MonoBehaviour
     /// </summary>
     void Update()
     {
-        rotate();
+        Rotate();
     }
 
     /// <summary>
@@ -53,6 +57,9 @@ public class InvinciblePowerUp : MonoBehaviour
         {
             // Start Pickup coroutine
             StartCoroutine(Pickup(other));
+
+            // Start PlayInvincibility coroutine
+            playerParticleEffectController.StartCoroutine(playerParticleEffectController.PlayInvincibility());
 
             // Start DisplayInvincibilityPickedUp coroutine
             displayPicked.StartCoroutine(displayPicked.DisplayInvincibilityPickedUp());
@@ -105,7 +112,7 @@ public class InvinciblePowerUp : MonoBehaviour
     /// <summary>
     /// Rotate the power up on the y axis
     /// </summary>
-    void rotate()
+    void Rotate()
     {
         transform.Rotate(0, 1, 0 * rotateSpeed * Time.deltaTime, Space.World);
     }

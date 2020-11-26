@@ -2,7 +2,7 @@
     File Name: PlayerParticleEffectController.cs
     Purpose: Control particle effects for player
     Author: Logan Ryan
-    Modified: 24 November 2020
+    Modified: 26 November 2020
 ------------------------------------------------
     Copyright 2020 Caffeinated.
 ----------------------------------------------*/
@@ -22,6 +22,10 @@ public class PlayerParticleEffectController : MonoBehaviour
     [SerializeField]
     GameObject invincibilityParticleEffect = null;
     [SerializeField]
+    GameObject speedParticleEffect = null;
+    [SerializeField]
+    GameObject jumpsParticleEffect = null;
+    [SerializeField]
     Vector3 dustParticlesOffset = Vector3.zero;
     [SerializeField]
     Vector3 wallParticlesOffset = Vector3.zero;
@@ -32,6 +36,8 @@ public class PlayerParticleEffectController : MonoBehaviour
     private float timeInAir;
     private PlayerControls playerControles;
     private GameObject invincibility;
+    private GameObject speed;
+    private GameObject jump;
 
     /// <summary>
     /// Awake is called when the script instance is being loaded
@@ -122,15 +128,59 @@ public class PlayerParticleEffectController : MonoBehaviour
         {
             wallParticlesOffset.x = -wallParticlesOffset.x;
         }
+    }
 
-        // Play invincibility particles effects when the player is invulnerable
-        if (playerController.invulnerable && invincibility == null)
-        {
-            invincibility = Instantiate(invincibilityParticleEffect, gameObject.transform);
-        }
-        else if (invincibility != null && !playerController.invulnerable)
+    /// <summary>
+    /// Play the invincibility particles
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator PlayInvincibility()
+    {
+        if (invincibility != null)
         {
             Destroy(invincibility);
         }
+
+        invincibility = Instantiate(invincibilityParticleEffect, gameObject.transform);
+
+        yield return new WaitForSeconds(15f);
+
+        Destroy(invincibility);
+    }
+
+    /// <summary>
+    /// Play the speed particles
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator PlaySpeed()
+    {
+        if (speed != null)
+        {
+            Destroy(speed);
+        }
+        
+        speed = Instantiate(speedParticleEffect, gameObject.transform);
+
+        yield return new WaitForSeconds(10f);
+
+        Destroy(speed);
+    }
+
+    /// <summary>
+    /// Play the jump boost particles
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator PlayJump()
+    {
+        if (jump != null)
+        {
+            Destroy(jump);
+        }
+        
+        jump = Instantiate(jumpsParticleEffect, gameObject.transform);
+
+        yield return new WaitForSeconds(15f);
+
+        Destroy(jump);
     }
 }
