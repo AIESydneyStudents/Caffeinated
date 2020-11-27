@@ -4872,6 +4872,11 @@ PrefabInstance:
       propertyPath: prewarm
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9061858683741768896, guid: 9f2bef228f9dec44d96b7e3836dae206,
+        type: 3}
+      propertyPath: useUnscaledTime
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f2bef228f9dec44d96b7e3836dae206, type: 3}
 --- !u!4 &3393514456144764766 stripped

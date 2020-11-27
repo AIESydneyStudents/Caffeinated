@@ -45,7 +45,10 @@ public class JumpPowerUp : MonoBehaviour
     /// </summary>
     void Update()
     {
-        Rotate();
+        if (Time.timeScale != 0)
+        {
+            Rotate();
+        }
     }
 
     /// <summary>

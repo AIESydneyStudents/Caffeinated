@@ -48,7 +48,10 @@ public class InvinciblePowerUp : MonoBehaviour
     /// </summary>
     void Update()
     {
-        Rotate();
+        if (Time.timeScale != 0)
+        {
+            Rotate();
+        }
     }
 
     /// <summary>
