@@ -26,10 +26,6 @@ public class GameController : MonoBehaviour
     public UI_PauseScript UI;
 
     public float curTime;
-    public float startFlashingTime;
-    private bool CR_running;
-    [Range(0, 1)]
-    public float flashingInterval;
 
     /// <summary>
     /// Start is called just before any of the Update methods is called the first time
@@ -63,20 +59,6 @@ public class GameController : MonoBehaviour
     {
         curTime -= Time.deltaTime;
         UpdateTimer();
-
-        if (curTime >= startFlashingTime && !Timer.enabled)
-        {
-            Timer.enabled = true;
-        }
-
-        if (!CR_running && curTime <= startFlashingTime)
-        {
-            StartCoroutine(StartFlashing());
-        }
-        else if (curTime >= startFlashingTime)
-        {
-            Timer.enabled = true;
-        }
     }
 
     /// <summary>
@@ -140,18 +122,5 @@ public class GameController : MonoBehaviour
         // SaveScores
         SaveSystem.AddHighScoreEntry(playerScore, playerName);
         Destroy(gameObject);
-    }
-
-    IEnumerator StartFlashing()
-    {
-        CR_running = true;
-
-        Timer.enabled = false;
-
-        yield return new WaitForSeconds(flashingInterval);
-
-        Timer.enabled = true;
-
-        CR_running = false;
     }
 }
