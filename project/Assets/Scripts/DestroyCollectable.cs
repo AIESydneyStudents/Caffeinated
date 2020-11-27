@@ -28,8 +28,9 @@ public class DestroyCollectable : MonoBehaviour
     void Start()
     {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<RB_PlayerController>();
+        playerController = GetComponent<RB_PlayerController>();
         displayPickedUpText = GameObject.Find("Canvas").GetComponent<DisplayPickedUpText>();
+        //displayTimerIncrease = GameObject.Find("Canvas").GetComponent<DisplayTimerIncrease>();
     }
 
     /// <summary>
@@ -51,13 +52,14 @@ public class DestroyCollectable : MonoBehaviour
 
             // Display tea image
             displayPickedUpText.ToggleTeaImage();
-            collectablefix = other.GetComponent<Collectablefix>();
+            collectablefix = other.gameObject.GetComponent<Collectablefix>();
             AudioSource.PlayClipAtPoint(teaSoundEffect, Camera.main.transform.position, 1);
         }
 
         // If player delivers a teabag
         if (other.CompareTag("Customer") && teaBags > 0)
         {
+            //Debug.Log("Delivered Tea");
             // Display the amount of time and points earned
             displayTimerIncrease.DisplayTime(playerController.PickupBonusTime, collectablefix.Points);
             gameController.UpdateScoreBoard(collectablefix.Points);
@@ -80,7 +82,9 @@ public class DestroyCollectable : MonoBehaviour
     IEnumerator DisappearCustomer(GameObject customer)
     {
         Instantiate(confetti, customer.transform);
+
         yield return new WaitForSeconds(2.0f);
+
         Destroy(customer);
     }
 }

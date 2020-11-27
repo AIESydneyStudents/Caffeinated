@@ -2,7 +2,7 @@
     File Name: ObstacleBehaviour.cs
     Purpose: Control the obstacles
     Author: Logan Ryan
-    Modified: 24 November 2020
+    Modified: 27 November 2020
 -----------------------------------
     Copyright 2020 Caffeinated.
 ---------------------------------*/
@@ -32,7 +32,6 @@ public class ObstacleBehaviour : MonoBehaviour
     void Start()
     {
         displayTimerIncrease = GameObject.Find("Canvas").GetComponent<DisplayTimerIncrease>();
-        changeColourScript = GameObject.FindGameObjectWithTag("Player").GetComponent<ChangeColour>();
         gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, yVelocity, 0);
         particles = Instantiate(obstacleParticles, gameObject.transform.position, gameObject.transform.rotation);
     }
@@ -77,6 +76,7 @@ public class ObstacleBehaviour : MonoBehaviour
         {
             // Destroy the obstacle
             Destroy(gameObject);
+            changeColourScript = other.gameObject.GetComponent<ChangeColour>();
 
             // If the player is not invulnerable
             if (!other.GetComponent<RB_PlayerController>().invulnerable)

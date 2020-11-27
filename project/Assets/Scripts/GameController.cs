@@ -148,7 +148,7 @@ public class GameController : MonoBehaviour
 
         Timer.enabled = false;
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(flashingInterval);
 
         Timer.enabled = true;
 
